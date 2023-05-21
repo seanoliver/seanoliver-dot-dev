@@ -61,12 +61,11 @@ export default function SiteNav(): JSX.Element {
                                 text-slate-600
                                 dark:text-slate-300
                                 font-medium
-                                hover:bg-slate-300
+                                hover:bg-slate-200
                                 dark:hover:bg-slate-700
                                 hover:text-slate-900
                                 dark:hover:text-slate-100
                                 block w-full text-center
-								
                             `}
                             href={`${item.url}`}>
 							{item.name}
