@@ -1,15 +1,17 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
-import localFont from 'next/font/local'
+import './globals.css';
+import clsx from 'clsx';
+import SiteNav from '@/components/SiteNav';
+import Footer from '@/components/Footer';
+
+import localFont from 'next/font/local';
 
 const jetBrainsMono = localFont({
-  src: '../../public/fonts/JetBrainsMono-Regular.woff2',
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
+	src: '../../public/fonts/JetBrainsMono-Regular.woff2',
+	variable: '--font-jetbrains-mono',
+	display: 'swap',
 });
 
-  const inter = Inter({ subsets: ['latin'] })
-
+// const inter = Inter({ subsets: ['latin'] })
 
 // Metadata for the home page
 export const metadata = {
@@ -33,13 +35,26 @@ export const metadata = {
  * Root layout component
  */
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className={jetBrainsMono.variable}>{children}</body>
-    </html>
-  )
+	return (
+		<html
+			lang='en'
+			className={clsx(
+				'text-slate-800 bg-slate-100 dark:text-slate-200 dark:bg-slate-900',
+				jetBrainsMono.variable
+			)}>
+			<body className={jetBrainsMono.variable}>
+			<div className='Home flex flex-col items-center justify-between w-full h-screen'>
+			<SiteNav />
+			<div className='Home-body flex flex-col items-center p-10'>
+				{children}
+				</div>
+			<Footer />
+		</div>
+			</body>
+		</html>
+	);
 }
