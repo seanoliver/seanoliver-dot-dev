@@ -1,6 +1,7 @@
 'use client';
 
 import { NAV_ITEMS } from '@/lib/globals';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function SiteNav(): JSX.Element {
@@ -50,26 +51,26 @@ export default function SiteNav(): JSX.Element {
 					<div
 						className={`
                             SiteNav-item
-                            flex items-center
                             p-2
                         `}
 						key={`${item.name}-${index}`}>
-						<a
+						<Link
 							className={`
                                 transition duration-500 ease-in-out
                                 rounded-lg px-3 py-2
                                 text-slate-600
                                 dark:text-slate-300
                                 font-medium
-                                hover:bg-slate-100
-                                dark:hover:bg-slate-900
+                                hover:bg-slate-300
+                                dark:hover:bg-slate-700
                                 hover:text-slate-900
                                 dark:hover:text-slate-100
                                 block w-full text-center
+								
                             `}
                             href={`${item.url}`}>
 							{item.name}
-						</a>
+						</Link>
 					</div>
 				))}
 			</nav>

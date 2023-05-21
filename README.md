@@ -13,8 +13,10 @@ Pages to add:
 - [ ] My
 
 Details to add:
-- [ ] Add favicon
+- [ ] Update favicon
 - [X] Refactor Title and Subtitle components
-- [ ] Mobile responsive nav menu
+- [X] Mobile responsive nav menu
+- [X] Fix menu alignment on sub-pages
+- [X] Add support for MDX content
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
