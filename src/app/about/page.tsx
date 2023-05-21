@@ -4,16 +4,10 @@ import { metadata } from "@/app/layout";
 
 export default function About(): JSX.Element {
 	return (
-		<div className='About flex flex-col items-center justify-between w-full h-screen'>
-			<div className='About-body flex flex-col items-center p-10'>
-				<div className='About-image mb-5'>
-					<ProfilePic />
-				</div>
+		<div className='About flex justify-center'>
+			<div className='About-body text-left sm:w-1/2'>
 				<Title title={metadata.title} />
-				<Title
-					title={metadata.description}
-					titleSize='text-2xl'
-				/>
+				<p className={`mt-4`}>{metadata.longDescription}</p>
 			</div>
 		</div>
 	);
