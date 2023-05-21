@@ -17,6 +17,9 @@ Details to add:
 - [X] Refactor Title and Subtitle components
 - [X] Mobile responsive nav menu
 - [X] Fix menu alignment on sub-pages
-- [X] Add support for MDX content
+- [ ] Fix alignment of social icons on about page
+- [ ] New bio on about page
+- [ ] Add projects to projects page
+- [ ] Enable newsletter link
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
