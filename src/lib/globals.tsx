@@ -15,7 +15,7 @@ export const NAV_ITEMS = [
     },
     {
         name: 'Newsletter',
-        url: '/newsletter'
+        url: 'https://newsletter.seanoliver.dev/'
     }
 ]
 
