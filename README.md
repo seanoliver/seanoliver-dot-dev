@@ -17,6 +17,8 @@ progress, but I'm hoping to have it up and running soon.
 - [X] Flip to split layout
 - [ ] Implement Scrollspy on Nav
 - [ ] Add uses page
+- [X] Better naming for images.tsx
+- [X] Componetize nav and card elements
 
 ## Component Hierarchy
 
