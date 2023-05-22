@@ -1,7 +1,7 @@
 import './globals.css';
 import clsx from 'clsx';
-import SiteNav from '@/components/SiteNav';
-import NewSiteNav from '@/components/NewSiteNav';
+import SiteNav from '@/components/Nav';
+import NewSiteNav from '@/components/Nav';
 import Footer from '@/components/Footer';
 
 /** Inter Font */
@@ -52,7 +52,10 @@ export default function RootLayout({
         <html
             lang='en'
             className={clsx(
-                'text-slate-800 bg-slate-100 dark:text-slate-200 dark:bg-slate-900',
+                'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700',
+				'bg-gradient-to-b bg-no-repeat',
+				'dark:from-slate-900 dark:to-slate-700',
+				'from-slate-100 to-slate-300',
                 inter.className
             )}>
             <body className={inter.className}>
@@ -64,7 +67,7 @@ export default function RootLayout({
 				`}>
                     <div className={`
 						md:w-1/3
-						bg-slate-200 dark:bg-slate-800
+						bg-transparent
 						md:h-full md:fixed
 						h-32 w-full
 						pt-10 pl-5 top-0
