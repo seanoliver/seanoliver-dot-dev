@@ -1,18 +1,15 @@
 import Title from '@/components/Title';
 import { ProfilePic } from '@/components/images';
 import { metadata } from '@/app/layout';
+import ProjectCard from './projects/ProjectCard';
+import Projects from './projects/Projects';
+import About from './about/page';
 
 export default function Home(): JSX.Element {
 	return (
-		<>
-			<div className='Home-image mb-5'>
-				<ProfilePic />
-			</div>
-			<Title title={metadata.title} />
-			<Title
-				title={metadata.description}
-				titleSize='text-2xl'
-			/>
-		</>
+		<div className='Home mb-5 flex flex-col gap-8'>
+			<About />
+			<Projects />
+		</div>
 	);
 }
