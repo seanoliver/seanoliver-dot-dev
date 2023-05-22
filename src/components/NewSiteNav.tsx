@@ -19,7 +19,7 @@ export default function SiteNav(): JSX.Element {
             `}>
 				<div className='bg-slate-300 p-2 rounded-md'>HOLD BIO</div>
 				<button
-					className='sm:hidden block relative'
+					className='md:hidden block relative'
 					onClick={() => setIsOpen(!isOpen)}>
 					<div
 						className={`w-6 h-0.5 bg-slate-600 mb-1.5 transition duration-500 ease-in-out ${
@@ -36,10 +36,10 @@ export default function SiteNav(): JSX.Element {
 				</button>
 				<nav
 					className={`
-                    sm:flex sm:justify-end flex-col
+                    md:flex md:justify-end flex-col
                     w-full absolute
                     top-full left-0 bg-slate-200 dark:bg-slate-800
-                    sm:static sm:bg-transparent ${
+                    md:static md:bg-transparent ${
 											isOpen ? 'block' : 'hidden'
 										}`}>
 					<Scrollspy items={NAV_ITEMS.map((item) => item.name)}>

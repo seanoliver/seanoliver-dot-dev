@@ -56,11 +56,27 @@ export default function RootLayout({
                 inter.className
             )}>
             <body className={inter.className}>
-                <div className='Home flex flex-row items-center justify-between w-full h-screen'>
-                    <div className={`w-1/3 bg-slate-200 dark:bg-slate-800 h-full pt-10 pl-5 md:fixed top-0`}>
+                <div className={`
+					Home
+					flex md:flex-row flex-col
+					items-center justify-between
+					w-full md:h-screen
+				`}>
+                    <div className={`
+						md:w-1/3
+						bg-slate-200 dark:bg-slate-800
+						md:h-full md:fixed
+						h-32 w-full
+						pt-10 pl-5 top-0
+					`}>
                         <NewSiteNav />
                     </div>
-                    <div className='Home-body w-2/3 ml-auto h-full flex flex-col items-center p-10'>
+                    <div className={`
+						Home-body
+						flex flex-col items-center
+						h-full
+						md:w-2/3 md:ml-auto
+						p-10`}>
                         {children}
                     </div>
                     {/* <Footer /> */}
