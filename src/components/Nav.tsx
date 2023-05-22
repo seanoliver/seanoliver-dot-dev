@@ -14,10 +14,12 @@ export default function SiteNav(): JSX.Element {
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}>
 				{NAV_ITEMS.map((item, index) => (
-					<NavItem key={`${item.name}-${index}`} item={item} />
+					<NavItem
+						key={`${item.name}-${index}`}
+						item={item}
+					/>
 				))}
-				</ResponsiveMenu>
+			</ResponsiveMenu>
 		</NavWrapper>
 	);
-
 }
