@@ -14,13 +14,13 @@ const inter = Inter({
 
 /** Jet Brains Mono Font */
 
-// import localFont from 'next/font/local';
+import localFont from 'next/font/local';
 
-// const jetBrainsMono = localFont({
-// 	src: '../../public/fonts/JetBrainsMono-Regular.woff2',
-// 	variable: '--font-jetbrains-mono',
-// 	display: 'swap',
-// });
+const jetBrainsMono = localFont({
+	src: '../../public/fonts/JetBrainsMono-Regular.woff2',
+	variable: '--font-jetbrains-mono',
+	display: 'swap',
+});
 
 // Metadata for the home page
 export const metadata = {
@@ -56,13 +56,13 @@ export default function RootLayout({
 				'bg-gradient-to-b bg-no-repeat',
 				'dark:from-slate-900 dark:to-slate-700',
 				'from-slate-100 to-slate-300',
-                inter.className
+                jetBrainsMono.className
             )}>
-            <body className={inter.className}>
+            <body className={jetBrainsMono.className}>
                 <div className={`
 					Home
 					flex md:flex-row flex-col
-					items-center justify-between
+					items-center
 					w-full md:h-screen
 				`}>
                     <div className={`
@@ -77,12 +77,11 @@ export default function RootLayout({
                     <div className={`
 						Home-body
 						flex flex-col items-center
-						h-full
+						h-full w-full
 						md:w-2/3 md:ml-auto
 						p-10`}>
                         {children}
                     </div>
-                    {/* <Footer /> */}
                 </div>
             </body>
         </html>
