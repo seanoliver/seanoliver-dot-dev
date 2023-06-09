@@ -18,10 +18,10 @@ export default function Title({
 		<>
 			<h1
 				className={`
-				${titleStyles[titleSize]} font-extrabold text-center p-2 mb-4
+				${titleStyles[titleSize]} text-center p-2 mb-4
 				bg-clip-text text-transparent
-				bg-gradient-to-r from-zinc-600 to-slate-600 text-white
-				dark:bg-gradient-to-r dark:from-stone-300 dark:to-slate-300 text-white
+				bg-gradient-to-r from-zinc-600 to-slate-600 text-black
+				dark:bg-gradient-to-r dark:from-stone-300 dark:to-slate-300 dark:text-white
 				px-2`}>
 				{title}
 			</h1>
