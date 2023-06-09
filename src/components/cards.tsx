@@ -3,6 +3,7 @@
 import '@/app/globals.css';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect } from 'react';
+import { CardWrapperProps } from '@/lib/types';
 
 /**
  *	This component is a wrapper for the card box. It provides a
@@ -15,7 +16,7 @@ import { useRef, useEffect } from 'react';
  * 	<Card />
  * </CardBox>
  */
-export const CardBox = ({ children }) => {
+export const CardBox = ({ children }: CardWrapperProps) => {
 	return (
 		<div
 			className={`
@@ -45,7 +46,7 @@ export const CardBox = ({ children }) => {
  * 	<CardContent />
  * </Card>
  */
-export const Card = ({ children }) => {
+export const Card = ({ children }: CardWrapperProps) => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true });
 
@@ -61,9 +62,7 @@ export const Card = ({ children }) => {
 			ref={ref}
 			// initial={{ opacity: 0, y: 20 }}
 			animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ ease: 'linear', duration: 1 }}
-
-        >
+			transition={{ ease: 'linear', duration: 1 }}>
 			{children}
 		</motion.div>
 	);
@@ -78,7 +77,7 @@ export const Card = ({ children }) => {
  * @example
  * <CardTitle>My Project</CardTitle>
  */
-export const CardTitle = ({ children }) => {
+export const CardTitle = ({ children }: CardWrapperProps) => {
 	return (
 		<div className={`mb-4 flex items-center`}>
 			<h2
@@ -95,7 +94,6 @@ export const CardTitle = ({ children }) => {
 	);
 };
 
-
 /**
  * This component returns the subtitle of the card.
  * @param children The subtitle of the card
@@ -104,7 +102,7 @@ export const CardTitle = ({ children }) => {
  * @example
  * <CardSubtitle>My Project</CardSubtitle>
  */
-export const CardSubtitle = ({ children }) => {
+export const CardSubtitle = ({ children }: CardWrapperProps) => {
 	return (
 		<div className={`mb-4 flex justify-between`}>
 			<h3
@@ -128,7 +126,7 @@ export const CardSubtitle = ({ children }) => {
  * @param children
  * @returns The formatted description of the card
  */
-export const CardDescription = ({ children }) => {
+export const CardDescription = ({ children }: CardWrapperProps) => {
 	return (
 		<div className={`mb-4`}>
 			<p
@@ -151,7 +149,7 @@ export const CardDescription = ({ children }) => {
  * 	<CardTag>My Tag</CardTag>
  * </CardTags>
  */
-export const CardTags = ({ children }) => {
+export const CardTags = ({ children }: CardWrapperProps) => {
 	return <div className={`flex flex-wrap`}>{children}</div>;
 };
 
@@ -163,7 +161,7 @@ export const CardTags = ({ children }) => {
  * @example
  * <CardTag>My Tag</CardTag>
  */
-export const CardTag = ({ children }) => {
+export const CardTag = ({ children }: CardWrapperProps) => {
 	return (
 		<div>
 			<span

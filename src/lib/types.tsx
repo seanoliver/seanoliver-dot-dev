@@ -5,3 +5,7 @@ export type Project = {
     image: string;
     tags: string[];
 }
+
+export interface CardWrapperProps {
+    children: React.ReactNode;
+}
