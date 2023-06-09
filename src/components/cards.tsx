@@ -4,6 +4,17 @@ import '@/app/globals.css';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 
+/**
+ *	This component is a wrapper for the card box. It provides a
+ *  consistent style for the card box.
+ *
+ * @param children
+ * @returns A card box
+ * @example
+ * <CardBox>
+ * 	<Card />
+ * </CardBox>
+ */
 export const CardBox = ({ children }) => {
 	return (
 		<div
@@ -19,6 +30,21 @@ export const CardBox = ({ children }) => {
 	);
 };
 
+/**
+ * This component is a wrapper for the card content. It provides a
+ * consistent style for the card content.
+ *
+ * Includes a fade-in animation.
+ *
+ * @param children The content of the card
+ * @returns A card
+ * @example
+ * <Card>
+ * 	<CardTitle />
+ * 	<CardSubtitle />
+ * 	<CardContent />
+ * </Card>
+ */
 export const Card = ({ children }) => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true });
@@ -34,8 +60,8 @@ export const Card = ({ children }) => {
                 mb-4`}
 			ref={ref}
 			// initial={{ opacity: 0, y: 20 }}
-			animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ ease: 'easeInOut' }}
+			animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ ease: 'linear', duration: 1 }}
 
         >
 			{children}
@@ -43,6 +69,15 @@ export const Card = ({ children }) => {
 	);
 };
 
+/**
+ * This component returns the title of the card.
+ *
+ * @param children The title of the card
+ *
+ * @returns The title of the card
+ * @example
+ * <CardTitle>My Project</CardTitle>
+ */
 export const CardTitle = ({ children }) => {
 	return (
 		<div className={`mb-4 flex items-center`}>
@@ -60,6 +95,15 @@ export const CardTitle = ({ children }) => {
 	);
 };
 
+
+/**
+ * This component returns the subtitle of the card.
+ * @param children The subtitle of the card
+ *
+ * @returns
+ * @example
+ * <CardSubtitle>My Project</CardSubtitle>
+ */
 export const CardSubtitle = ({ children }) => {
 	return (
 		<div className={`mb-4 flex justify-between`}>
@@ -78,6 +122,12 @@ export const CardSubtitle = ({ children }) => {
 	);
 };
 
+/**
+ * Wrapper for the description of the card.
+ *
+ * @param children
+ * @returns The formatted description of the card
+ */
 export const CardDescription = ({ children }) => {
 	return (
 		<div className={`mb-4`}>
@@ -92,10 +142,27 @@ export const CardDescription = ({ children }) => {
 	);
 };
 
+/**
+ * Wrapper for styling the tags of the card.
+ * @param children The tags of the card
+ * @returns The formatted tags of the card
+ * @example
+ * <CardTags>
+ * 	<CardTag>My Tag</CardTag>
+ * </CardTags>
+ */
 export const CardTags = ({ children }) => {
 	return <div className={`flex flex-wrap`}>{children}</div>;
 };
 
+/**
+ * This component returns the tag of the card.
+ *
+ * @param children The tag of the card
+ * @returns The formatted tag of the card
+ * @example
+ * <CardTag>My Tag</CardTag>
+ */
 export const CardTag = ({ children }) => {
 	return (
 		<div>

@@ -1,6 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+/**
+ * This component is a wrapper for the nav elements. It provides a
+ * consistent style for the nav elements.
+ *
+ * @param children The content of the nav wrapper
+ * @returns A wrapper for the nav elements
+ * @example
+ * <NavWrapper>
+ * 	<NavElement />
+ * </NavWrapper>
+ */
 export const NavWrapper = ({ children }) => {
 	return (
 		<div className='flex flex-col items-center justify-around container'>
@@ -9,6 +20,13 @@ export const NavWrapper = ({ children }) => {
 	);
 };
 
+/**
+ *	This component returns a name tag with my name and title.
+ *
+ * @returns A name tag with my name and title
+ * @example
+ * <Nametag />
+ */
 export const Nametag = () => {
 	return (
 		<div className='relative rounded-xl overflow-auto p-8 hidden md:block'>
@@ -33,12 +51,33 @@ export const Nametag = () => {
 	);
 };
 
+/**
+ * This type defines props for the main menu. It includes passed-in state and a
+ * state setter, as well as the menu content.
+ */
 type MenuProps = {
 	isOpen: boolean;
 	setIsOpen: (isOpen: boolean) => void;
 	children: React.ReactNode;
 };
 
+
+/**
+ *
+ * This component returns a responsive menu.
+ *
+ * @prop isOpen
+ * @prop setIsOpen
+ * @prop children
+ * @returns A responsive menu component
+ * @example
+ * <ResponsiveMenu isOpen={isOpen} setIsOpen={setIsOpen}>
+ * 	<NavLink href='/'>Home</NavLink>
+ * 	<NavLink href='/about'>About</NavLink>
+ * 	<NavLink href='/projects'>Projects</NavLink>
+ * 	<NavLink href='/contact'>Contact</NavLink>
+ * </ResponsiveMenu>
+ */
 export const ResponsiveMenu: React.FC<MenuProps> = ({
 	isOpen,
 	setIsOpen,
@@ -73,6 +112,10 @@ export const ResponsiveMenu: React.FC<MenuProps> = ({
 	);
 };
 
+
+/**
+ * This type defines props for the nav item.
+ */
 type NavItemProps = {
 	item: {
 		name: string;
@@ -80,6 +123,14 @@ type NavItemProps = {
 	};
 };
 
+/**
+ * This component returns a nav item.
+ *
+ * @prop item
+ * @returns A nav item
+ * @example
+ * <NavItem item={{ name: 'Home', url: '/' }} />
+ */
 export const NavItem: React.FC<NavItemProps> = ({ item }) => {
 	return (
 		<div
