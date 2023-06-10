@@ -2,12 +2,12 @@
 
 import '@/app/globals.css';
 import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { CardWrapperProps } from '@/lib/types';
 
 /**
- *	This component is a wrapper for the card box. It provides a
- *  consistent style for the card box.
+ * Adds a gradient border around the card.
+ * FIXME: Not sure where to actually use this yet.
  *
  * @param children
  * @returns A card box
@@ -125,6 +125,8 @@ export const CardSubtitle = ({ children }: CardWrapperProps) => {
  *
  * @param children
  * @returns The formatted description of the card
+ * @example
+ * <CardDescription>My Project</CardDescription>
  */
 export const CardDescription = ({ children }: CardWrapperProps) => {
 	return (
