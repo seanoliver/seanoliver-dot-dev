@@ -1,6 +1,13 @@
 'use client';
 
-/** Title component */
+/**
+ *
+ * @param title Title text to display
+ * @param titleSize Size of the title
+ * @returns A title with the given text and size
+ * @example
+ * <Title title='My Title' titleSize='large' />
+ */
 export default function Title({
 	title,
 	titleSize = 'large',
