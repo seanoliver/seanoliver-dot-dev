@@ -51,17 +51,18 @@ export default function RootLayout({
 			)}>
 			<body className={jetBrainsMono.className}>
 				<div
-					className={`Home flex flex-col items-center w-full md:h-screen`}>
+					className={`Home flex md:flex-row flex-col items-start md:items-start w-full`}>
 					<div
-						className={`md:w-1/3 bg-transparent h-32 w-full pt-10 pl-5 top-0`}>
+						className={`bg-transparent w-full md:w-1/3 pt-10 sticky top-0`}>
 						<NewSiteNav />
 					</div>
 					<div
-						className={`Home-body flex flex-col items-center h-full w-full md:w-2/3 md:ml-auto p-10`}>
+						className={`Home-body flex flex-col items-center w-full md:w-2/3 p-10`}>
 						{children}
 					</div>
 				</div>
 			</body>
 		</html>
 	);
+
 }
