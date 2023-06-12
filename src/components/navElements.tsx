@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { CardWrapperProps } from '@/lib/types';
 
 /**
  * This component is a wrapper for the nav elements. It provides a
@@ -12,7 +13,7 @@ import Link from 'next/link';
  * 	<NavElement />
  * </NavWrapper>
  */
-export const NavWrapper = ({ children }) => {
+export const NavWrapper = ({ children }: CardWrapperProps) => {
 	return (
 		<div className='flex flex-col items-center justify-around container'>
 			{children}
