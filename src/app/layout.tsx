@@ -1,7 +1,6 @@
 import './globals.css';
 import clsx from 'clsx';
 import NewSiteNav from '@/components/Nav';
-import Footer from '@/components/footer';
 
 /** Inter Font */
 
