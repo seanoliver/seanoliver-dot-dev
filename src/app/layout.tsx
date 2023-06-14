@@ -1,6 +1,6 @@
 import './globals.css';
 import clsx from 'clsx';
-import NewSiteNav from '@/components/Nav';
+import NewSiteNav from '@/components/navigation';
 
 /** Inter Font */
 
@@ -51,13 +51,13 @@ export default function RootLayout({
 			)}>
 			<body className={jetBrainsMono.className}>
 				<div
-					className={`Home flex md:flex-row flex-col items-start md:items-start w-full`}>
+					className={`Home flex flex-col items-center w-full`}>
 					<div
-						className={`bg-transparent w-full md:w-1/3 pt-10 sticky top-0`}>
+						className={`w-1/3 pt-10 sticky flex h-screen`}> {/* max-h-screen overflow-y-auto for full height column w/ sticky --> */}
 						<NewSiteNav />
 					</div>
 					<div
-						className={`Home-body flex flex-col items-center w-full md:w-2/3 p-10`}>
+						className={`Home-body flex flex-col items-center w-full p-10`}>
 						{children}
 					</div>
 				</div>
