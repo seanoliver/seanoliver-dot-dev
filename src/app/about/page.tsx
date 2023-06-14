@@ -6,7 +6,7 @@ import { SOCIAL_LINKS } from '@/lib/globals';
 export default function About(): JSX.Element {
 	return (
 		<section id='about'>
-			<div className='About flex justify-center align-middle self-center'>
+			<div className='About flex justify-center align-middle h-screenself-center'>
 				<div className='About-body text-left md:w-1/2'>
 					<Title title={metadata.title} />
 					<p className={`mt-4`}>{metadata.longDescription}</p>
