@@ -1,6 +1,32 @@
+'use client';
+
+import { useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { CardWrapperProps } from '@/lib/types';
+
+import { CardWrapperProps, NavItemProps, MenuProps } from '@/lib/types';
+import { NAV_ITEMS } from '@/lib/globals';
+
+export default function SiteNav(): JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<NavWrapper>
+			<Nametag />
+			<ResponsiveMenu
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}>
+				{NAV_ITEMS.map((item, index) => (
+					<NavItem
+						key={`${item.name}-${index}`}
+						item={item}
+					/>
+				))}
+			</ResponsiveMenu>
+		</NavWrapper>
+	);
+}
 
 /**
  * This component is a wrapper for the nav elements. It provides a
@@ -13,9 +39,9 @@ import { CardWrapperProps } from '@/lib/types';
  * 	<NavElement />
  * </NavWrapper>
  */
-export const NavWrapper = ({ children }: CardWrapperProps) => {
+const NavWrapper = ({ children }: CardWrapperProps) => {
 	return (
-		<div className='flex flex-col items-center justify-around container'>
+		<div className='flex flex-row items-center justify-around'>
 			{children}
 		</div>
 	);
@@ -28,10 +54,10 @@ export const NavWrapper = ({ children }: CardWrapperProps) => {
  * @example
  * <Nametag />
  */
-export const Nametag = () => {
+const Nametag = () => {
 	return (
 		<div className='relative rounded-xl overflow-auto p-8 hidden md:block'>
-			<div className='overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-700 md:w-52 lg:w-80 dark:highlight-white/5'>
+			<div className='overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-700 md:w-80 dark:highlight-white/5'>
 				<Image
 					className={`absolute -left-6 w-24 h-24 rounded-full shadow-lg`}
 					src='/../public/profile.jpeg'
@@ -53,17 +79,6 @@ export const Nametag = () => {
 };
 
 /**
- * This type defines props for the main menu. It includes passed-in state and a
- * state setter, as well as the menu content.
- */
-type MenuProps = {
-	isOpen: boolean;
-	setIsOpen: (isOpen: boolean) => void;
-	children: React.ReactNode;
-};
-
-
-/**
  *
  * This component returns a responsive menu.
  *
@@ -79,13 +94,13 @@ type MenuProps = {
  * 	<NavLink href='/contact'>Contact</NavLink>
  * </ResponsiveMenu>
  */
-export const ResponsiveMenu: React.FC<MenuProps> = ({
+const ResponsiveMenu: React.FC<MenuProps> = ({
 	isOpen,
 	setIsOpen,
 	children,
 }) => {
 	return (
-		<>
+		<div className='ResponsiveMenu'>
 			<button
 				className='md:hidden block relative'
 				onClick={() => setIsOpen(!isOpen)}>
@@ -104,24 +119,13 @@ export const ResponsiveMenu: React.FC<MenuProps> = ({
 			</button>
 			<nav
 				className={`
-			md:flex md:justify-end flex-col
+			md:flex md:justify-end md:flex-col rounded-md m-6 md:m-0
 			top-full left-0 bg-slate-200 dark:bg-slate-800
 			md:static md:bg-transparent ${isOpen ? 'block' : 'hidden'}`}>
 				{children}
 			</nav>
-		</>
+		</div>
 	);
-};
-
-
-/**
- * This type defines props for the nav item.
- */
-type NavItemProps = {
-	item: {
-		name: string;
-		url: string;
-	};
 };
 
 /**
@@ -132,7 +136,7 @@ type NavItemProps = {
  * @example
  * <NavItem item={{ name: 'Home', url: '/' }} />
  */
-export const NavItem: React.FC<NavItemProps> = ({ item }) => {
+const NavItem: React.FC<NavItemProps> = ({ item }) => {
 	return (
 		<div
 		className={`
