@@ -19,9 +19,10 @@ progress, but I'm hoping to have it up and running soon.
 - [ ] Add uses page
 - [X] Better naming for images.tsx
 - [X] Componetize nav and card elements
-- [ ] Fix dark mode colors on side nav
-- [ ] Fix mobile nav
-- [ ] Finalize dates in work experience component
+- [ ] Top nav animations
+- [ ] Mobile responsive top nav
+- [ ] Improve card-based page layouts
+- [X] Finalize dates in work experience component
 
 ## Component Hierarchy
 
