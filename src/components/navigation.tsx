@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, use } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,15 +10,19 @@ import Link from 'next/link';
 import { CardWrapperProps, NavItemProps, MenuProps } from '@/lib/types';
 import { NAV_ITEMS } from '@/lib/globals';
 
-export default function SiteNav(): JSX.Element {
+export default function Nav(): JSX.Element {
+	const path = usePathname();
+
+	return (
+		<AnimatePresence>{path === '/' ? <SiteNav /> : <TopNav />}</AnimatePresence>
+	);
+}
+
+export function SiteNav(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMounted, setIsMounted] = useState(false);
 
-	useEffect(() => {
-		setIsMounted(true);
-		// const timeout = setTimeout(() => setIsMounted(true), 0);
-		// return () => clearTimeout(timeout);
-	}, []);
+	useEffect(() => { setIsMounted(true) }, []);
 
 	return (
 		<NavWrapper>
@@ -25,20 +30,34 @@ export default function SiteNav(): JSX.Element {
 			<ResponsiveMenu
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}>
-				<AnimatePresence>
-					{NAV_ITEMS.map((item, index) => (
-						<NavItem
-							key={`${item.name}-${index}`}
-							item={item}
-							index={index}
-							isMounted={isMounted}
-						/>
-					))}
-				</AnimatePresence>
+				{NAV_ITEMS.map((item, index) => (
+					<NavItem
+						key={`${item.name}-${index}`}
+						item={item}
+						index={index}
+						isMounted={isMounted}
+					/>
+				))}
 			</ResponsiveMenu>
 		</NavWrapper>
 	);
 }
+
+export const TopNav = (): JSX.Element => {
+	return (
+		<NavWrapper>
+			<TextTag isMounted={true} />
+			{NAV_ITEMS.map((item, index) => (
+				<NavItem
+					key={`${item.name}-${index}`}
+					item={item}
+					index={index}
+					isMounted={true}
+				/>
+			))}
+		</NavWrapper>
+	);
+};
 
 /**
  * This component is a wrapper for the nav elements. It provides a
@@ -53,7 +72,9 @@ export default function SiteNav(): JSX.Element {
  */
 const NavWrapper = ({ children }: CardWrapperProps) => {
 	return (
-		<div className='flex flex-row items-center justify-around'>{children}</div>
+		<div className='flex flex-row items-center justify-around h-screen mx-auto'>
+			{children}
+		</div>
 	);
 };
 
@@ -88,33 +109,55 @@ const variationRight = {
  */
 const Nametag = ({ isMounted }: { isMounted: boolean }) => {
 	return (
-		<AnimatePresence>
-			<motion.div
-				variants={variationLeft}
-				initial='hidden'
-				animate={isMounted ? 'visible' : 'hidden'}
-				transition={{ delay: 0.15, type: 'spring' }}
-				exit='hidden'
-				className={`relative rounded-xl overflow-auto p-8 hidden md:block`}>
-				<div className='overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-700 md:w-80 dark:highlight-white/5'>
-					<Image
-						className={`absolute -left-6 w-24 h-24 rounded-full shadow-lg`}
-						src='/../public/profile.jpeg'
-						width={96}
-						height={96}
-						alt='Sean Oliver'
-					/>
-					<div className='flex flex-col py-5 pl-24'>
-						<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
-							Sean Oliver
-						</strong>
-						<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
-							Software Engineer
-						</span>
-					</div>
+		<motion.div
+			variants={variationLeft}
+			initial='hidden'
+			animate={isMounted ? 'visible' : 'hidden'}
+			transition={{ delay: 0.15, type: 'spring' }}
+			exit='hidden'
+			className={`relative rounded-xl overflow-auto p-8 md:block`}>
+			<div className='overflow-visible relative max-w-sm mx-auto pt-5 md:pt-0 bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col md:flex-row items-center md:gap-6 dark:bg-slate-700 md:w-80 dark:highlight-white/5'>
+				<Image
+					className={`flex md:absolute -left-6 w-24 h-24 rounded-full shadow-lg`}
+					src='/../public/profile.jpeg'
+					width={96}
+					height={96}
+					alt='Sean Oliver'
+				/>
+				<div className='flex flex-col md:py-5 md:pl-24 p-5 text-center md:text-left'>
+					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
+						Sean Oliver
+					</strong>
+					<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
+						Software Engineer
+					</span>
 				</div>
-			</motion.div>
-		</AnimatePresence>
+			</div>
+		</motion.div>
+	);
+};
+
+const TextTag = ({ isMounted }: { isMounted: boolean }) => {
+	return (
+		<motion.div
+			variants={variationLeft}
+			initial='hidden'
+			animate={isMounted ? 'visible' : 'hidden'}
+			transition={{ delay: 0.15, type: 'spring' }}
+			whileHover={{  }}
+			exit='hidden'
+			className={`sticky top-0 rounded-xl p-8`}>
+			<div className='overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-700 dark:highlight-white/5'>
+				<div className='flex flex-col p-5'>
+					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
+						Sean Oliver
+					</strong>
+					<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
+						Software Engineer
+					</span>
+				</div>
+			</div>
+		</motion.div>
 	);
 };
 
@@ -133,6 +176,7 @@ const Nametag = ({ isMounted }: { isMounted: boolean }) => {
  * 	<NavLink href='/projects'>Projects</NavLink>
  * 	<NavLink href='/contact'>Contact</NavLink>
  * </ResponsiveMenu>
+ *
  */
 const ResponsiveMenu: React.FC<MenuProps> = ({
 	isOpen,
@@ -140,7 +184,7 @@ const ResponsiveMenu: React.FC<MenuProps> = ({
 	children,
 }) => {
 	return (
-		<div className='ResponsiveMenu'>
+		<div className='ResponsiveMenu flex'>
 			<button
 				className='md:hidden block relative'
 				onClick={() => setIsOpen(!isOpen)}>
@@ -177,6 +221,7 @@ const ResponsiveMenu: React.FC<MenuProps> = ({
  * <NavItem item={{ name: 'Home', url: '/' }} />
  */
 const NavItem: React.FC<NavItemProps> = ({ item, isMounted, index }) => {
+
 	return (
 		<motion.div
 			variants={variationRight}
