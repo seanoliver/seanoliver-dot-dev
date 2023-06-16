@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Project = {
     name: string;
     url: string;
@@ -24,6 +26,8 @@ export type NavItemProps = {
 		name: string;
 		url: string;
 	};
+	isMounted: boolean;
+	index: number;
 };
 
 export interface CardWrapperProps {
