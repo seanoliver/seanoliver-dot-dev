@@ -13,11 +13,15 @@ export const NAV_ITEMS = [
 	},
 	{
 		name: 'About',
-		url: '#about',
+		url: '/about',
 	},
 	{
 		name: 'Projects',
-		url: '#projects',
+		url: '/projects',
+	},
+	{
+		name: 'Experience',
+		url: '/experiences',
 	},
 	{
 		name: 'Newsletter',
