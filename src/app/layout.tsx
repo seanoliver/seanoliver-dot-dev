@@ -12,6 +12,7 @@ const inter = Inter({
 /** Jet Brains Mono Font */
 
 import localFont from 'next/font/local';
+import Nav from '@/components/navigation';
 
 const jetBrainsMono = localFont({
 	src: '../../public/fonts/JetBrainsMono-Regular.woff2',
@@ -27,7 +28,6 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-
 	return (
 		<html
 			lang='en'
@@ -40,6 +40,7 @@ export default function RootLayout({
 			)}>
 			<body className={jetBrainsMono.className}>
 				<div className={`RootLayout flex flex-col items-center w-full h-screen`}>
+						<Nav />
 						{children}
 				</div>
 			</body>
