@@ -1,6 +1,5 @@
 import './globals.css';
 import clsx from 'clsx';
-import NewSiteNav from '@/components/navigation';
 
 /** Inter Font */
 
@@ -20,17 +19,6 @@ const jetBrainsMono = localFont({
 	display: 'swap',
 });
 
-// Metadata for the home page
-export const metadata = {
-	title: 'Sean Oliver',
-	description: 'Software Engineer in San Francisco, CA',
-	longDescription: `Hi there, I'm a software engineer and recovering
-	product marketer witH 13 years of experience building and growing
-	technology products. My background in marketing helps me understand
-	people's needs and how to communicate with them. Now as a software
-	engineer, I build products that meet those needs.`,
-};
-
 /**
  * Root layout component
  */
@@ -39,6 +27,7 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+
 	return (
 		<html
 			lang='en'
@@ -50,16 +39,8 @@ export default function RootLayout({
 				jetBrainsMono.className
 			)}>
 			<body className={jetBrainsMono.className}>
-				<div
-					className={`Home flex flex-col items-center w-full`}>
-					<div
-						className={`w-1/3 pt-10 sticky flex h-screen`}> {/* max-h-screen overflow-y-auto for full height column w/ sticky --> */}
-						<NewSiteNav />
-					</div>
-					<div
-						className={`Home-body flex flex-col items-center w-full p-10`}>
+				<div className={`RootLayout flex flex-col items-center w-full h-screen`}>
 						{children}
-					</div>
 				</div>
 			</body>
 		</html>
