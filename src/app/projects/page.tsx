@@ -4,7 +4,7 @@ import Title from '@/components/Title';
 
 export default function Projects(): JSX.Element {
 	return (
-		<section id='projects'>
+		<section id='projects' className='mb-80'>
 			<div
 				className='md:flex md:flex-col items-center w-full'>
 				<Title title='Projects' titleSize='medium' />
