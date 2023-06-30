@@ -36,7 +36,7 @@ export default function Title({
 				animate='visible'
 				transition={{ duration: 0.75 }}
 				className={`
-				${titleStyles[titleSize]} text-center p-2 mb-4
+				${titleStyles[titleSize]} ${titleSize === 'small' ? 'text-left' : 'text-center'} p-2 mb-4
 				bg-clip-text text-transparent
 				bg-gradient-to-r from-zinc-600 to-slate-600 text-black
 				dark:bg-gradient-to-r dark:from-stone-300 dark:to-slate-300 dark:text-white
