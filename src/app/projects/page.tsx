@@ -6,7 +6,7 @@ export default function Projects(): JSX.Element {
 	return (
 		<section id='projects'>
 			<div
-				className='md:flex md:flex-col items-center w-full h-full'>
+				className='md:flex md:flex-col items-center w-full'>
 				<Title title='Projects' titleSize='medium' />
 				{PROJECTS.map((project, index) => (
 					<div
