@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, use } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
 import Image from 'next/image';
@@ -14,7 +14,7 @@ export default function Nav(): JSX.Element {
 	const path = usePathname();
 
 	return (
-		<AnimatePresence>{path === '/' ? <SiteNav /> : <TopNav />}</AnimatePresence>
+		<AnimatePresence>{path === '/' ? <TopNav /> : <TopNav />}</AnimatePresence>
 	);
 }
 

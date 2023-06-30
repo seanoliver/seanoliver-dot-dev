@@ -39,7 +39,7 @@ export default function RootLayout({
 				jetBrainsMono.className
 			)}>
 			<body className={jetBrainsMono.className}>
-				<div className={`RootLayout flex flex-col items-center w-full h-screen`}>
+				<div className={`RootLayout flex flex-col items-center w-[750px] mx-auto h-screen`}>
 						<Nav />
 						{children}
 				</div>
