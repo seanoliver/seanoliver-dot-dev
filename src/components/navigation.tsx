@@ -10,59 +10,33 @@ import Link from 'next/link';
 import { CardWrapperProps, NavItemProps, MenuProps } from '@/lib/types';
 import { NAV_ITEMS } from '@/lib/globals';
 
+import { variationDown } from '@/components/AnimationVariants';
+
 export default function Nav(): JSX.Element {
-	const path = usePathname();
-
-	return (
-		<AnimatePresence>{path === '/' ? <TopNav /> : <TopNav />}</AnimatePresence>
-	);
-}
-
-// export function SiteNav(): JSX.Element {
-// 	const [isOpen, setIsOpen] = useState(false);
-// 	const [isMounted, setIsMounted] = useState(false);
-
-// 	useEffect(() => { setIsMounted(true) }, []);
-
-// 	return (
-// 		<NavWrapper>
-// 			<Nametag isMounted={isMounted} />
-// 			<ResponsiveMenu
-// 				isOpen={isOpen}
-// 				setIsOpen={setIsOpen}>
-// 				{NAV_ITEMS.map((item, index) => (
-// 					<NavItem
-// 						key={`${item.name}-${index}`}
-// 						item={item}
-// 						index={index}
-// 						isMounted={isMounted}
-// 					/>
-// 				))}
-// 			</ResponsiveMenu>
-// 		</NavWrapper>
-// 	);
-// }
-
-export const TopNav = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMounted, setIsMounted] = useState(false);
 
-	useEffect(() => { setIsMounted(true) }, []);
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
 	return (
 		<NavWrapper>
-			<Nametag isMounted={isMounted} />
-			{NAV_ITEMS.map((item, index) => (
-				<NavItem
-					key={`${item.name}-${index}`}
-					item={item}
-					index={index}
-					isMounted={true}
-				/>
-			))}
+			<ResponsiveMenu
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}>
+				{NAV_ITEMS.map((item, index) => (
+					<NavItem
+						key={`${item.name}-${index}`}
+						item={item}
+						index={index}
+						isMounted={isMounted}
+					/>
+				))}
+			</ResponsiveMenu>
 		</NavWrapper>
 	);
-};
+}
 
 /**
  * This component is a wrapper for the nav elements. It provides a
@@ -77,92 +51,9 @@ export const TopNav = (): JSX.Element => {
  */
 const NavWrapper = ({ children }: CardWrapperProps) => {
 	return (
-		<div className='flex flex-row items-center justify-around h-screen mx-auto'>
+		<div className='flex flex-row items-center justify-center sticky top-5 w-full mx-auto mt-5 z-10'>
 			{children}
 		</div>
-	);
-};
-
-const variationLeft = {
-	hidden: {
-		opacity: 0,
-		x: -100,
-	},
-	visible: {
-		opacity: 1,
-		x: 0,
-	},
-};
-
-const variationRight = {
-	hidden: {
-		opacity: 0,
-		x: 100,
-	},
-	visible: {
-		opacity: 1,
-		x: 0,
-	},
-};
-
-/**
- *	This component returns a name tag with my name and title.
- *
- * @returns A name tag with my name and title
- * @example
- * <Nametag />
- */
-const Nametag = ({ isMounted }: { isMounted: boolean }) => {
-	return (
-		<motion.div
-			variants={variationLeft}
-			initial='hidden'
-			animate={isMounted ? 'visible' : 'hidden'}
-			transition={{ delay: 0.15, type: 'spring' }}
-			exit='hidden'
-			className={`relative rounded-xl overflow-auto p-8 md:block`}>
-			<div className='overflow-visible relative max-w-sm mx-auto pt-5 md:pt-0 bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col md:flex-row items-center md:gap-6 dark:bg-slate-700 md:w-80 dark:highlight-white/5'>
-				<Image
-					className={`flex md:absolute -left-6 w-24 h-24 rounded-full shadow-lg`}
-					src='/../public/profile.jpeg'
-					width={96}
-					height={96}
-					alt='Sean Oliver'
-				/>
-				<div className='flex flex-col md:py-5 md:pl-24 p-5 text-center md:text-left'>
-					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
-						Hi, I'm Sean 👋
-					</strong>
-					<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
-						Software Engineer
-					</span>
-				</div>
-			</div>
-		</motion.div>
-	);
-};
-
-const TextTag = ({ isMounted }: { isMounted: boolean }) => {
-	return (
-		<motion.div
-			variants={variationLeft}
-			initial='hidden'
-			animate={isMounted ? 'visible' : 'hidden'}
-			transition={{ delay: 0.15, type: 'spring' }}
-			whileHover={{  }}
-			exit='hidden'
-			className={`sticky top-0 rounded-xl p-8`}>
-			<div className='overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-700 dark:highlight-white/5'>
-				<div className='flex flex-col p-5'>
-					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
-						Sean Oliver
-					</strong>
-					<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
-						Software Engineer
-					</span>
-				</div>
-			</div>
-		</motion.div>
 	);
 };
 
@@ -189,7 +80,7 @@ const ResponsiveMenu: React.FC<MenuProps> = ({
 	children,
 }) => {
 	return (
-		<div className='ResponsiveMenu flex'>
+		<div className='ResponsiveMenu flex md:bg-white md:rounded-lg md:p-2 md:shadow-lg'>
 			<button
 				className='md:hidden block relative'
 				onClick={() => setIsOpen(!isOpen)}>
@@ -208,9 +99,9 @@ const ResponsiveMenu: React.FC<MenuProps> = ({
 			</button>
 			<nav
 				className={`
-			md:flex md:justify-end md:flex-col rounded-md m-6 md:m-0
+			md:flex md:justify-end rounded-md m-6 md:m-0
 			top-full left-0 bg-sate-200 dark:bg-slate-800
-			md:static md:bg-transparent ${isOpen ? 'block' : 'hidden'}`}>
+			md:static ${isOpen ? 'block' : 'hidden'}`}>
 				{children}
 			</nav>
 		</div>
@@ -226,10 +117,9 @@ const ResponsiveMenu: React.FC<MenuProps> = ({
  * <NavItem item={{ name: 'Home', url: '/' }} />
  */
 const NavItem: React.FC<NavItemProps> = ({ item, isMounted, index }) => {
-
 	return (
 		<motion.div
-			variants={variationRight}
+			variants={variationDown}
 			initial='hidden'
 			animate={isMounted ? 'visible' : 'hidden'}
 			transition={{ delay: index * 0.1, duration: 1, type: 'spring' }}
@@ -239,7 +129,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, isMounted, index }) => {
 				p-2
 			`}>
 			<Link
-				className={`transition duration-500 ease-in-out rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 hover:shadow-lg text-center`}
+				className={`transition duration-500 ease-in-out rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 text-center`}
 				href={`${item.url}`}>
 				{item.name}
 			</Link>
