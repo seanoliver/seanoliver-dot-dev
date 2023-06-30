@@ -24,7 +24,7 @@ const Hero = (): JSX.Element => {
 					<div className='relative max-w-md pt-5 sm:pt-0 bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col items-center dark:bg-slate-700 dark:highlight-white/5'>
 						<Image
 							className={`flex absolute -top-16 sm:w-60 sm:h-60 w-48 h-48 rounded-full shadow-lg`}
-							src='/../public/profile.jpeg'
+							src='/profile.jpeg'
 							width={240}
 							height={240}
 							alt='Sean Oliver'
