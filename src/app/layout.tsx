@@ -36,15 +36,14 @@ export default function RootLayout({
 				'bg-gradient-to-b bg-no-repeat',
 				'dark:from-slate-900 dark:to-slate-700',
 				'from-slate-100 to-slate-300',
-				jetBrainsMono.className
+				inter.className
 			)}>
-			<body className={jetBrainsMono.className}>
-				<div className={`RootLayout flex flex-col items-center w-[750px] mx-auto h-screen`}>
-						<Nav />
-						{children}
+			<body className={inter.className}>
+				<div
+					className={`RootLayout flex flex-col items-center mx-auto h-screen`}>
+					{children}
 				</div>
 			</body>
 		</html>
 	);
-
 }

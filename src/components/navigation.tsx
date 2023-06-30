@@ -18,7 +18,32 @@ export default function Nav(): JSX.Element {
 	);
 }
 
-export function SiteNav(): JSX.Element {
+// export function SiteNav(): JSX.Element {
+// 	const [isOpen, setIsOpen] = useState(false);
+// 	const [isMounted, setIsMounted] = useState(false);
+
+// 	useEffect(() => { setIsMounted(true) }, []);
+
+// 	return (
+// 		<NavWrapper>
+// 			<Nametag isMounted={isMounted} />
+// 			<ResponsiveMenu
+// 				isOpen={isOpen}
+// 				setIsOpen={setIsOpen}>
+// 				{NAV_ITEMS.map((item, index) => (
+// 					<NavItem
+// 						key={`${item.name}-${index}`}
+// 						item={item}
+// 						index={index}
+// 						isMounted={isMounted}
+// 					/>
+// 				))}
+// 			</ResponsiveMenu>
+// 		</NavWrapper>
+// 	);
+// }
+
+export const TopNav = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMounted, setIsMounted] = useState(false);
 
@@ -27,26 +52,6 @@ export function SiteNav(): JSX.Element {
 	return (
 		<NavWrapper>
 			<Nametag isMounted={isMounted} />
-			<ResponsiveMenu
-				isOpen={isOpen}
-				setIsOpen={setIsOpen}>
-				{NAV_ITEMS.map((item, index) => (
-					<NavItem
-						key={`${item.name}-${index}`}
-						item={item}
-						index={index}
-						isMounted={isMounted}
-					/>
-				))}
-			</ResponsiveMenu>
-		</NavWrapper>
-	);
-}
-
-export const TopNav = (): JSX.Element => {
-	return (
-		<NavWrapper>
-			<TextTag isMounted={true} />
 			{NAV_ITEMS.map((item, index) => (
 				<NavItem
 					key={`${item.name}-${index}`}
@@ -126,7 +131,7 @@ const Nametag = ({ isMounted }: { isMounted: boolean }) => {
 				/>
 				<div className='flex flex-col md:py-5 md:pl-24 p-5 text-center md:text-left'>
 					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
-						Sean Oliver
+						Hi, I'm Sean 👋
 					</strong>
 					<span className='text-slate-500 text-sm font-medium dark:text-slate-400'>
 						Software Engineer

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 import Title from '@/components/Title';
 import { SOCIAL_LINKS } from '@/lib/globals';
@@ -31,14 +32,19 @@ const bodyVariants = {
 export default function About(): JSX.Element {
 	return (
 		<section id='about'>
-			<div className='About flex flex-col justify-center w-1/2 h-screen mx-auto'>
+			<div className='About flex flex-col mx-auto'>
 				<Title title={metadata.title} />
-				<motion.p
-					variants={bodyVariants}
-					initial='hidden'
-					animate='visible'
-					transition={{ duration: 0.75 }}
-					className={`mt-4`}>{metadata.longDescription}</motion.p>
+				<div className='flex'>
+					{/* <PhotoLockup /> */}
+					<motion.p
+						variants={bodyVariants}
+						initial='hidden'
+						animate='visible'
+						transition={{ duration: 0.75 }}
+						className={`mt-4`}>
+						{metadata.longDescription}
+					</motion.p>
+				</div>
 				<SocialLinks />
 			</div>
 		</section>
@@ -48,6 +54,35 @@ export default function About(): JSX.Element {
 const variants = {
 	hidden: { opacity: 0, y: 100 },
 	visible: { opacity: 1, y: 0 },
+};
+
+const PhotoLockup = () => {
+	return (
+		<motion.div
+			className={`relative rounded-xl overflow-auto p-8 md:block`}
+			style={{ minWidth: 'max-content' }}>
+			<div className='overflow-visible relative max-w-sm mx-auto pt-5 bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col items-center dark:bg-slate-700 dark:highlight-white/5'>
+				<ProfilePic />
+				<div className='flex flex-col p-5 text-center'>
+					<strong className='text-slate-900 text-sm font-medium dark:text-slate-200'>
+						Hi, I&apos;m Sean
+					</strong>
+				</div>
+			</div>
+		</motion.div>
+	);
+};
+
+const ProfilePic = () => {
+	return (
+		<Image
+			className={`flex -left-6 w-24 h-24 rounded-full shadow-lg`}
+			src='/../public/profile.jpeg'
+			width={96}
+			height={96}
+			alt='Sean Oliver'
+		/>
+	);
 };
 
 const SocialLinks = (): JSX.Element => {
