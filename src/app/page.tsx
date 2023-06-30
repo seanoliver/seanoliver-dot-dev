@@ -31,10 +31,10 @@ const Hero = (): JSX.Element => {
 						/>
 						<div className='flex flex-col  sm:mt-40 mt-24 p-10'>
 							<strong className='text-slate-900 sm:text-5xl text-2xl text-center mb-5 dark:text-slate-200'>
-								Hi, I'm Sean 👋
+								Hi, I&apos;m Sean 👋
 							</strong>
 							<span className='text-slate-500 sm:text-2xl text-md text-center sm:leading-9 dark:text-slate-400'>
-								I'm a software engineer with a passion for building products
+								I&apos;m a software engineer with a passion for building products
 								products people love.
 							</span>
 						</div>
