@@ -23,7 +23,18 @@ export const variationRight = {
 export const variationUp = {
 	hidden: {
 		opacity: 0,
-		y: 200,
+		y: 100,
+	},
+	visible: {
+		opacity: 1,
+		y: 0,
+	},
+};
+
+export const variationDown = {
+	hidden: {
+		opacity: 0,
+		y: -100,
 	},
 	visible: {
 		opacity: 1,
