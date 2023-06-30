@@ -1,22 +1,18 @@
+'use client';
+
 import './globals.css';
 import clsx from 'clsx';
+import Nav from '@/components/navigation';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { variationUp } from '@/components/AnimationVariants';
 
 /** Inter Font */
 
 import { Inter } from 'next/font/google';
+import Footer from '@/components/Footer';
 const inter = Inter({
 	subsets: ['latin'],
-	display: 'swap',
-});
-
-/** Jet Brains Mono Font */
-
-import localFont from 'next/font/local';
-import Nav from '@/components/navigation';
-
-const jetBrainsMono = localFont({
-	src: '../../public/fonts/JetBrainsMono-Regular.woff2',
-	variable: '--font-jetbrains-mono',
 	display: 'swap',
 });
 
@@ -28,6 +24,11 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 	return (
 		<html
 			lang='en'
@@ -38,10 +39,23 @@ export default function RootLayout({
 				'from-slate-100 to-slate-300',
 				inter.className
 			)}>
-			<body className={inter.className}>
-				<div
-					className={`RootLayout flex flex-col items-center mx-auto h-screen`}>
-					{children}
+			<body className={`${inter.className} flex flex-col min-h-screen`}>
+				<Nav />
+				<div className='flex-1 overflow-hidden'>
+					{isMounted ? (
+						<motion.div
+							variants={variationUp}
+							initial='hidden'
+							animate={isMounted ? 'visible' : 'hidden'}
+							transition={{ delay: 0.25, type: 'spring' }}
+							exit={{ opacity: 0 }}
+							className='overflow-y-auto'>
+							{children}
+						</motion.div>
+					) : (
+						<div style={{ visibility: 'hidden' }}>{children}</div>
+					)}
+					<Footer />
 				</div>
 			</body>
 		</html>
