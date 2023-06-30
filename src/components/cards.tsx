@@ -60,7 +60,6 @@ export const Card = ({ children }: CardWrapperProps) => {
                 shadow-lg
                 mb-4`}
 			ref={ref}
-			// initial={{ opacity: 0, y: 20 }}
 			animate={isInView ? { opacity: 1 } : { opacity: 0 }}
 			transition={{ ease: 'linear', duration: 1 }}>
 			{children}
@@ -102,7 +101,13 @@ export const CardTitle = ({ children }: CardWrapperProps) => {
  * @example
  * <CardSubtitle>My Project</CardSubtitle>
  */
-export const CardSubtitle = ({ children }: CardWrapperProps) => {
+export const CardSubtitle = ({
+	children,
+	years,
+}: {
+	children: React.ReactNode;
+	years: string;
+}) => {
 	return (
 		<div className={`mb-4 flex justify-between`}>
 			<h3
@@ -115,7 +120,7 @@ export const CardSubtitle = ({ children }: CardWrapperProps) => {
                 `}>
 				{children}
 			</h3>
-			<p className={`text-sm text-slate-500 font-extralight`}>2000 - 2005</p>
+			<p className={`text-sm text-slate-500 font-extralight`}>{years}</p>
 		</div>
 	);
 };
