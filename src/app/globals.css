@@ -20,3 +20,10 @@
   flex-grow: 1; /* this will make the line take up the remaining space */
   height: 1px;
 }
+
+section::before {
+  content: "";
+  display: block;
+  height: 100px; /* Adjust as needed, should match navbar height */
+  margin: -100px 0 0; /* This negative margin is the trick */
+}
