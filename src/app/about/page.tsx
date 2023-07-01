@@ -2,6 +2,7 @@
 
 import Title from '@/components/Title';
 import { CardTag, CardTags } from '@/components/cards';
+import { Badge } from '@/components/ui/badge';
 import { SOCIAL_LINKS } from '@/lib/globals';
 
 /** About me metadata */
@@ -57,11 +58,9 @@ export default function About(): JSX.Element {
 					</div>
 					<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
 						<Title title='My Stack' titleSize='small' />
-						<CardTags>
 							{myStack.map((tag, index) => (
-								<CardTag key={index}>{tag}</CardTag>
+								<Badge className={`m-1`} variant={'outline'} key={index}>{tag}</Badge>
 							))}
-						</CardTags>
 					</div>
 				</div>
 				<SocialLinks />

@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { CardWrapperProps, NavItemProps, MenuProps } from '@/lib/types';
