@@ -8,10 +8,6 @@ import { Project } from '@/lib/types';
 
 export const NAV_ITEMS = [
 	{
-		name: 'Home',
-		url: '#home',
-	},
-	{
 		name: 'About',
 		url: '#about',
 	},
