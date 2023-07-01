@@ -1,136 +1,76 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-import Link from 'next/link';
-
-import { CardWrapperProps, NavItemProps, MenuProps } from '@/lib/types';
 import { NAV_ITEMS } from '@/lib/globals';
 
-import { variationDown } from '@/components/AnimationVariants';
+import { Separator } from './ui/separator';
 
-export default function Nav(): JSX.Element {
-	const [isOpen, setIsOpen] = useState(false);
-	const [isMounted, setIsMounted] = useState(false);
+import * as React from 'react';
+import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { useTheme } from 'next-themes';
 
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
+import { Button } from '@/components/ui/button';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
+export default function Nav({ className }: { className: string }): JSX.Element {
 	return (
-		<NavWrapper>
-			<ResponsiveMenu
-				isOpen={isOpen}
-				setIsOpen={setIsOpen}>
-				{NAV_ITEMS.map((item, index) => (
-					<NavItem
-						key={`${item.name}-${index}`}
-						item={item}
-						index={index}
-						isMounted={isMounted}
-					/>
+		<div className={className}>
+			<div className='space-y-1'>
+				<h4 className='text-sm font-medium leading-none'>Sean Oliver</h4>
+				<p className='text-sm text-muted-foreground'>
+					I&apos;m a software engineer in SF, and I&apos;m passionate about
+					building products that make a difference.
+				</p>
+			</div>
+			<Separator className='my-4' />
+			<div className='flex text-sm'>
+				{NAV_ITEMS.map((item, idx) => (
+					<div
+						key={item.name}
+						className='flex'>
+						<div>{item.name}</div>
+						{idx < NAV_ITEMS.length - 1 && (
+							<Separator
+								className='mx-2'
+								orientation='vertical'
+							/>
+						)}
+					</div>
 				))}
-			</ResponsiveMenu>
-		</NavWrapper>
+			</div>
+		</div>
 	);
 }
 
-/**
- * This component is a wrapper for the nav elements. It provides a
- * consistent style for the nav elements.
- *
- * @param children The content of the nav wrapper
- * @returns A wrapper for the nav elements
- * @example
- * <NavWrapper>
- * 	<NavElement />
- * </NavWrapper>
- */
-const NavWrapper = ({ children }: CardWrapperProps) => {
-	return (
-		<div className='flex flex-row items-center justify-center sticky top-5 w-full mx-auto mt-5 z-10'>
-			{children}
-		</div>
-	);
-};
+export function ModeToggle() {
+	const { setTheme } = useTheme();
 
-/**
- *
- * This component returns a responsive menu.
- *
- * @prop isOpen
- * @prop setIsOpen
- * @prop children
- * @returns A responsive menu component
- * @example
- * <ResponsiveMenu isOpen={isOpen} setIsOpen={setIsOpen}>
- * 	<NavLink href='/'>Home</NavLink>
- * 	<NavLink href='/about'>About</NavLink>
- * 	<NavLink href='/projects'>Projects</NavLink>
- * 	<NavLink href='/contact'>Contact</NavLink>
- * </ResponsiveMenu>
- *
- */
-const ResponsiveMenu: React.FC<MenuProps> = ({
-	isOpen,
-	setIsOpen,
-	children,
-}) => {
 	return (
-		<div className='ResponsiveMenu flex md:bg-white md:rounded-lg md:p-2 md:shadow-lg'>
-			<button
-				className='md:hidden block relative'
-				onClick={() => setIsOpen(!isOpen)}>
-				<div
-					className={`w-6 h-0.5 bg-slate-600 mb-1.5 transition duration-500 ease-in-out ${
-						isOpen ? 'transform rotate-45 translate-y-2' : ''
-					}`}></div>
-				<div
-					className={`w-6 h-0.5 bg-slate-600 mb-1.5 transition duration-500 ease-in-out ${
-						isOpen ? 'opacity-0' : ''
-					}`}></div>
-				<div
-					className={`w-6 h-0.5 bg-slate-600 transition duration-500 ease-in-out ${
-						isOpen ? 'transform -rotate-45 -translate-y-2' : ''
-					}`}></div>
-			</button>
-			<nav
-				className={`
-			md:flex md:justify-end rounded-md m-6 md:m-0
-			top-full left-0 bg-sate-200 dark:bg-slate-800
-			md:static ${isOpen ? 'block' : 'hidden'}`}>
-				{children}
-			</nav>
-		</div>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button
+					variant='outline'
+					size='icon'>
+					<SunIcon className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+					<MoonIcon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+					<span className='sr-only'>Toggle theme</span>
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align='end'>
+				<DropdownMenuItem onClick={() => setTheme('light')}>
+					Light
+				</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme('dark')}>
+					Dark
+				</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme('system')}>
+					System
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
-};
-
-/**
- * This component returns a nav item.
- *
- * @prop item
- * @returns A nav item
- * @example
- * <NavItem item={{ name: 'Home', url: '/' }} />
- */
-const NavItem: React.FC<NavItemProps> = ({ item, isMounted, index }) => {
-	return (
-		<motion.div
-			variants={variationDown}
-			initial='hidden'
-			animate={isMounted ? 'visible' : 'hidden'}
-			transition={{ delay: index * 0.1, duration: 1, type: 'spring' }}
-			exit='hidden'
-			className={`
-				SiteNav-item
-				p-2
-			`}>
-			<Link
-				className={`transition duration-500 ease-in-out rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 text-center`}
-				href={`${item.url}`}>
-				{item.name}
-			</Link>
-		</motion.div>
-	);
-};
+}
