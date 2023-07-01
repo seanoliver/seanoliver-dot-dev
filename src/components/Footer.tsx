@@ -9,8 +9,8 @@ export default function Footer() {
 
 	return (
 		<div className='Footer flex flex-row items-center justify-center w-full h-16'>
-			<div className='Footer-item rounded-full'>Sean Oliver</div>
-			<div className='Footer-item'>&nbsp;&copy; {year}</div>
+			<div className='Footer-item text-sm text-muted-foreground'>Sean Oliver</div>
+			<div className='Footer-item text-sm text-muted-foreground'>&nbsp;&copy; {year}</div>
 		</div>
 	);
 }
