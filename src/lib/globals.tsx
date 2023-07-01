@@ -5,6 +5,7 @@ import {
 	FaInstagram as InstagramIcon,
 } from 'react-icons/fa';
 import { Project } from '@/lib/types';
+import { ArrowTopRightIcon, ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export const NAV_ITEMS = [
 	{
@@ -17,11 +18,12 @@ export const NAV_ITEMS = [
 	},
 	{
 		name: 'Experience',
-		url: '#experiences',
+		url: '#experience',
 	},
 	{
 		name: 'Newsletter',
 		url: 'https://newsletter.seanoliver.dev/',
+		icon: <ExternalLinkIcon className='ml-2 mt-1 h-3 w-3 text-muted-foreground' />,
 	},
 ];
 
@@ -94,41 +96,47 @@ export const EXPERIENCES = [
 		company: 'Block, Inc.',
 		logo: '/images/companies/block.png',
 		date: '2021 - 2023',
-		description: 'Led product marketing for Square Staff\'s new communication product, powered by the Crew app.',
+		description:
+			"Led product marketing for Square Staff's new communication product, powered by the Crew app.",
 	},
 	{
 		title: 'Director of Marketing',
 		company: 'Crew',
 		logo: '/images/companies/crew.png',
 		date: '2019 - 2021',
-		description: 'Expanded and directed a marketing team that significantly grew the customer base, launched numerous features, and executed webinars to boost new ARR and renewals.',
+		description:
+			'Expanded and directed a marketing team that significantly grew the customer base, launched numerous features, and executed webinars to boost new ARR and renewals.',
 	},
 	{
 		title: 'Senior Manager, Product Marketing',
 		company: 'Lyft',
 		logo: '/images/companies/lyft.png',
 		date: '2015 - 2019',
-		description: 'Spearheaded product marketing efforts, coordinating with various product and engineering teams, and introduced high-impact features like Scheduled Rides.',
+		description:
+			'Spearheaded product marketing efforts, coordinating with various product and engineering teams, and introduced high-impact features like Scheduled Rides.',
 	},
 	{
 		title: 'Senior Product Marketing Manager',
 		company: 'Optimizely',
 		logo: '/images/companies/optimizely.png',
 		date: '2013 - 2015',
-		description: 'Introduced a framework for product adoption measurement, launched numerous products, and executed successful in-product marketing strategies.',
+		description:
+			'Introduced a framework for product adoption measurement, launched numerous products, and executed successful in-product marketing strategies.',
 	},
 	{
 		title: 'Product Marketing Manager',
 		company: 'LinkedIn',
 		logo: '/images/companies/linkedin.png',
 		date: '2012 - 2013',
-		description: 'Implemented campaigns to activate lapsed users and improve user acquisition, while refining email marketing strategies for higher user engagement.',
+		description:
+			'Implemented campaigns to activate lapsed users and improve user acquisition, while refining email marketing strategies for higher user engagement.',
 	},
 	{
 		title: 'Product Manager',
 		company: 'Microsoft',
 		logo: '/images/companies/microsoft.png',
 		date: '2009 - 2012',
-		description: 'Managed product marketing for Windows Channel & Partner Marketing, significantly increasing sales and consumer impressions across stores.',
+		description:
+			'Managed product marketing for Windows Channel & Partner Marketing, significantly increasing sales and consumer impressions across stores.',
 	},
 ];

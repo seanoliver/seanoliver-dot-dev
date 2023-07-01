@@ -2,7 +2,7 @@
 
 import './globals.css';
 import clsx from 'clsx';
-import Nav from '@/components/navigation';
+import Header from '@/components/Header';
 import { ThemeProvider } from '@/components/theme-provider';
 
 /** Inter Font */
@@ -25,14 +25,17 @@ export default function RootLayout({
 	return (
 		<html
 			lang='en'
-			className={clsx('text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300', inter.className)}>
+			className={clsx(
+				'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300',
+				inter.className
+			)}>
 			<body className={`${inter.className} flex flex-col min-h-screen`}>
 				<ThemeProvider
 					attribute='class'
 					defaultTheme='system'
 					enableSystem>
-					<div className='flex flex-column justify-center items-center'>
-						<Nav className='xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm xs:max-w-xs mx-auto flex flex-col mt-5' />
+					<div className='flex flex-col justify-center items-center xl:w-[700px] lg:w-[600px] md:w-3/4 sm:w-4/5 w-5/6 mx-auto'>
+						<Header className='w-full flex flex-col mt-5' />
 						{children}
 						<Footer />
 					</div>

@@ -1,5 +1,6 @@
 'use client';
 
+import Section from '@/components/Section';
 import Title from '@/components/Title';
 import { CardTag, CardTags } from '@/components/cards';
 import { Badge } from '@/components/ui/badge';
@@ -47,26 +48,37 @@ const myStack = [
  * <About />
  */
 export default function About(): JSX.Element {
-	return (
-		<section id='about' className='mb-80'>
-			<div className='About'>
-				<Title title='About Me' />
-				<div className='flex justify-center gap-8'>
-					<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
-						<Title title='Get to know me!' titleSize='small' />
-						{metadata.longDescription}
-					</div>
-					<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
-						<Title title='My Stack' titleSize='small' />
-							{myStack.map((tag, index) => (
-								<Badge className={`m-1`} variant={'outline'} key={index}>{tag}</Badge>
-							))}
-					</div>
-				</div>
-				<SocialLinks />
-			</div>
-		</section>
-	);
+	return <div>{metadata.longDescription}</div>;
+	// (
+	// 	<Section
+	// 		title='About'
+	// 		className={className}>
+	// 		{metadata.longDescription}
+	// 	</Section>
+	// <section
+	// 	id='about'
+	// 	className={className}>
+	// 	<div>About</div>
+	// 	<div>Some information about me here.</div>
+	// 	{/* <div className='About'>
+	// 		<Title title='About Me' />
+	// 		<div className='flex justify-center gap-8'>
+	// 			<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
+	// 				<Title title='Get to know me!' titleSize='small' />
+	// 				{metadata.longDescription}
+	// 			</div>
+	// 			<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
+	// 				<Title title='My Stack' titleSize='small' />
+	// 					{myStack.map((tag, index) => (
+	// 						<Badge className={`m-1`} variant={'outline'} key={index}>{tag}</Badge>
+	// 					))}
+	// 			</div>
+	// 		</div>
+	// 		<SocialLinks />
+	// 	</div> */}
+	// </section>
+
+	// );
 }
 
 const SocialLinks = (): JSX.Element => {
