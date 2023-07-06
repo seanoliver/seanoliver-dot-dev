@@ -1,10 +1,7 @@
 'use client';
 
-import Section from '@/components/Section';
-import Title from '@/components/Title';
-import { CardTag, CardTags } from '@/components/cards';
-import { Badge } from '@/components/ui/badge';
 import { SOCIAL_LINKS } from '@/lib/globals';
+import Link from 'next/link';
 
 /** About me metadata */
 const metadata = {
@@ -42,13 +39,78 @@ const myStack = [
 ];
 
 /**
+ * Custom link component for use on about page
+ * Extends Next.js Link component
+ * @param href - Link href
+ * @param children - Link children
+ * @returns Custom link component
+ */
+const AboutLink = ({
+	href,
+	children,
+}: {
+	href: string;
+	children: React.ReactNode;
+}): JSX.Element => {
+	return (
+		<Link
+			href={href}
+			className='font-medium text-primary underline underline-offset-4'
+			target='_blank'>
+			{children}
+		</Link>
+	);
+};
+
+/**
  * About me page
  * @returns About me page
  * @example
  * <About />
  */
 export default function About(): JSX.Element {
-	return <div>{metadata.longDescription}</div>;
+	return (
+		<div className='About'>
+			<p className='leading-7 [&:not(:first-child)]:mt-6'>
+				I’m a software engineer and former product marketer who loves building
+				and growing technology products that delight users. I have 13 years of
+				experience at leading companies like{' '}
+				<AboutLink href='https://www.microsoft.com/'>Microsoft</AboutLink>,{' '}
+				<AboutLink href='https://www.linkedin.com/'>LinkedIn</AboutLink>,{' '}
+				<AboutLink href='https://www.lyft.com/'>Lyft</AboutLink>, and{' '}
+				<AboutLink href='https://www.block.xyz/'>Block</AboutLink>.
+			</p>
+			<p className='leading-7 [&:not(:first-child)]:mt-6'>
+				My background in marketing and growth has taught me that the best
+				marketing is a product that prioritizes users’ needs above all else and
+				then meets those needs in ways that feel natural and effortless.
+			</p>
+			<p className='leading-7 [&:not(:first-child)]:mt-6'>
+				In 2023, I traded my full-time job in marketing for a seat at{' '}
+				<AboutLink href='https://rithmschool.com'>Rithm School</AboutLink>, a
+				16-week software engineering bootcamp that taught me how to program—not
+				how to code. In addition to{' '}
+				<AboutLink href='https://www.typescriptlang.org/'>TypeScript</AboutLink>{' '}
+				and <AboutLink href='https://www.python.org/'>Python</AboutLink>, it
+				taught me how to create strategically and how to evaluate technical
+				tradeoffs.
+			</p>
+			<p className='leading-7 [&:not(:first-child)]:mt-6'>
+				I have a{' '}
+				<AboutLink href='https://newsletter.seanoliver.dev/'>
+					newsletter
+				</AboutLink>
+				where I write about programming, productivity, personal knowledge
+				management.
+			</p>
+			<p className='leading-7 [&:not(:first-child)]:mt-6'>
+				I live in San Francisco, CA with my amazing wife, two children, and our
+				3.5 lbs dog named Pixel (no relation to the phone). I love productivity
+				tools and systems, personal knowledge management, artificial
+				intelligence, tennis, and casual mobile games.
+			</p>
+		</div>
+	);
 	// (
 	// 	<Section
 	// 		title='About'
