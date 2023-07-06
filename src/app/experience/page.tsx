@@ -29,12 +29,12 @@ export default function Experience(): JSX.Element {
 								<CardDescription>{experience.title}</CardDescription>
 							</div>
 						</div>
-						<div>
+						<div className='hidden md:block'>
 							<Badge variant='secondary'>{experience.date}</Badge>
 						</div>
 					</CardHeader>
 					<CardContent>
-						<CardDescription>{experience.description}</CardDescription>
+						<CardDescription className='leading-7'>{experience.description}</CardDescription>
 					</CardContent>
 				</Card>
 			))}
