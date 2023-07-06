@@ -5,7 +5,7 @@ import {
 	FaInstagram as InstagramIcon,
 } from 'react-icons/fa';
 import { Project } from '@/lib/types';
-import { ArrowTopRightIcon, ExternalLinkIcon } from '@radix-ui/react-icons';
+import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export const NAV_ITEMS = [
 	{
@@ -54,39 +54,44 @@ export const PROJECTS: Project[] = [
 	{
 		name: 'SeanOliver.dev',
 		url: 'https://seanoliver.dev',
+		github: 'https://github.com/seanoliver/seanoliver-dot-dev',
 		description: 'My personal website built with Next.js and Tailwind CSS.',
-		image: '/images/projects/seanoliver.dev.png',
-		tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript'],
+		image: '/projects/sodev.png',
+		tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Vercel'],
 	},
 	{
 		name: 'Sharebnb',
 		url: 'https://sharebnb.vercel.app',
+		github: 'https://github.com/seanoliver/sharebnb-backend',
 		description:
 			'A clone of Airbnb for sharing remarkable outdoor spaces. Express backend with Next.js and React on the frontend.',
-		image: '/images/projects/sharebnb.png',
+		image: 'https://placehold.co/700x300',
 		tags: ['Next.js', 'React', 'Express', 'JavaScript', 'AWS', 'PostgreSQL'],
 	},
 	{
 		name: 'Warbler',
 		url: 'https://warbler.vercel.app',
+		github: 'https://github.com/seanoliver/warbler',
 		description: 'A Twitter clone built with Flask.',
-		image: '/images/projects/warbler.png',
+		image: 'https://placehold.co/700x300',
 		tags: ['Flask', 'PostgreSQL', 'JavaScript'],
 	},
 	{
 		name: 'Jobly',
 		url: 'https://jobly.vercel.app',
+		github: 'https://github.com/seanoliver/react-jobly',
 		description: 'A job board built with React and Express.',
-		image: '/images/projects/jobly.png',
+		image: 'https://placehold.co/700x300',
 		tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
 	},
 	{
-		name: 'TheraGPT v1',
+		name: 'TheraGPT',
 		url: 'https://theragpt.ai',
+		github: 'https://github.com/seanoliver/thera-gpt',
 		description:
-			"A web app using OpenAI's GPT-3 to help people reframe negative thoughts.",
-		image: '/images/projects/theragpt.png',
-		tags: ['Flask', 'OpenAI', 'JavaScript'],
+			"A web app using OpenAI's Chat Completions API to help people reframe negative thoughts.",
+		image: '/projects/theragpt.png',
+		tags: ['Flask', 'OpenAI', 'JavaScript', 'Python'],
 	},
 ];
 
@@ -94,7 +99,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Senior Product Marketing Manager',
 		company: 'Block, Inc.',
-		logo: '/images/companies/block.png',
+		logo: '/logos/block.png',
 		date: '2021 - 2023',
 		description:
 			"Led product marketing for Square Staff's new communication product, powered by the Crew app.",
@@ -102,7 +107,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Director of Marketing',
 		company: 'Crew',
-		logo: '/images/companies/crew.png',
+		logo: '/logos/crew.png',
 		date: '2019 - 2021',
 		description:
 			'Expanded and directed a marketing team that significantly grew the customer base, launched numerous features, and executed webinars to boost new ARR and renewals.',
@@ -110,7 +115,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Senior Manager, Product Marketing',
 		company: 'Lyft',
-		logo: '/images/companies/lyft.png',
+		logo: '/logos/lyft.png',
 		date: '2015 - 2019',
 		description:
 			'Spearheaded product marketing efforts, coordinating with various product and engineering teams, and introduced high-impact features like Scheduled Rides.',
@@ -118,7 +123,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Senior Product Marketing Manager',
 		company: 'Optimizely',
-		logo: '/images/companies/optimizely.png',
+		logo: '/logos/optimizely.png',
 		date: '2013 - 2015',
 		description:
 			'Introduced a framework for product adoption measurement, launched numerous products, and executed successful in-product marketing strategies.',
@@ -126,7 +131,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Product Marketing Manager',
 		company: 'LinkedIn',
-		logo: '/images/companies/linkedin.png',
+		logo: '/logos/linkedin.webp',
 		date: '2012 - 2013',
 		description:
 			'Implemented campaigns to activate lapsed users and improve user acquisition, while refining email marketing strategies for higher user engagement.',
@@ -134,7 +139,7 @@ export const EXPERIENCES = [
 	{
 		title: 'Product Manager',
 		company: 'Microsoft',
-		logo: '/images/companies/microsoft.png',
+		logo: '/logos/microsoft.png',
 		date: '2009 - 2012',
 		description:
 			'Managed product marketing for Windows Channel & Partner Marketing, significantly increasing sales and consumer impressions across stores.',

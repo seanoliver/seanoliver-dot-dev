@@ -17,11 +17,11 @@ export default function Experience(): JSX.Element {
 			{EXPERIENCES.map((experience, index) => (
 				<Card
 					key={index}
-					className='mb-4 rounded-sm'>
+					className='mb-4 rounded-md hover:transition-shadow hover:shadow-lg'>
 					<CardHeader className='flex flex-row justify-between'>
 						<div className='flex items-center gap-4'>
 							<Avatar>
-								<AvatarImage src={''} />
+								<AvatarImage src={experience.logo} />
 								<AvatarFallback>{experience.company[0]}</AvatarFallback>
 							</Avatar>
 							<div>
