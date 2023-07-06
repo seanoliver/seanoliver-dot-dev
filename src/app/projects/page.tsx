@@ -14,8 +14,10 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Projects(): JSX.Element {
 	return (
@@ -23,23 +25,28 @@ export default function Projects(): JSX.Element {
 			{PROJECTS.map((project, index) => (
 				<Card
 					key={`${project.name}-${index}`}
-					className='mb-4 rounded-sm'>
+					className='mb-4 rounded-md hover:transition-shadow hover:shadow-lg'>
 					<CardHeader>
 						<CardTitle className='flex items-center'>
-							{project.name} <GitHubLogoIcon className='ml-2 w-4 h-4' /> <ExternalLinkIcon className='ml-2 w-4 h-4' />
+							{project.name}{' '}
+							<Button variant='link' className='pl-2 pr-1' asChild>
+								<Link href={project.github} target='_blank'><GitHubLogoIcon /></Link>
+							</Button>{' '}
+							<Button variant='link' className='px-1' asChild>
+								<Link href={project.url} target='_blank'><ExternalLinkIcon /></Link>
+							</Button>
 						</CardTitle>
 						<CardDescription>{project.description}</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<AspectRatio ratio={7 / 3}>
 							<Image
-								src='https://placehold.co/700x300'
-								alt='placeholder'
-								className='object-cover rounded-sm'
+								src={project.image}
+								alt={project.name}
+								className='object-cover rounded-lg'
 								width={700}
 								height={300}
 							/>
-							{/* <img src={project.image} alt={project.name} /> */}
 						</AspectRatio>
 					</CardContent>
 					{/* <Separator className='mb-6' /> */}

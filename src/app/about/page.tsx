@@ -100,7 +100,7 @@ export default function About(): JSX.Element {
 				<AboutLink href='https://newsletter.seanoliver.dev/'>
 					newsletter
 				</AboutLink>
-				where I write about programming, productivity, personal knowledge
+				{' '}where I write about programming, productivity, personal knowledge
 				management.
 			</p>
 			<p className='leading-7 [&:not(:first-child)]:mt-6'>
