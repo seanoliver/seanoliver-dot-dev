@@ -2,6 +2,7 @@
 
 import { NAV_ITEMS } from '@/lib/globals';
 import Link from 'next/link';
+import { Link as ScrollLink } from 'react-scroll';
 import { usePathname } from 'next/navigation';
 import { Separator } from './ui/separator';
 import * as React from 'react';
@@ -49,22 +50,14 @@ export default function Header({
 					<NavigationMenu>
 						<NavigationMenuList className='md:flex hidden'>
 							{NAV_ITEMS.map((item, idx) => (
-								<NavigationMenuItem key={`${item.name}-${idx}`}>
-									<Link
-										href={item.url}
-										className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground ${
-											pathname === item.url ? 'bg-secondary' : ''
-										}`}>
-										{item.name}
-										{item.icon && item.icon}
-									</Link>
-									{idx < NAV_ITEMS.length - 1 && (
-										<Separator
-											className='mx-2'
-											orientation='vertical'
-										/>
-									)}
-								</NavigationMenuItem>
+								<SmartNavItem
+									key={`${item.name}-${idx}`}
+									name={item.name}
+									url={item.url}
+									icon={item.icon}
+									scroll={item.icon ? false : true}
+									separator={idx < NAV_ITEMS.length - 1}
+								/>
 							))}
 						</NavigationMenuList>
 					</NavigationMenu>
@@ -77,6 +70,50 @@ export default function Header({
 		</div>
 	);
 }
+
+const SmartNavItem = ({
+	name,
+	url,
+	icon,
+	scroll,
+	separator,
+}: {
+	name: string;
+	url: string;
+	icon?: JSX.Element;
+	scroll?: boolean;
+	separator?: boolean;
+}): JSX.Element => {
+	return (
+		<NavigationMenuItem>
+			{scroll ? (
+				<ScrollLink
+					to={name.toLowerCase()}
+					spy={true}
+					smooth={'easeInOutCubic'}
+					duration={500}
+					offset={-100}
+					className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground`}>
+					{name}
+					{icon && icon}
+				</ScrollLink>
+			) : (
+				<Link
+					href={url}
+					className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground`}>
+					{name}
+					{icon && icon}
+				</Link>
+			)}
+			{separator && (
+				<Separator
+					className='mx-2'
+					orientation='vertical'
+				/>
+			)}
+		</NavigationMenuItem>
+	);
+};
 
 const ModeToggle = () => {
 	const { setTheme } = useTheme();
@@ -126,15 +163,11 @@ const HamburgerMenu = () => {
 					<DropdownMenuItem key={`${item.name}-${idx}`}>
 						<Link
 							href={item.url}
-							className={`flex ${
-								pathname === item.url ? 'bg-secondary' : ''
-							}`}>
+							className={`flex ${pathname === item.url ? 'bg-secondary' : ''}`}>
 							{item.name}
 							{item.icon && item.icon}
 						</Link>
-						{idx === NAV_ITEMS.length - 2 && (
-							<DropdownMenuSeparator />
-						)}
+						{idx === NAV_ITEMS.length - 2 && <DropdownMenuSeparator />}
 					</DropdownMenuItem>
 				))}
 			</DropdownMenuContent>

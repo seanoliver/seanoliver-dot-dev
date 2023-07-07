@@ -3,7 +3,6 @@
 import Section from '@/components/Section';
 import About from './about/page';
 import Projects from './projects/page';
-import { Separator } from '@/components/ui/separator';
 import Experience from './experience/page';
 
 export default function Home(): JSX.Element {
