@@ -71,46 +71,82 @@ export default function Header({
 	);
 }
 
+const CommonElements = ({
+	name,
+	icon,
+	scroll,
+	url,
+	separator,
+}: {
+	name: string;
+	icon?: React.ReactNode;
+	scroll: boolean;
+	url: string;
+	separator: boolean;
+}): JSX.Element => (
+	<>
+		{scroll ? (
+			<ScrollLink
+				to={name.toLowerCase()}
+				spy={true}
+				smooth={'easeInOutQuint'}
+				duration={1000}
+				offset={-100}
+				className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer`}>
+				{name}
+				{icon && icon}
+			</ScrollLink>
+		) : (
+			<Link
+				href={url}
+				className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer`}>
+				{name}
+				{icon && icon}
+			</Link>
+		)}
+		{separator && (
+			<Separator
+				className='mx-2'
+				orientation='vertical'
+			/>
+		)}
+	</>
+);
+
 const SmartNavItem = ({
 	name,
 	url,
 	icon,
 	scroll,
 	separator,
+	dropdown,
 }: {
 	name: string;
 	url: string;
-	icon?: JSX.Element;
-	scroll?: boolean;
-	separator?: boolean;
+	icon?: React.ReactNode;
+	scroll: boolean;
+	separator: boolean;
+	dropdown?: boolean;
 }): JSX.Element => {
-	return (
+	return dropdown ? (
+		<DropdownMenuItem>
+			<CommonElements
+				name={name}
+				icon={icon}
+				scroll={scroll}
+				url={url}
+				separator={separator}
+			/>
+		</DropdownMenuItem>
+	) : (
 		<NavigationMenuItem>
-			{scroll ? (
-				<ScrollLink
-					to={name.toLowerCase()}
-					spy={true}
-					smooth={'easeInOutCubic'}
-					duration={500}
-					offset={-100}
-					className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground`}>
-					{name}
-					{icon && icon}
-				</ScrollLink>
-			) : (
-				<Link
-					href={url}
-					className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground`}>
-					{name}
-					{icon && icon}
-				</Link>
-			)}
-			{separator && (
-				<Separator
-					className='mx-2'
-					orientation='vertical'
-				/>
-			)}
+			<CommonElements
+				name={name}
+				icon={icon}
+				scroll={scroll}
+				url={url}
+				separator={separator}
+			/>
 		</NavigationMenuItem>
 	);
 };
@@ -145,8 +181,6 @@ const ModeToggle = () => {
 };
 
 const HamburgerMenu = () => {
-	const pathname = usePathname();
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -161,13 +195,14 @@ const HamburgerMenu = () => {
 			<DropdownMenuContent align='end'>
 				{NAV_ITEMS.map((item, idx) => (
 					<DropdownMenuItem key={`${item.name}-${idx}`}>
-						<Link
-							href={item.url}
-							className={`flex ${pathname === item.url ? 'bg-secondary' : ''}`}>
-							{item.name}
-							{item.icon && item.icon}
-						</Link>
-						{idx === NAV_ITEMS.length - 2 && <DropdownMenuSeparator />}
+						<SmartNavItem
+							key={`${item.name}-${idx}`}
+							name={item.name}
+							url={item.url}
+							icon={item.icon}
+							scroll={item.icon ? false : true}
+							separator={idx === NAV_ITEMS.length - 2}
+						/>
 					</DropdownMenuItem>
 				))}
 			</DropdownMenuContent>

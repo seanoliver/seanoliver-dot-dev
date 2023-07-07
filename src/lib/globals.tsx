@@ -70,10 +70,10 @@ export const PROJECTS: Project[] = [
 	},
 	{
 		name: 'Warbler',
-		url: 'https://warbler.vercel.app',
+		url: 'https://sean-warbler.onrender.com/',
 		github: 'https://github.com/seanoliver/warbler',
 		description: 'A Twitter clone built with Flask.',
-		image: 'https://placehold.co/700x300',
+		image: '/projects/warbler.png',
 		tags: ['Flask', 'PostgreSQL', 'JavaScript'],
 	},
 	{
