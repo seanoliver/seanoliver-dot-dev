@@ -178,6 +178,7 @@ Here are some of other amazing minimalist portfolio sites that inspired this pro
 - [Lee Robinson](https://leerob.io/)
 - [Pedro Duarte](https://ped.ro/)
 - [Jahir Fiquitiva](https://jahir.dev/)
+- [shadcn](https://shadcn.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
