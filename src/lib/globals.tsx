@@ -52,6 +52,14 @@ export const SOCIAL_LINKS = [
 
 export const PROJECTS: Project[] = [
 	{
+		name: 'Smol Menubar',
+		url: 'https://github.com/smol-ai/menubar',
+		github: 'https://github.com/smol-ai/menubar',
+		description: 'A menubar with Zero latency access to ChatGPT, Bard, Bing Chat, and Claude. I joined the Smol team out of a passion for LLMs and tools like this. Modularized chat providers and continue to maintain the project alongside Swyx.',
+		image: '/projects/smolmenubar.png',
+		tags: ['JavaScript', 'Electron', 'CSS', 'ChatGPT', 'Bard', 'Bing Chat', 'Claude'],
+	},
+	{
 		name: 'SeanOliver.dev',
 		url: 'https://seanoliver.dev',
 		github: 'https://github.com/seanoliver/seanoliver-dot-dev',
