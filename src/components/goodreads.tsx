@@ -12,12 +12,12 @@ export default function Goodreads(): JSX.Element {
 					hit it.
 				</p>
 				<br />
-				<p>Here are the 30 I&apos;ve most recently read:</p>
+				<p>Here are the 30 I&apos;ve read most recently:</p>
 				<br />
 				<GoodreadsBookshelf
 					userId='26616336'
 					limit={30}
-					width={50}
+					width={30}
                     displayOptions={{
                         hideBackgroundImages: undefined,
                         hideDetails: {
