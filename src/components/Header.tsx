@@ -3,7 +3,6 @@
 import { NAV_ITEMS } from '@/lib/globals';
 import Link from 'next/link';
 import { Link as ScrollLink } from 'react-scroll';
-import { usePathname } from 'next/navigation';
 import { Separator } from './ui/separator';
 import * as React from 'react';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
@@ -14,18 +13,12 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
 	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuIndicator,
 	NavigationMenuItem,
-	NavigationMenuLink,
 	NavigationMenuList,
-	NavigationMenuTrigger,
-	NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 
@@ -34,7 +27,6 @@ export default function Header({
 }: {
 	className: string;
 }): JSX.Element {
-	const pathname = usePathname();
 
 	return (
 		<div className={className}>
