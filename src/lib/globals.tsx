@@ -1,11 +1,5 @@
-import {
-	FaTwitter as TwitterIcon,
-	FaGithub as GitHubIcon,
-	FaLinkedin as LinkedInIcon,
-	FaInstagram as InstagramIcon,
-} from 'react-icons/fa';
+import {GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon, InstagramLogoIcon, ArrowTopRightIcon } from '@radix-ui/react-icons';
 import { Project } from '@/lib/types';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export const NAV_ITEMS = [
 	{
@@ -23,7 +17,7 @@ export const NAV_ITEMS = [
 	{
 		name: 'Newsletter',
 		url: 'https://newsletter.seanoliver.dev/',
-		icon: <ExternalLinkIcon className='ml-2 mt-1 h-3 w-3 text-muted-foreground' />,
+		icon: <ArrowTopRightIcon className='ml-1 mt-1 inline w-4 h-4' />,
 	},
 ];
 
@@ -31,22 +25,22 @@ export const SOCIAL_LINKS = [
 	{
 		name: 'Twitter',
 		url: 'https://twitter.com/SeanOliver',
-		icon: <TwitterIcon />,
+		icon: <TwitterLogoIcon />,
 	},
 	{
 		name: 'GitHub',
 		url: 'https://github.com/SeanOliver',
-		icon: <GitHubIcon />,
+		icon: <GitHubLogoIcon />,
 	},
 	{
 		name: 'LinkedIn',
 		url: 'https://www.linkedin.com/in/theseanoliver/',
-		icon: <LinkedInIcon />,
+		icon: <LinkedInLogoIcon />,
 	},
 	{
 		name: 'Instagram',
 		url: 'https://www.instagram.com/theseanoliver/',
-		icon: <InstagramIcon />,
+		icon: <InstagramLogoIcon />,
 	},
 ];
 
