@@ -61,15 +61,15 @@ export const PROJECTS: Project[] = [
 		image: '/projects/sodev.png',
 		tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Vercel'],
 	},
-	{
-		name: 'Sharebnb',
-		url: 'https://sharebnb.vercel.app',
-		github: 'https://github.com/seanoliver/sharebnb-backend',
-		description:
-			'A clone of Airbnb for sharing remarkable outdoor spaces. Express backend with Next.js and React on the frontend.',
-		image: 'https://placehold.co/700x300',
-		tags: ['Next.js', 'React', 'Express', 'JavaScript', 'AWS', 'PostgreSQL'],
-	},
+	// {
+	// 	name: 'Sharebnb',
+	// 	url: 'https://sharebnb.vercel.app',
+	// 	github: 'https://github.com/seanoliver/sharebnb-backend',
+	// 	description:
+	// 		'A clone of Airbnb for sharing remarkable outdoor spaces. Express backend with Next.js and React on the frontend.',
+	// 	image: 'https://placehold.co/700x300',
+	// 	tags: ['Next.js', 'React', 'Express', 'JavaScript', 'AWS', 'PostgreSQL'],
+	// },
 	{
 		name: 'Warbler',
 		url: 'https://sean-warbler.onrender.com/',
@@ -78,14 +78,14 @@ export const PROJECTS: Project[] = [
 		image: '/projects/warbler.png',
 		tags: ['Flask', 'PostgreSQL', 'JavaScript'],
 	},
-	{
-		name: 'Jobly',
-		url: 'https://jobly.vercel.app',
-		github: 'https://github.com/seanoliver/react-jobly',
-		description: 'A job board built with React and Express.',
-		image: 'https://placehold.co/700x300',
-		tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
-	},
+	// {
+	// 	name: 'Jobly',
+	// 	url: 'https://jobly.vercel.app',
+	// 	github: 'https://github.com/seanoliver/react-jobly',
+	// 	description: 'A job board built with React and Express.',
+	// 	image: 'https://placehold.co/700x300',
+	// 	tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
+	// },
 	{
 		name: 'TheraGPT',
 		url: 'https://theragpt.ai',
