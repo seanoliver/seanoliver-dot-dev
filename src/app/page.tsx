@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
 			<Section title='Experience'>
 				<Experience />
 			</Section>
-			<Section title='Goodreads'>
+			<Section title='Reading'>
 				<Goodreads />
 			</Section>
 		</>
