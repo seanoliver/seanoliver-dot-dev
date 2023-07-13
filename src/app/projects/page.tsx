@@ -1,7 +1,6 @@
 'use client';
 
 import { PROJECTS } from '@/lib/globals';
-import ProjectCard from './ProjectCard';
 import {
 	Card,
 	CardContent,
