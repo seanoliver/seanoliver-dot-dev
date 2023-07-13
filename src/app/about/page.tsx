@@ -55,7 +55,7 @@ const AboutLink = ({
 	return (
 		<Link
 			href={href}
-			className='font-medium text-primary underline underline-offset-4'
+			className='font-medium text-primary underline underline-offset-4 hover:no-underline'
 			target='_blank'>
 			{children}
 		</Link>
