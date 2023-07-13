@@ -1,10 +1,8 @@
-import Title from '@/components/Title';
 import { EXPERIENCES } from '@/lib/globals';
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
