@@ -91,7 +91,7 @@ export const PROJECTS: Project[] = [
 		url: 'https://theragpt.ai',
 		github: 'https://github.com/seanoliver/thera-gpt',
 		description:
-			"A web app using OpenAI's Chat Completions API to help people reframe negative thoughts.",
+			'A web app using OpenAI\'s Chat Completions API to help people reframe negative thoughts.',
 		image: '/projects/theragpt.png',
 		tags: ['Flask', 'OpenAI', 'JavaScript', 'Python'],
 	},
@@ -104,7 +104,7 @@ export const EXPERIENCES = [
 		logo: '/logos/block.png',
 		date: '2021 - 2023',
 		description:
-			"Led product marketing for Square Staff's new communication product, powered by the Crew app.",
+			'Led product marketing for Square Staff\'s new communication product, powered by the Crew app.',
 	},
 	{
 		title: 'Director of Marketing',
