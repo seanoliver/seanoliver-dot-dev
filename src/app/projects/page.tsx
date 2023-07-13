@@ -11,7 +11,6 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/button';
@@ -36,7 +35,7 @@ export default function Projects(): JSX.Element {
 								<Link href={project.url} target='_blank'><ExternalLinkIcon /></Link>
 							</Button>
 						</CardTitle>
-						<CardDescription>{project.description}</CardDescription>
+						<CardDescription className='leading-7'>{project.description}</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<AspectRatio ratio={7 / 3}>
