@@ -32,34 +32,3 @@ export default function Goodreads(): JSX.Element {
 		</>
 	);
 }
-
-/**
- *
-    GoodreadsBookshelf Schema: https://kylekarpack.github.io/react-goodreads-shelf/?path=/docs/react-goodreads-shelf--documentation
-
-<GoodreadsBookshelf
-    displayOptions={{
-        hideBackgroundImages: undefined,
-        hideDetails: {
-            author: true,
-            rating: true,
-            subtitle: true,
-            title: true
-        }
-    }}
-    hideDetails={[
-        'title',
-        'subtitle',
-        'author',
-        'rating'
-    ]}
-    limit={20}
-    order="d"
-    search=""
-    shelf="read"
-    sort="date_read"
-    userId="63515611"
-    width={100}
-/>
-
- */
