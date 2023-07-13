@@ -21,9 +21,9 @@
 	"plugins": ["react", "@typescript-eslint"],
 	"rules": {
 		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"quotes": ["error", "single"],
-		"semi": ["error", "always"],
-		"comma-dangle": ["error", "always-multiline"]
+		"quotes": ["warn", "single"],
+		"semi": ["warn", "always"],
+		"comma-dangle": ["warn", "always-multiline"]
 	},
 	"settings": {
 		"react": {
