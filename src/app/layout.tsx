@@ -4,6 +4,7 @@ import './globals.css';
 import clsx from 'clsx';
 import Header from '@/components/Header';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Analytics } from '@vercel/analytics/react';
 
 /** Inter Font */
 
@@ -40,6 +41,7 @@ export default function RootLayout({
 						<Footer />
 					</div>
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
