@@ -84,14 +84,14 @@ const CommonElements = ({
 				smooth={'easeInOutQuint'}
 				duration={1000}
 				offset={-100}
-				className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer`}>
+				className={`flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer`}>
 				{name}
 				{icon && icon}
 			</ScrollLink>
 		) : (
 			<Link
 				href={url}
-				className={`flex py-2 px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer`}>
+				className={`flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer`}>
 				{name}
 				{icon && icon}
 			</Link>
@@ -192,6 +192,7 @@ const HamburgerMenu = () => {
 							name={item.name}
 							url={item.url}
 							icon={item.icon}
+							dropdown={true}
 							scroll={item.icon ? false : true}
 							separator={idx === NAV_ITEMS.length - 2}
 						/>
