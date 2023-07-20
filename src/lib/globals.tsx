@@ -99,6 +99,14 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCES = [
 	{
+		title: 'Software Engineer',
+		company: 'Smol AI',
+		logo: '/logos/smol.png',
+		date: '2023 - Present',
+		description:
+			'Building tools to help developers and enthusiasts leverage AI to be more creative, productive, and effective.',
+	},
+	{
 		title: 'Senior Product Marketing Manager',
 		company: 'Block, Inc.',
 		logo: '/logos/block.png',
