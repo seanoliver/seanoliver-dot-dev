@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Header from '@/components/Header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Analytics } from '@vercel/analytics/react';
+import Head from 'next/head';
 
 /** Inter Font */
 
@@ -30,6 +31,10 @@ export default function RootLayout({
 				'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300',
 				inter.className
 			)}>
+			<Head>
+				<title>Sean Oliver</title>
+				<meta property="og:title" content="Sean Oliver" key="title" />
+			</Head>
 			<body className={`${inter.className} flex flex-col min-h-screen`}>
 				<ThemeProvider
 					attribute='class'
