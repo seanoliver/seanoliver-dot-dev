@@ -71,6 +71,14 @@ export const PROJECTS: Project[] = [
 	// 	tags: ['Next.js', 'React', 'Express', 'JavaScript', 'AWS', 'PostgreSQL'],
 	// },
 	{
+		name: 'Jobly',
+		url: 'https://jobly.seanoliver.dev',
+		github: 'https://github.com/seanoliver/react-jobly',
+		description: 'A job board built with React and Express.',
+		image: '/projects/jobly.png',
+		tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
+	},
+	{
 		name: 'Warbler',
 		url: 'https://sean-warbler.onrender.com/',
 		github: 'https://github.com/seanoliver/warbler',
@@ -78,14 +86,6 @@ export const PROJECTS: Project[] = [
 		image: '/projects/warbler.png',
 		tags: ['Flask', 'PostgreSQL', 'JavaScript'],
 	},
-	// {
-	// 	name: 'Jobly',
-	// 	url: 'https://jobly.vercel.app',
-	// 	github: 'https://github.com/seanoliver/react-jobly',
-	// 	description: 'A job board built with React and Express.',
-	// 	image: 'https://placehold.co/700x300',
-	// 	tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
-	// },
 	{
 		name: 'TheraGPT',
 		url: 'https://theragpt.ai',
