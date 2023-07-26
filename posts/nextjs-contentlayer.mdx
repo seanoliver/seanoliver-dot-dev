@@ -1,0 +1,102 @@
+---
+title: Setting up a Next.js Blog with Contentlayer
+date: 2023-07-24
+isPublished: false
+---
+
+[Contentlayer](https://www.Contentlayer.dev/) is a content SDK that makes it easy to import content from Markdown and MDX into your Next.js app.
+
+A few reasons why I love it:
+
+- It's fully typesafe and TypeScript-first
+- Supports live reload of content changes in development
+- [Treats content as data](https://www.contentlayer.dev/docs/concepts/content-modeling-dc68721f), so you can use it in your app however you want
+- Supports both Markdown and [MDX](https://www.contentlayer.dev/docs/sources/files/mdx-d747e46d) with frontmatter
+
+Contentlayer was created by [Prisma](https://www.prisma.io/) co-founder [Johannes Schickling](https://www.schickling.dev/), but due to [issues](https://www.stackbit.com/blog/stackbit-joins-netlify) outside of his control, Johannes has had to [scale back his time spent maintaining](https://github.com/contentlayerdev/contentlayer/issues/429) the project.
+
+As a result, there are some unresolved issues and a few things can be a little tricky to figure out. I think it's still a great project, so I wanted to write this guide to help others get started with it based on what I've learned.
+
+## Getting Started
+
+Let's assume you already have an existing Next.js app. If not, you can create one with the following command:
+
+```bash
+npx create-next-app@latest
+cd my-contentlayer-app
+```
+
+Next, install Contentlayer, `next-contentlayer`, and `date-fns`, a helper package for dealing with dates:
+
+```bash
+npm install contentlayer next-contentlayer date-fns
+```
+
+Next, create a `contentlayer.config.ts` file in the root of your project with the following contents:
+
+```tsx
+import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import remarkGfm from 'remark-gfm';
+import rehypePrettyCode from 'rehype-pretty-code';
+
+const Post = defineDocumentType(() => ({
+	name: 'Post',
+	filePathPattern: `**/*.mdx`,
+	contentType: 'mdx',
+	fields: {
+		title: {
+			type: 'string',
+			description: 'The title of the post',
+			required: true,
+		},
+		date: {
+			type: 'date',
+			description: 'The date of the post',
+			required: true,
+		},
+		isPublished: {
+			type: 'boolean',
+			description: 'Whether the post is published',
+			required: true,
+		},
+	},
+	computedFields: {
+		url: {
+			type: 'string',
+			resolve: doc => `/${doc._raw.flattenedPath}`,
+		},
+		slug: {
+			type: 'string',
+			resolve: doc => doc._raw.flattenedPath,
+		},
+		author: {
+			type: 'string',
+			resolve: () => 'Sean Oliver',
+		},
+	},
+}));
+
+/** @type {import('rehype-pretty-code').Options} */
+const options = {
+	theme: 'nord',
+};
+
+export default makeSource({
+	contentDirPath: 'posts',
+	documentTypes: [Post],
+	mdx: {
+		remarkPlugins: [remarkGfm],
+		rehypePlugins: [[rehypePrettyCode, options]],
+	},
+});
+```
+
+
+``` python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+```
