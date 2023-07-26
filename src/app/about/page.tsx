@@ -1,7 +1,7 @@
 'use client';
 
 // import { SOCIAL_LINKS } from '@/lib/globals';
-import Link from 'next/link';
+import { UnderLink } from '@/components/under-link';
 
 /** About me metadata */
 // const metadata = {
@@ -38,29 +38,6 @@ import Link from 'next/link';
 // 	'GitHub',
 // ];
 
-/**
- * Custom link component for use on about page
- * Extends Next.js Link component
- * @param href - Link href
- * @param children - Link children
- * @returns Custom link component
- */
-const AboutLink = ({
-	href,
-	children,
-}: {
-	href: string;
-	children: React.ReactNode;
-}): JSX.Element => {
-	return (
-		<Link
-			href={href}
-			className='font-medium text-primary underline underline-offset-4 hover:no-underline'
-			target='_blank'>
-			{children}
-		</Link>
-	);
-};
 
 /**
  * About me page
@@ -75,10 +52,10 @@ export default function About(): JSX.Element {
 				I’m a software engineer and former product marketer who loves building
 				and growing technology products that delight users. I have 13 years of
 				experience at leading companies like{' '}
-				<AboutLink href='https://www.microsoft.com/'>Microsoft</AboutLink>,{' '}
-				<AboutLink href='https://www.linkedin.com/'>LinkedIn</AboutLink>,{' '}
-				<AboutLink href='https://www.lyft.com/'>Lyft</AboutLink>, and{' '}
-				<AboutLink href='https://www.block.xyz/'>Block</AboutLink>.
+				<UnderLink href='https://www.microsoft.com/'>Microsoft</UnderLink>,{' '}
+				<UnderLink href='https://www.linkedin.com/'>LinkedIn</UnderLink>,{' '}
+				<UnderLink href='https://www.lyft.com/'>Lyft</UnderLink>, and{' '}
+				<UnderLink href='https://www.block.xyz/'>Block</UnderLink>.
 			</p>
 			<p className='leading-7 [&:not(:first-child)]:mt-6'>
 				My background in marketing and growth has taught me that the best
@@ -87,19 +64,19 @@ export default function About(): JSX.Element {
 			</p>
 			<p className='leading-7 [&:not(:first-child)]:mt-6'>
 				In 2023, I traded my full-time job in marketing for a seat at{' '}
-				<AboutLink href='https://rithmschool.com'>Rithm School</AboutLink>, a
+				<UnderLink href='https://rithmschool.com'>Rithm School</UnderLink>, a
 				16-week software engineering bootcamp that taught me how to program—not
 				how to code. In addition to{' '}
-				<AboutLink href='https://www.typescriptlang.org/'>TypeScript</AboutLink>{' '}
-				and <AboutLink href='https://www.python.org/'>Python</AboutLink>, it
+				<UnderLink href='https://www.typescriptlang.org/'>TypeScript</UnderLink>{' '}
+				and <UnderLink href='https://www.python.org/'>Python</UnderLink>, it
 				taught me how to create strategically and how to evaluate technical
 				tradeoffs.
 			</p>
 			<p className='leading-7 [&:not(:first-child)]:mt-6'>
 				I have a{' '}
-				<AboutLink href='https://newsletter.seanoliver.dev/'>
+				<UnderLink href='https://newsletter.seanoliver.dev/'>
 					newsletter
-				</AboutLink>
+				</UnderLink>
 				{' '}where I write about programming, productivity, personal knowledge
 				management.
 			</p>
