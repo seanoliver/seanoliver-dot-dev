@@ -1,0 +1,28 @@
+'use client';
+
+import { ReactNode } from 'react';
+
+export default function CodeBlock({
+	code,
+	language,
+	...props
+}: {
+	code: ReactNode;
+	language: string;
+	[key: string]: any;
+}) {
+
+	return (
+		<div className='relative md:-mx-20'>
+			<div className='text-xs text-neutral-500 hover:text-neutral-300 font-semibold uppercase cursor-default bg-neutral-900 hover:bg-neutral-700 p-1 px-2 rounded-tr-md rounded-bl-md right-0 top-0 absolute' onClick={() => handleCopy()}>
+				{language}
+			</div>
+			<pre
+				{...props}
+				className='bg-neutral-100 my-4 text-sm rounded-md p-4 overflow-auto'>
+				<code>{code}</code>
+			</pre>
+		</div>
+	);
+}
+
