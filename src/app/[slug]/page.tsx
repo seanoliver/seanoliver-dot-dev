@@ -28,31 +28,30 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
 	const MDXContent = useMDXComponent(post.body.code);
 
 	return (
-		<article>
-			<div className='text-sm w-full md:my-20 my-10 flex flex-col'>
-				{/* Post Header */}
-				<div className='md:w-3/4 w-full mx-auto'>
+		<div className='text-sm w-full my-10 md:my-20'>
+			{/* Post Header */}
+			<div>
+				{/* Title */}
+				<h1 className='tescroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+					{post.title}
+				</h1>
 
-					{/* Title */}
-					<h1 className='tescroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>{post.title}</h1>
-
-					{/* Byline */}
-					<p
-						className='text-md text-muted-foreground mt-3 mb-4'>
-						By {post.author} · {format(parseISO(post.date), 'LLLL d, yyyy')}
-						{' · '}
-						{process.env.NODE_ENV === 'development' && !post.isPublished && (
-							<span className='text-md font-semibold text-red-600 mb-7'>Unpublished</span>
-						)}
-					</p>
-
-				</div>
-				{/* Post Content */}
-				<div className='md:w-3/4 w-full mx-auto'>
-					<MDXContent components={mdxComponents} />
-				</div>
+				{/* Byline */}
+				<p className='text-md text-muted-foreground mt-3 mb-10'>
+					By {post.author} · {format(parseISO(post.date), 'LLLL d, yyyy')}
+					{' · '}
+					{process.env.NODE_ENV === 'development' && !post.isPublished && (
+						<span className='text-md font-semibold text-red-600'>
+							Unpublished
+						</span>
+					)}
+				</p>
 			</div>
-		</article>
+			{/* Post Content */}
+			<div className='mx-auto'>
+				<MDXContent components={mdxComponents} />
+			</div>
+		</div>
 	);
 };
 

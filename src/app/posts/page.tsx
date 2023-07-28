@@ -1,7 +1,5 @@
 'use client';
 
-import { compareDesc } from 'date-fns';
-import { allPosts, Post } from 'contentlayer/generated';
 import usePosts from '@/hooks/use-posts';
 import Section from '@/components/Section';
 import PostList from '@/components/post-list';

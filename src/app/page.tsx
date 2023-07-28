@@ -13,7 +13,6 @@ import usePosts from '@/hooks/use-posts';
 import PostList from '@/components/post-list';
 
 export default function Home(): JSX.Element {
-	// TODO: Refactor; this is duplicated in posts/page.tsx
 	const posts = usePosts();
 
 	return (
