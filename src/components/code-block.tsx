@@ -13,8 +13,8 @@ export default function CodeBlock({
 }) {
 
 	return (
-		<div className='relative md:-mx-20'>
-			<div className='text-xs text-neutral-500 hover:text-neutral-300 font-semibold uppercase cursor-default bg-neutral-900 hover:bg-neutral-700 p-1 px-2 rounded-tr-md rounded-bl-md right-0 top-0 absolute' onClick={() => handleCopy()}>
+		<div className='relative'>
+			<div className='text-xs text-neutral-200 dark:text-neutral-500 hover:text-neutral-300 font-semibold uppercase cursor-default bg-neutral-600 dark:bg-neutral-900 hover:bg-neutral-700 p-1 px-2 rounded-tr-md rounded-bl-md right-0 top-0 absolute'>
 				{language}
 			</div>
 			<pre

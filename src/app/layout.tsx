@@ -11,6 +11,7 @@ import Head from 'next/head';
 
 import { Inter } from 'next/font/google';
 import Footer from '@/components/Footer';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
 const inter = Inter({
 	subsets: ['latin'],
 	display: 'swap',
@@ -40,13 +41,14 @@ export default function RootLayout({
 					attribute='class'
 					defaultTheme='system'
 					enableSystem>
-					<div className='flex flex-col justify-center items-center xl:w-[700px] lg:w-[600px] md:w-3/4 sm:w-4/5 w-5/6 mx-auto'>
+					<div className='container flex flex-col justify-center items-center xl:max-w-[700px] lg:max-w-[600px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto'>
 						<Header className='w-full flex flex-col mt-5' />
 						{children}
 						<Footer />
 					</div>
 				</ThemeProvider>
 				<Analytics />
+				<TailwindIndicator />
 			</body>
 		</html>
 	);
