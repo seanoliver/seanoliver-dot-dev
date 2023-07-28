@@ -1,102 +1,178 @@
 ---
-title: Setting up a Next.js Blog with Contentlayer
-date: 2023-07-24
+title: My Next.js + Contentlayer Blog Setup
+date: 2023-07-26
 isPublished: false
 ---
 
-[Contentlayer](https://www.Contentlayer.dev/) is a content SDK that makes it easy to import content from Markdown and MDX into your Next.js app.
+I've been happy with [Substack](https://substack.com/) for my coding newsletter, but I've been wanting a place to house more evergreen notes and takeaways about the things I'm learning that I can reference later.
 
-A few reasons why I love it:
+Also working more closely with [Swyx](https://twitter.com/swyx) recently has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and to find ways to apply an [annealing policy](https://www.swyx.io/blogpost-annealing) to my ideas, where I can constantly refine and improve on them over time.
 
-- It's fully typesafe and TypeScript-first
-- Supports live reload of content changes in development
-- [Treats content as data](https://www.contentlayer.dev/docs/concepts/content-modeling-dc68721f), so you can use it in your app however you want
-- Supports both Markdown and [MDX](https://www.contentlayer.dev/docs/sources/files/mdx-d747e46d) with frontmatter
+So all that is to say that I'm adding a blog to my website, and since I'm already using [Next.js](https://nextjs.org/) this website, [Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural choice for managing this kind of content.
 
-Contentlayer was created by [Prisma](https://www.prisma.io/) co-founder [Johannes Schickling](https://www.schickling.dev/), but due to [issues](https://www.stackbit.com/blog/stackbit-joins-netlify) outside of his control, Johannes has had to [scale back his time spent maintaining](https://github.com/contentlayerdev/contentlayer/issues/429) the project.
+Contentlayer is a type-safe content SDK that turns your Next.js app into a kind of headless CMS, allowing you to store your content in Markdown or MDX files, and then import it into your app as data.
 
-As a result, there are some unresolved issues and a few things can be a little tricky to figure out. I think it's still a great project, so I wanted to write this guide to help others get started with it based on what I've learned.
+This means you can:
 
-## Getting Started
+- See changes appear live in your without reloading
+- Use custom React components to render and style certain types of content
+- Embed React components directly into your content using MDX
 
-Let's assume you already have an existing Next.js app. If not, you can create one with the following command:
+The [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7) is a great starting off point, but there are still some implementation details I thought worth documenting as my setup here evolves.
 
-```bash
-npx create-next-app@latest
-cd my-contentlayer-app
-```
+## Installation
 
-Next, install Contentlayer, `next-contentlayer`, and `date-fns`, a helper package for dealing with dates:
+As of this writing, the current version of `contentlayer@0.3.4` is [not compatible](https://github.com/contentlayerdev/contentlayer/issues/506) with the Next.js 13 App Router. So for now it's best to install `^0.3.1` of both `contentlayer` and `next-contentlayer`:
 
 ```bash
-npm install contentlayer next-contentlayer date-fns
+npm install contentlayer^0.3.1 next-contentlayer^0.3.1
 ```
 
-Next, create a `contentlayer.config.ts` file in the root of your project with the following contents:
+Or specify this version in your `package.json`:
+
+```json
+{
+	"dependencies": {
+		"contentlayer": "^0.3.1",
+		"next-contentlayer": "^0.3.1"
+	}
+}
+```
+
+## `contentlayer.config.ts`
+
+In Contentlayer, your content is turned into data, and `contentlayer.config.ts` is where you define the shape of that data along with any other plugins or settings you want to employ in the MDX parsing process.
+
+### The Post Object
+
+It's worth noting you can have different types of data here, but in most cases you'll just need a single `Post` object. You can think of it kind of like a schema for your content, where you indicate the different pieces of metadata you want to include with your posts.
+
+Mine looks like this, and I've highlighted the places where my setup differs from the [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7):
+
+```tsx {16-20, 27-30}
+const Post = defineDocumentType(() => ({
+  name: 'Post',
+  filePathPattern: `**/*.mdx`,
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      description: 'The title of the post',
+      required: true,
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the post',
+      required: true,
+    },
+    isPublished: {
+      type: 'boolean',
+      description: 'Whether the post is published',
+      required: true,
+    }
+  },
+  computedFields: {
+    url: {
+      type: 'string',
+      resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    },
+    author: {
+      type: 'string',
+      resolve: () => 'Sean Oliver',
+    }
+
+  },
+}))
+```
+
+- `isPublished` is a boolean indicating whether the post is ready to be published (more on this below)
+- `author` is just hardcoded to my name so I don't need to add it to the frontmatter in each post
+
+`isPublished` is consumed by a custom React hook, `usePosts`, that returns an array of all posts when in `development` and only the published posts otherwise:
+
+```tsx
+import { useState, useEffect } from 'react';
+import { allPosts, type Post } from 'contentlayer/generated';
+import { compareDesc } from 'date-fns';
+
+export default function usePosts() {
+    const [posts, setPosts] = useState<Post[]>();
+
+    const sortPosts = (posts: Post[]): Post[] =>
+        posts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+    useEffect(() => {
+        const filteredPosts = process.env.NODE_ENV === 'development'
+            ? allPosts
+            : allPosts.filter(post => post.isPublished);
+
+        setPosts(sortPosts(filteredPosts));
+    }, []);
+
+    return posts;
+}
+```
+
+### Plugins
+
+This is also the file where you add plugins you want to use in the MDX parser. Here are the ones I'm using:
+
+- [`remark-gfm`](https://github.com/remarkjs/remark-gfm) - Adds GitHub Flavored Markdown (e.g. tables, strikethrough, etc.)
+- [`rehype-pretty-code`](https://rehype-pretty-code.netlify.app/) - Adds powerful syntax highlighting to code blocks
+
+And here they are in the file:
 
 ```tsx
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 
-const Post = defineDocumentType(() => ({
-	name: 'Post',
-	filePathPattern: `**/*.mdx`,
-	contentType: 'mdx',
-	fields: {
-		title: {
-			type: 'string',
-			description: 'The title of the post',
-			required: true,
-		},
-		date: {
-			type: 'date',
-			description: 'The date of the post',
-			required: true,
-		},
-		isPublished: {
-			type: 'boolean',
-			description: 'Whether the post is published',
-			required: true,
-		},
-	},
-	computedFields: {
-		url: {
-			type: 'string',
-			resolve: doc => `/${doc._raw.flattenedPath}`,
-		},
-		slug: {
-			type: 'string',
-			resolve: doc => doc._raw.flattenedPath,
-		},
-		author: {
-			type: 'string',
-			resolve: () => 'Sean Oliver',
-		},
-	},
-}));
+// ... Post object
 
 /** @type {import('rehype-pretty-code').Options} */
 const options = {
-	theme: 'nord',
+    theme: 'nord',
 };
 
 export default makeSource({
-	contentDirPath: 'posts',
-	documentTypes: [Post],
-	mdx: {
-		remarkPlugins: [remarkGfm],
-		rehypePlugins: [[rehypePrettyCode, options]],
-	},
+    contentDirPath: 'posts',
+    documentTypes: [Post],
+    mdx: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [[rehypePrettyCode, options]],
+    },
 });
 ```
 
+## Styling
 
-``` python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import warnings
-warnings.filterwarnings('ignore')
+One of the great benefits of Contentlayer and MDX is that you can use all the same components you're using in your app to style your content. For now, I'm just using [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui's standard typography rules](https://ui.shadcn.com/docs/components/typography) to style the content itself:
+
+```tsx
+import './mdx.css';
+import type { MDXComponents } from 'mdx/types';
+import UnderLink from '@/components/under-link';
+import CodeBlock from '@/components/code-block';
+
+export const mdxComponents: MDXComponents = {
+    p: props => <p {...props} className='leading-7 [&:not(:first-child)]:mt-6' />,
+    h1: props => <h1 {...props} className='text-3xl leading-9 mb-4' />,
+    h2: props => <h2 {...props} className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16' />,
+    h3: props => <h3 {...props} className='scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16' />,
+    h4: props => <h4 {...props} className='scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16' />,
+    h5: props => <h5 {...props} className='text-md leading-5 mb-4 first:mt-0 mt-16' />,
+    h6: props => <h6 {...props} className='text-sm leading-4 mb-4 first:mt-0 mt-16' />,
+    ul: props => <ul {...props} className='my-6 ml-6 list-disc [&>li]:mt-2' />,
+    ol: props => <ol {...props} className='list-decimal pl-6 mb-6' />,
+    li: props => <li {...props} className='mb-2 text-sm' />,
+    a: props => <UnderLink target='_blank' {...props} />,
+    blockquote: props => <blockquote {...props} className='mt-6 border-l-2 pl-6 italic' />,
+    hr: props => <hr {...props} className='border-gray-300 my-6' />,
+    table: props => <table {...props} className='w-full text-left border-collapse' />,
+    th: props => <th {...props} className='px-6 py-3 border-b border-gray-300 text-sm font-semibold text-gray-600' />,
+    td: props => <td {...props} className='px-6 py-4 border-b border-gray-300 text-sm' />,
+    code: props => <code {...props} className={!props['data-theme'] && 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold'} />,
+    pre: props => <CodeBlock {...props} />,
+};
+
 ```
