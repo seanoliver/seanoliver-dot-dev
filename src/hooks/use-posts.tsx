@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 import { allPosts, type Post } from 'contentlayer/generated';
-import { compareDesc, set } from 'date-fns';
+import { compareDesc } from 'date-fns';
 
 export default function usePosts() {
-	const [posts, setPosts] = useState<Post[]>();
+    const [posts, setPosts] = useState<Post[]>();
 
-	useEffect(() => {
-		if (process.env.NODE_ENV === 'development') {
-			const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-			setPosts(posts);
-		} else {
-			const posts = allPosts
-				.filter(post => post.isPublished)
-				.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-			setPosts(posts);
-		}
-	});
+    const sortPosts = (posts: Post[]): Post[] =>
+        posts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
-	return posts;
+    useEffect(() => {
+        const filteredPosts = process.env.NODE_ENV === 'development'
+            ? allPosts
+            : allPosts.filter(post => post.isPublished);
+
+        setPosts(sortPosts(filteredPosts));
+    }, []);
+
+    return posts;
 }
