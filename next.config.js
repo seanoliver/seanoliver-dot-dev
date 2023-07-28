@@ -1,7 +1,6 @@
 const { withContentlayer } = require('next-contentlayer');
 
 /** @type {import('next').NextConfig} */
-// TODO: Remove placehold.co from remotePatterns once profile image is available
 const nextConfig = {
 	images: {
 		dangerouslyAllowSVG: true,
