@@ -15,37 +15,37 @@ export const mdxComponents: MDXComponents = {
 	h1: props => (
 		<h1
 			{...props}
-			className='text-3xl leading-9 mb-4'
+			className='text-3xl leading-9 mb-4 break-words'
 		/>
 	),
 	h2: props => (
 		<h2
 			{...props}
-			className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16'
+			className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors break-words first:mt-0 mt-16'
 		/>
 	),
 	h3: props => (
 		<h3
 			{...props}
-			className='scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16'
+			className='scroll-m-20 text-2xl font-semibold tracking-tight break-words first:mt-0 mt-16'
 		/>
 	),
 	h4: props => (
 		<h4
 			{...props}
-			className='scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16'
+			className='scroll-m-20 text-xl font-semibold tracking-tight break-words first:mt-0 mt-16'
 		/>
 	),
 	h5: props => (
 		<h5
 			{...props}
-			className='text-md leading-5 mb-4 first:mt-0 mt-16'
+			className='text-md leading-5 break-words mb-4 first:mt-0 mt-16'
 		/>
 	),
 	h6: props => (
 		<h6
 			{...props}
-			className='text-sm leading-4 mb-4 first:mt-0 mt-16'
+			className='text-sm leading-4 break-words mb-4 first:mt-0 mt-16'
 		/>
 	),
 	ul: props => (
@@ -68,9 +68,11 @@ export const mdxComponents: MDXComponents = {
 	),
 	a: props => (
 		<UnderLink
+			href={props.href as string}
 			target='_blank'
-			{...props}
-		/>
+			{...props}>
+			{props.children}
+		</UnderLink>
 	),
 	blockquote: props => (
 		<blockquote
