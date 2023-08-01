@@ -3,8 +3,6 @@ import type { MDXComponents } from 'mdx/types'
 import { UnderLink } from '@/components/under-link'
 import CodeBlock from '@/components/code-block'
 
-// TODO: Fix Type Errors
-
 export const mdxComponents: MDXComponents = {
   p: (props) => <p {...props} className="leading-7 [&:not(:first-child)]:mt-6" />,
   h1: (props) => <h1 {...props} className="text-3xl leading-9 mb-4 break-words" />,
@@ -41,13 +39,13 @@ export const mdxComponents: MDXComponents = {
   table: (props) => <table {...props} className="table-auto w-full" />,
   th: (props) => <th {...props} className="border border-gray-300 px-4 py-2" />,
   td: (props) => <td {...props} className="border border-gray-300 px-4 py-2" />,
-  pre: (props) => <CodeBlock code={props.children} language={props['data-language']} {...props} />,
-  code: (props) => (
+  pre: (props: any) => <CodeBlock code={props.children} language={props['data-language']} {...props} />,
+  code: (props: any) => (
     <code
       {...props}
       className={
-        !props['data-theme'] &&
-        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold'
+        !props['data-theme'] ?
+        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold' : ''
       }
     />
   ),
