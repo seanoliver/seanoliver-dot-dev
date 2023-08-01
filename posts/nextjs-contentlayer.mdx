@@ -1,12 +1,12 @@
 ---
 title: My Next.js + Contentlayer Blog Setup
-date: 2023-07-26
-isPublished: false
+date: 2023-07-31
+isPublished: true
 ---
 
 I've been happy with [Substack](https://substack.com/) for my coding newsletter, but I've been wanting a place to house more evergreen notes and takeaways about the things I'm learning that I can reference later.
 
-Also working more closely with [Swyx](https://twitter.com/swyx) recently has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and particularly to do it in a place that lends itself to applying an [annealing policy](https://www.swyx.io/blogpost-annealing), an evergreen content store that allows me to continuously refine ideas and improve on them over time.
+Also, working more closely with [Swyx](https://twitter.com/swyx) lately has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and particularly to do it in a place that lends itself to applying an [annealing policy](https://www.swyx.io/blogpost-annealing), an evergreen content store that allows me to continuously refine ideas and improve on them over time.
 
 Since I'm already using [Next.js](https://nextjs.org/) on this site, [Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural choice for managing this kind of content.
 
@@ -18,9 +18,9 @@ This means you can:
 - Use custom React components to render and style certain types of content
 - Embed React components directly into your content using MDX
 
-The [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7) is a great starting off point, but there are still some implementation details I thought worth documenting as my setup here evolves.
-
 ## Installation
+
+The [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7) is a great starting off point, but there are still some implementation details I thought worth documenting as my setup here evolves.
 
 As of this writing, the current version of `contentlayer@0.3.4` is [not compatible](https://github.com/contentlayerdev/contentlayer/issues/506) with the Next.js 13 App Router. So for now it's best to install `^0.3.1` of both `contentlayer` and `next-contentlayer`:
 
@@ -226,7 +226,7 @@ It will be rendered as:
 </ul>
 ```
 
-But if you add a `mdxComponents` object like the one above, it will be rendered as:
+But if you add an `mdxComponents` object like the one above, it will be rendered as:
 
 ```tsx
 <h1 class='text-3xl leading-9 mb-4'>Hello World</h1>
@@ -238,3 +238,72 @@ But if you add a `mdxComponents` object like the one above, it will be rendered 
     <li class='mb-2 text-sm'>This is another list item</li>
 </ul>
 ```
+
+## Custom Components
+
+For even more control over the look and feel, you can also replace the default HTML elements with custom components. I'm using custom components for code blocks and text links:
+
+```tsx
+import './mdx.css'
+import type { MDXComponents } from 'mdx/types'
+import UnderLink from '@/components/under-link'
+import CodeBlock from '@/components/code-block'
+
+export const mdxComponents: MDXComponents = {
+
+  // ... other components
+
+  a: (props) => <UnderLink target="_blank" {...props} />,
+  pre: (props) => <CodeBlock {...props} />,
+}
+```
+
+Then you can just design your components to take the props you need and render them however you want. For example, here's my `UnderLink` component:
+
+```tsx
+import Link from 'next/link'
+
+export const UnderLink = ({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}): JSX.Element => {
+  // If the link is an external link, open in new tab
+  let isExternal = href.startsWith('http') ? true : false
+
+  return (
+    <Link
+      href={href}
+      className="font-medium text-primary underline underline-offset-4 hover:no-underline"
+      target={isExternal ? '_blank' : '_self'}
+    >
+      {children}
+    </Link>
+  )
+}
+```
+
+And the beauty of MDX is that you can embed React components directly in your Markdown files:
+
+```mdx
+# Hello World
+
+This is a paragraph.
+
+## This is a heading
+
+This is another paragraph.
+
+- This is a list item
+- This is another list item
+
+<UnderLink href="https://google.com">This is a link</UnderLink>
+```
+
+I haven't had much use for this yet, but it's great to have the flexibility to create totally embed totally custom components in blog posts when the situation calls for it.
+
+Overall, I'm really happy with the way things shaped up. It's a little more involved than something like Substack or Ghost, but in exchange for a little more work upfront, I get a lot more flexibility and control over the look and feel of my blog. And I'm not locked into a proprietary platform that could disappear at any moment.
+
+Not only that, I learned a ton about server-side rendering, static site generation, and Next.js in the process.
