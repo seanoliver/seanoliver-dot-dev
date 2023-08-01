@@ -6,9 +6,9 @@ isPublished: false
 
 I've been happy with [Substack](https://substack.com/) for my coding newsletter, but I've been wanting a place to house more evergreen notes and takeaways about the things I'm learning that I can reference later.
 
-Also working more closely with [Swyx](https://twitter.com/swyx) recently has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and to find ways to apply an [annealing policy](https://www.swyx.io/blogpost-annealing) to my ideas, where I can constantly refine and improve on them over time.
+Also working more closely with [Swyx](https://twitter.com/swyx) recently has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and particularly to do it in a place that lends itself to applying an [annealing policy](https://www.swyx.io/blogpost-annealing), an evergreen content store that allows me to continuously refine ideas and improve on them over time.
 
-So all that is to say that I'm adding a blog to my website, and since I'm already using [Next.js](https://nextjs.org/) this website, [Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural choice for managing this kind of content.
+Since I'm already using [Next.js](https://nextjs.org/) on this site, [Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural choice for managing this kind of content.
 
 Contentlayer is a type-safe content SDK that turns your Next.js app into a kind of headless CMS, allowing you to store your content in Markdown or MDX files, and then import it into your app as data.
 
@@ -43,7 +43,7 @@ Or specify this version in your `package.json`:
 
 In Contentlayer, your content is turned into data, and `contentlayer.config.ts` is where you define the shape of that data along with any other plugins or settings you want to employ in the MDX parsing process.
 
-### The Post Object
+### The `Post` Object
 
 It's worth noting you can have different types of data here, but in most cases you'll just need a single `Post` object. You can think of it kind of like a schema for your content, where you indicate the different pieces of metadata you want to include with your posts.
 
@@ -144,7 +144,7 @@ export default makeSource({
 });
 ```
 
-## Styling
+## Styling Components
 
 One of the great benefits of Contentlayer and MDX is that you can use all the same components you're using in your app to style your content. For now, I'm just using [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui's standard typography rules](https://ui.shadcn.com/docs/components/typography) to style the content itself:
 
@@ -175,4 +175,45 @@ export const mdxComponents: MDXComponents = {
     pre: props => <CodeBlock {...props} />,
 };
 
+```
+
+You can read this object as, "Anytime you render Markdown as HTML, use these components instead of the default ones." For example, if you have a Markdown file that looks like this:
+
+```md
+# Hello World
+
+This is a paragraph.
+
+## This is a heading
+
+This is another paragraph.
+
+- This is a list item
+- This is another list item
+```
+
+It will be rendered as:
+
+```tsx
+<h1>Hello World</h1>
+<p>This is a paragraph.</p>
+<h2>This is a heading</h2>
+<p>This is another paragraph.</p>
+<ul>
+    <li>This is a list item</li>
+    <li>This is another list item</li>
+</ul>
+```
+
+But if you add a `mdxComponents` object like the one above, it will be rendered as:
+
+```tsx
+<h1 class='text-3xl leading-9 mb-4'>Hello World</h1>
+<p class='leading-7 [&:not(:first-child)]:mt-6'>This is a paragraph.</p>
+<h2 class='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16'>This is a heading</h2>
+<p class='leading-7 [&:not(:first-child)]:mt-6'>This is another paragraph.</p>
+<ul class='my-6 ml-6 list-disc [&>li]:mt-2'>
+    <li class='mb-2 text-sm'>This is a list item</li>
+    <li class='mb-2 text-sm'>This is another list item</li>
+</ul>
 ```
