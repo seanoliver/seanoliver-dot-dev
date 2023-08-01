@@ -32,10 +32,10 @@ Or specify this version in your `package.json`:
 
 ```json
 {
-	"dependencies": {
-		"contentlayer": "^0.3.1",
-		"next-contentlayer": "^0.3.1"
-	}
+  "dependencies": {
+    "contentlayer": "^0.3.1",
+    "next-contentlayer": "^0.3.1"
+  }
 }
 ```
 
@@ -69,7 +69,7 @@ const Post = defineDocumentType(() => ({
       type: 'boolean',
       description: 'Whether the post is published',
       required: true,
-    }
+    },
   },
   computedFields: {
     url: {
@@ -79,8 +79,7 @@ const Post = defineDocumentType(() => ({
     author: {
       type: 'string',
       resolve: () => 'Sean Oliver',
-    }
-
+    },
   },
 }))
 ```
@@ -91,25 +90,26 @@ const Post = defineDocumentType(() => ({
 `isPublished` is consumed by a custom React hook, `usePosts`, that returns an array of all posts when in `development` and only the published posts otherwise:
 
 ```tsx
-import { useState, useEffect } from 'react';
-import { allPosts, type Post } from 'contentlayer/generated';
-import { compareDesc } from 'date-fns';
+import { useState, useEffect } from 'react'
+import { allPosts, type Post } from 'contentlayer/generated'
+import { compareDesc } from 'date-fns'
 
 export default function usePosts() {
-    const [posts, setPosts] = useState<Post[]>();
+  const [posts, setPosts] = useState<Post[]>()
 
-    const sortPosts = (posts: Post[]): Post[] =>
-        posts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+  const sortPosts = (posts: Post[]): Post[] =>
+    posts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
 
-    useEffect(() => {
-        const filteredPosts = process.env.NODE_ENV === 'development'
-            ? allPosts
-            : allPosts.filter(post => post.isPublished);
+  useEffect(() => {
+    const filteredPosts =
+      process.env.NODE_ENV === 'development'
+        ? allPosts
+        : allPosts.filter((post) => post.isPublished)
 
-        setPosts(sortPosts(filteredPosts));
-    }, []);
+    setPosts(sortPosts(filteredPosts))
+  }, [])
 
-    return posts;
+  return posts
 }
 ```
 
@@ -123,25 +123,25 @@ This is also the file where you add plugins you want to use in the MDX parser. H
 And here they are in the file:
 
 ```tsx
-import { defineDocumentType, makeSource } from 'contentlayer/source-files';
-import remarkGfm from 'remark-gfm';
-import rehypePrettyCode from 'rehype-pretty-code';
+import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import remarkGfm from 'remark-gfm'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 // ... Post object
 
 /** @type {import('rehype-pretty-code').Options} */
 const options = {
-    theme: 'nord',
-};
+  theme: 'nord',
+}
 
 export default makeSource({
-    contentDirPath: 'posts',
-    documentTypes: [Post],
-    mdx: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [[rehypePrettyCode, options]],
-    },
-});
+  contentDirPath: 'posts',
+  documentTypes: [Post],
+  mdx: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [[rehypePrettyCode, options]],
+  },
+})
 ```
 
 ## Styling Components
@@ -149,32 +149,53 @@ export default makeSource({
 One of the great benefits of Contentlayer and MDX is that you can use all the same components you're using in your app to style your content. For now, I'm just using [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui's standard typography rules](https://ui.shadcn.com/docs/components/typography) to style the content itself:
 
 ```tsx
-import './mdx.css';
-import type { MDXComponents } from 'mdx/types';
-import UnderLink from '@/components/under-link';
-import CodeBlock from '@/components/code-block';
+import './mdx.css'
+import type { MDXComponents } from 'mdx/types'
+import UnderLink from '@/components/under-link'
+import CodeBlock from '@/components/code-block'
 
 export const mdxComponents: MDXComponents = {
-    p: props => <p {...props} className='leading-7 [&:not(:first-child)]:mt-6' />,
-    h1: props => <h1 {...props} className='text-3xl leading-9 mb-4' />,
-    h2: props => <h2 {...props} className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16' />,
-    h3: props => <h3 {...props} className='scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16' />,
-    h4: props => <h4 {...props} className='scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16' />,
-    h5: props => <h5 {...props} className='text-md leading-5 mb-4 first:mt-0 mt-16' />,
-    h6: props => <h6 {...props} className='text-sm leading-4 mb-4 first:mt-0 mt-16' />,
-    ul: props => <ul {...props} className='my-6 ml-6 list-disc [&>li]:mt-2' />,
-    ol: props => <ol {...props} className='list-decimal pl-6 mb-6' />,
-    li: props => <li {...props} className='mb-2 text-sm' />,
-    a: props => <UnderLink target='_blank' {...props} />,
-    blockquote: props => <blockquote {...props} className='mt-6 border-l-2 pl-6 italic' />,
-    hr: props => <hr {...props} className='border-gray-300 my-6' />,
-    table: props => <table {...props} className='w-full text-left border-collapse' />,
-    th: props => <th {...props} className='px-6 py-3 border-b border-gray-300 text-sm font-semibold text-gray-600' />,
-    td: props => <td {...props} className='px-6 py-4 border-b border-gray-300 text-sm' />,
-    code: props => <code {...props} className={!props['data-theme'] && 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold'} />,
-    pre: props => <CodeBlock {...props} />,
-};
-
+  p: (props) => <p {...props} className="leading-7 [&:not(:first-child)]:mt-6" />,
+  h1: (props) => <h1 {...props} className="text-3xl leading-9 mb-4" />,
+  h2: (props) => (
+    <h2
+      {...props}
+      className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16"
+    />
+  ),
+  h3: (props) => (
+    <h3 {...props} className="scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16" />
+  ),
+  h4: (props) => (
+    <h4 {...props} className="scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16" />
+  ),
+  h5: (props) => <h5 {...props} className="text-md leading-5 mb-4 first:mt-0 mt-16" />,
+  h6: (props) => <h6 {...props} className="text-sm leading-4 mb-4 first:mt-0 mt-16" />,
+  ul: (props) => <ul {...props} className="my-6 ml-6 list-disc [&>li]:mt-2" />,
+  ol: (props) => <ol {...props} className="list-decimal pl-6 mb-6" />,
+  li: (props) => <li {...props} className="mb-2 text-sm" />,
+  a: (props) => <UnderLink target="_blank" {...props} />,
+  blockquote: (props) => <blockquote {...props} className="mt-6 border-l-2 pl-6 italic" />,
+  hr: (props) => <hr {...props} className="border-gray-300 my-6" />,
+  table: (props) => <table {...props} className="w-full text-left border-collapse" />,
+  th: (props) => (
+    <th
+      {...props}
+      className="px-6 py-3 border-b border-gray-300 text-sm font-semibold text-gray-600"
+    />
+  ),
+  td: (props) => <td {...props} className="px-6 py-4 border-b border-gray-300 text-sm" />,
+  code: (props) => (
+    <code
+      {...props}
+      className={
+        !props['data-theme'] &&
+        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold'
+      }
+    />
+  ),
+  pre: (props) => <CodeBlock {...props} />,
+}
 ```
 
 You can read this object as, "Anytime you render Markdown as HTML, use these components instead of the default ones." For example, if you have a Markdown file that looks like this:

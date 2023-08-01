@@ -2,7 +2,6 @@ import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
 import rehypePrettyCode from 'rehype-pretty-code'
 
-
 const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: `**/*.mdx`,
@@ -22,7 +21,7 @@ const Post = defineDocumentType(() => ({
       type: 'boolean',
       description: 'Whether the post is published',
       required: true,
-    }
+    },
   },
   computedFields: {
     url: {
@@ -36,15 +35,14 @@ const Post = defineDocumentType(() => ({
     author: {
       type: 'string',
       resolve: () => 'Sean Oliver',
-    }
-
+    },
   },
 }))
 
 /** @type {import('rehype-pretty-code').Options} */
 const options = {
-  theme: 'poimandres'
-};
+  theme: 'poimandres',
+}
 
 export default makeSource({
   contentDirPath: 'posts',
@@ -52,5 +50,5 @@ export default makeSource({
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, options]],
-  }
+  },
 })

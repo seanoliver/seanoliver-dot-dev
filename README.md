@@ -1,4 +1,5 @@
 <a name="readme-top"></a>
+
 <div align="center">
   <a href="https://github.com/seanoliver/seanoliver-dot-dev">
     <img src="public/projects/sodev.png" alt="SeanOliver dot dev">
@@ -71,7 +72,6 @@ If you like this project, please consider giving it a ⭐ on GitHub!
 - Mobile-Friendly Responsive Design
 - Scroll-to-Section Navigation using React-Scroll
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
@@ -113,7 +113,7 @@ This is a great simple template for a personal portfolio site using modern web t
 
    ```bash
     npm run dev
-    ```
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

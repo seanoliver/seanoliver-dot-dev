@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import usePosts from '@/hooks/use-posts';
-import Section from '@/components/Section';
-import PostList from '@/components/post-list';
+import usePosts from '@/hooks/use-posts'
+import Section from '@/components/Section'
+import PostList from '@/components/post-list'
 
 export default function Posts() {
-	const posts = usePosts();
+  const posts = usePosts()
 
-	return (
-		<>
-			{posts && posts.length > 0 && (
-				<Section title='Latest Posts'>
-					<PostList posts={posts} limit={3} />
-				</Section>
-			)}
-		</>
-	);
+  return (
+    <>
+      {posts && posts.length > 0 && (
+        <Section title="Latest Posts">
+          <PostList posts={posts} limit={3} />
+        </Section>
+      )}
+    </>
+  )
 }

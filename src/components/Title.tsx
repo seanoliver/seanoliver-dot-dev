@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 
 const titleVariants = {
-	hidden: { opacity: 0, y: -100 },
-	visible: { opacity: 1, y: 0 },
-};
+  hidden: { opacity: 0, y: -100 },
+  visible: { opacity: 1, y: 0 },
+}
 
 /**
  *
@@ -16,33 +16,33 @@ const titleVariants = {
  * <Title title='My Title' titleSize='large' />
  */
 export default function Title({
-	title,
-	titleSize = 'large',
+  title,
+  titleSize = 'large',
 }: {
-	title: string;
-	titleSize?: 'large' | 'medium' | 'small';
+  title: string
+  titleSize?: 'large' | 'medium' | 'small'
 }) {
-
-	const titleStyles = {
-		'large': 'text-4xl font-extrabold',
-		'medium': 'text-3xl font-bold',
-		'small': 'text-2xl font-semibold',
-	}
-	return (
-		<>
-			<motion.h1
-				variants={titleVariants}
-				initial='hidden'
-				animate='visible'
-				transition={{ duration: 0.75 }}
-				className={`
+  const titleStyles = {
+    large: 'text-4xl font-extrabold',
+    medium: 'text-3xl font-bold',
+    small: 'text-2xl font-semibold',
+  }
+  return (
+    <>
+      <motion.h1
+        variants={titleVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.75 }}
+        className={`
 				${titleStyles[titleSize]} ${titleSize === 'small' ? 'text-left' : 'text-center'} p-2 mb-4
 				bg-clip-text text-transparent
 				bg-gradient-to-r from-zinc-600 to-slate-600 text-black
 				dark:bg-gradient-to-r dark:from-stone-300 dark:to-slate-300 dark:text-white
-				px-2`}>
-				{title}
-			</motion.h1>
-		</>
-	);
+				px-2`}
+      >
+        {title}
+      </motion.h1>
+    </>
+  )
 }
