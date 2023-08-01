@@ -30,7 +30,7 @@ export default function RootLayout({
 			lang='en'
 			className={clsx(
 				'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300',
-				inter.className
+				inter.className.toString()
 			)}>
 			<Head>
 				<title>Sean Oliver</title>
