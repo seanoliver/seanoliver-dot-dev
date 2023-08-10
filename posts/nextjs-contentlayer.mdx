@@ -1,6 +1,6 @@
 ---
 title: My Next.js + Contentlayer Blog Setup
-date: 2023-07-31
+date: 2023-08-10
 isPublished: true
 ---
 
@@ -120,9 +120,9 @@ This is also the file where you add plugins you want to use in the MDX parser. H
 - [`remark-gfm`](https://github.com/remarkjs/remark-gfm) - Adds GitHub Flavored Markdown (e.g. tables, strikethrough, etc.)
 - [`rehype-pretty-code`](https://rehype-pretty-code.netlify.app/) - Adds powerful syntax highlighting to code blocks
 
-And here they are in the file:
+And here they are in context:
 
-```tsx
+```tsx {15}
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
 import rehypePrettyCode from 'rehype-pretty-code'
@@ -137,12 +137,15 @@ const options = {
 export default makeSource({
   contentDirPath: 'posts',
   documentTypes: [Post],
+  date: { timezone: 'America/Los_Angeles'},
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, options]],
   },
 })
 ```
+
+> Note: Don't forget to specify your timezone here as well, otherwise your posts will appear to be published a day in the past if you're on the West Coast.
 
 ## Styling Components
 
@@ -280,7 +283,7 @@ export const UnderLink = ({
       target={isExternal ? '_blank' : '_self'}
     >
       {children}
-    </Link>
+    </Lin
   )
 }
 ```
@@ -305,5 +308,3 @@ This is another paragraph.
 I haven't had much use for this yet, but it's great to have the flexibility to create totally embed totally custom components in blog posts when the situation calls for it.
 
 Overall, I'm really happy with the way things shaped up. It's a little more involved than something like Substack or Ghost, but in exchange for a little more work upfront, I get a lot more flexibility and control over the look and feel of my blog. And I'm not locked into a proprietary platform that could disappear at any moment.
-
-Not only that, I learned a ton about server-side rendering, static site generation, and Next.js in the process.

@@ -47,6 +47,7 @@ const options = {
 export default makeSource({
   contentDirPath: 'posts',
   documentTypes: [Post],
+  date: { timezone: 'America/Los_Angeles'},
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, options]],
