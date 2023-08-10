@@ -10,15 +10,23 @@ import { Project } from '@/lib/types'
 export const NAV_ITEMS = [
   {
     name: 'About',
-    url: '#about',
+    jump: '#about',
+    url: '/about',
   },
   {
     name: 'Projects',
-    url: '#projects',
+    jump: '#projects',
+    url: '/projects',
   },
   {
     name: 'Experience',
-    url: '#experience',
+    jump: '#experience',
+    url: '/experience',
+  },
+  {
+    name: 'Writing',
+    jump: '#writing',
+    url: '/writing',
   },
   {
     name: 'Newsletter',

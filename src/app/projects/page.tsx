@@ -16,8 +16,17 @@ import { Button } from '@/components/ui/button'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import Section from '@/components/Section'
 
 export default function Projects(): JSX.Element {
+  return (
+    <Section title="Projects">
+      <ProjectsContent />
+    </Section>
+  )
+}
+
+function ProjectsContent(): JSX.Element {
   return (
     <div className="">
       {PROJECTS.map((project, index) => (

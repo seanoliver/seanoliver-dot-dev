@@ -1,14 +1,12 @@
 'use client'
 
-import { NAV_ITEMS } from '@/lib/globals'
-import Link from 'next/link'
-import { Link as ScrollLink } from 'react-scroll'
-import { Separator } from './ui/separator'
-import * as React from 'react'
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import * as React from 'react'
+import { Link as ScrollLink } from 'react-scroll'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,9 +18,15 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { Separator } from '@/components/ui/separator'
+import { NAV_ITEMS } from '@/lib/globals'
+import { HamburgerMenuIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import { usePathname } from 'next/navigation'
 
 export default function Header({ className }: { className: string }): JSX.Element {
+
+  const path = usePathname()
+
   return (
     <div className={className}>
       <div className="flex justify-between text-sm min-w-max items-center">
@@ -40,9 +44,9 @@ export default function Header({ className }: { className: string }): JSX.Elemen
                 <SmartNavItem
                   key={`${item.name}-${idx}`}
                   name={item.name}
-                  url={item.url}
+                  url={path === '/' && !item.icon ? item.jump : item.url}
                   icon={item.icon}
-                  scroll={item.icon ? false : true}
+                  scroll={item.icon || path !== '/' ? false : true}
                   separator={idx < NAV_ITEMS.length - 1}
                 />
               ))}
