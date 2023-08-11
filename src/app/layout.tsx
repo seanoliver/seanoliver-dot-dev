@@ -2,7 +2,7 @@
 
 import './globals.css'
 import clsx from 'clsx'
-import Header from '@/components/Header'
+import Header from '@/components/header'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Analytics } from '@vercel/analytics/react'
 import Head from 'next/head'
