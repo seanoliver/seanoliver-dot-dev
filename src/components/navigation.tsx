@@ -40,7 +40,7 @@ export default function Nav(): JSX.Element {
             <NavLink
               key={`${item.name}-${idx}`}
               name={item.name}
-              url={item.url}
+              url={path !== '/' ? item.pageLink : item.url}
               icon={item.icon}
               scroll={item.icon || path !== '/' ? false : true}
               separator={idx < NAV_ITEMS.length - 1}

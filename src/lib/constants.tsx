@@ -10,19 +10,23 @@ import { Project } from '@/lib/types'
 export const NAV_ITEMS = [
   {
     name: 'About',
-    url: '#about'
+    url: '#about',
+    pageLink: '/about',
   },
   {
     name: 'Projects',
     url: '#projects',
+    pageLink: '/projects',
   },
   {
     name: 'Experience',
     url: '#experience',
+    pageLink: '/experience',
   },
   {
     name: 'Newsletter',
     url: 'https://newsletter.seanoliver.dev/',
+    pageLink: 'https://newsletter.seanoliver.dev/',
     icon: <ArrowTopRightIcon className="ml-1 mt-1 inline w-4 h-4" />,
   },
 ]
