@@ -27,6 +27,9 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   // Parse the MDX file via the useMDXComponent hook.
   const MDXContent = useMDXComponent(post.body.code)
 
+  // Allow unpublished posts to appear in development with a label.
+  const showUnpublished = process.env.NODE_ENV === 'development' && !post.isPublished
+
   return (
     <div className="text-sm w-full my-10 md:my-20">
       {/* Post Header */}
@@ -39,8 +42,8 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
         {/* Byline */}
         <p className="text-md text-muted-foreground mt-3 mb-10">
           By {post.author} · {format(parseISO(post.date), 'LLLL d, yyyy')}
-          {' · '}
-          {process.env.NODE_ENV === 'development' && !post.isPublished && (
+          {showUnpublished && ' · '}
+          {showUnpublished && (
             <span className="text-md font-semibold text-red-600">Unpublished</span>
           )}
         </p>
