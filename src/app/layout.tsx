@@ -10,7 +10,7 @@ import Head from 'next/head'
 /** Inter Font */
 
 import { Inter } from 'next/font/google'
-import Footer from '@/components/Footer'
+import Footer from '@/components/footer'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 const inter = Inter({
   subsets: ['latin'],
