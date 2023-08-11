@@ -17,7 +17,7 @@ export default function Posts({ limit }: { limit?: number }) {
               <span className="font-medium">
                 <UnderLink href={post.url}>{post.title}</UnderLink>
               </span>
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-xs hidden sm:inline">
                 {format(parseISO(post.date), 'MMMM dd, yyyy')}
               </span>
             </div>
