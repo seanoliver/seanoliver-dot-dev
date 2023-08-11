@@ -1,5 +1,6 @@
 'use client'
 
+import Section from '@/components/section';
 // import { SOCIAL_LINKS } from '@/lib/globals';
 import { UnderLink } from '@/components/under-link'
 
@@ -46,6 +47,7 @@ import { UnderLink } from '@/components/under-link'
  */
 export default function About(): JSX.Element {
   return (
+    <Section title="About">
     <div className="About">
       <p className="leading-7 [&:not(:first-child)]:mt-6">
         I’m a software engineer and former product marketer who loves building and growing
@@ -78,52 +80,6 @@ export default function About(): JSX.Element {
         management, artificial intelligence, tennis, and casual mobile games.
       </p>
     </div>
-  )
-  // (
-  // 	<Section
-  // 		title='About'
-  // 		className={className}>
-  // 		{metadata.longDescription}
-  // 	</Section>
-  // <section
-  // 	id='about'
-  // 	className={className}>
-  // 	<div>About</div>
-  // 	<div>Some information about me here.</div>
-  // 	{/* <div className='About'>
-  // 		<Title title='About Me' />
-  // 		<div className='flex justify-center gap-8'>
-  // 			<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
-  // 				<Title title='Get to know me!' titleSize='small' />
-  // 				{metadata.longDescription}
-  // 			</div>
-  // 			<div className={`mt-4 w-1/4 p-5 rounded-lg`}>
-  // 				<Title title='My Stack' titleSize='small' />
-  // 					{myStack.map((tag, index) => (
-  // 						<Badge className={`m-1`} variant={'outline'} key={index}>{tag}</Badge>
-  // 					))}
-  // 			</div>
-  // 		</div>
-  // 		<SocialLinks />
-  // 	</div> */}
-  // </section>
+    </Section>
+  )}
 
-  // );
-}
-
-// const SocialLinks = (): JSX.Element => {
-// 	return (
-// 		<div className='About-social-icons flex flex-row justify-center mt-10'>
-// 			{SOCIAL_LINKS.map((link, index) => (
-// 				<a
-// 					key={`${link.name}-${index}`}
-// 					className={`About-social-link text-2xl m-5`}
-// 					href={link.url}
-// 					target='_blank'
-// 					rel='noopener noreferrer'>
-// 					{link.icon}
-// 				</a>
-// 			))}
-// 		</div>
-// 	);
-// };

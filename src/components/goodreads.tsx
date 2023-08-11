@@ -1,8 +1,9 @@
 import GoodreadsBookshelf from 'react-goodreads-shelf'
+import Section from './section'
 
 export default function Goodreads(): JSX.Element {
   return (
-    <>
+    <Section title="Reading">
       <div className="">
         <p className="leading-7">
           I love reading, but not with my eyes. I&apos;ve been addicted to audiobooks since 2019 on
@@ -28,6 +29,6 @@ export default function Goodreads(): JSX.Element {
           }}
         />
       </div>
-    </>
+    </Section>
   )
 }

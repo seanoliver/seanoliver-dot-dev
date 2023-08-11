@@ -16,10 +16,11 @@ import { Button } from '@/components/ui/button'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import Section from '@/components/section';
 
 export default function Projects(): JSX.Element {
   return (
-    <div className="">
+    <Section title="Projects">
       {PROJECTS.map((project, index) => (
         <Card
           key={`${project.name}-${index}`}
@@ -62,6 +63,6 @@ export default function Projects(): JSX.Element {
           </CardFooter>
         </Card>
       ))}
-    </div>
+    </Section>
   )
 }

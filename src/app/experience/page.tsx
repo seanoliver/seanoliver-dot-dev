@@ -1,11 +1,14 @@
+'use client';
+
 import { EXPERIENCES } from '@/lib/constants'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Section from '@/components/section';
 
 export default function Experience(): JSX.Element {
   return (
-    <div className="Experiences">
+    <Section title="Experience">
       {EXPERIENCES.map((experience, index) => (
         <Card key={index} className="mb-4 rounded-md hover:transition-shadow hover:shadow-lg">
           <CardHeader className="flex flex-row justify-between">
@@ -28,6 +31,6 @@ export default function Experience(): JSX.Element {
           </CardContent>
         </Card>
       ))}
-    </div>
+    </Section>
   )
 }
