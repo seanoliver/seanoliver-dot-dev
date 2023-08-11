@@ -1,7 +1,7 @@
 'use client'
 
 import usePosts from '@/hooks/use-posts'
-import Section from '@/components/Section'
+import Section from '@/components/section'
 import PostList from '@/components/post-list'
 
 export default function Posts() {

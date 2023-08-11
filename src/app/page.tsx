@@ -1,6 +1,6 @@
 'use client'
 
-import Section from '@/components/Section'
+import Section from '@/components/section'
 import About from './about/page'
 import Projects from './projects/page'
 import Experience from './experience/page'
