@@ -10,7 +10,7 @@ import { Project } from '@/lib/types'
 export const NAV_ITEMS = [
   {
     name: 'About',
-    url: '#about',
+    url: '#about'
   },
   {
     name: 'Projects',

@@ -1,6 +1,6 @@
 'use client'
 
-import { PROJECTS } from '@/lib/globals'
+import { PROJECTS } from '@/lib/constants'
 import {
   Card,
   CardContent,

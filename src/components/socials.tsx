@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS } from '@/lib/globals'
+import { SOCIAL_LINKS } from '@/lib/constants'
 import ExternalLink from './external-link'
 
 export default function Socials(): JSX.Element {

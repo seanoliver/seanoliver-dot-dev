@@ -1,6 +1,6 @@
 'use client'
 
-import { NAV_ITEMS } from '@/lib/globals'
+import { NAV_ITEMS } from '@/lib/constants'
 import Link from 'next/link'
 import { Link as ScrollLink } from 'react-scroll'
 import { Separator } from './ui/separator'
@@ -21,8 +21,10 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { usePathname } from 'next/navigation';
 
 export default function Header({ className }: { className: string }): JSX.Element {
+  const path = usePathname();
   return (
     <div className={className}>
       <div className="flex justify-between text-sm min-w-max items-center">
@@ -42,7 +44,7 @@ export default function Header({ className }: { className: string }): JSX.Elemen
                   name={item.name}
                   url={item.url}
                   icon={item.icon}
-                  scroll={item.icon ? false : true}
+                  scroll={item.icon || path !== '/' ? false : true}
                   separator={idx < NAV_ITEMS.length - 1}
                 />
               ))}
