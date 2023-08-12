@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { HamburgerMenu } from './hamburger-menu'
 import { ModeToggle } from './mode-toggle'
 import Nav from './navigation'
-import Section from './section';
+import Section from './Section';
 import { NAV_ITEMS } from '@/lib/constants';
 
 export default function Header({ className }: { className: string }): JSX.Element {

@@ -1,6 +1,6 @@
 'use client'
 
-import Section from '@/components/section';
+import Section from '@/components/Section';
 // import { SOCIAL_LINKS } from '@/lib/globals';
 import { UnderLink } from '@/components/under-link'
 

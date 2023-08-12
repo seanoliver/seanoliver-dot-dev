@@ -4,7 +4,7 @@ import { EXPERIENCES } from '@/lib/constants'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import Section from '@/components/section';
+import Section from '@/components/Section';
 
 export default function Experience(): JSX.Element {
   return (

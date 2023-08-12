@@ -1,7 +1,7 @@
 'use client'
 
 import Goodreads from '@/components/goodreads';
-import Section from '@/components/section';
+import Section from '@/components/Section';
 import Socials from '@/components/socials';
 import About from './about/page';
 import Experience from './experience/page';

@@ -2,7 +2,7 @@
 
 import { format, parseISO } from 'date-fns'
 import usePosts from '@/hooks/use-posts'
-import Section from '@/components/section'
+import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link';
 
 export default function Posts({ limit }: { limit?: number }) {

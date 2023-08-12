@@ -1,6 +1,6 @@
 'use client'
 
-import Section from '@/components/section'
+import Section from '@/components/Section'
 
 const myApps = [
   'VSCode',

@@ -1,5 +1,5 @@
 import GoodreadsBookshelf from 'react-goodreads-shelf'
-import Section from './section'
+import Section from './Section'
 
 export default function Goodreads(): JSX.Element {
   return (
