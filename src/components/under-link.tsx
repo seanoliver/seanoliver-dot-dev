@@ -6,15 +6,15 @@ import Link from 'next/link'
  * @param children - Link children
  * @returns Custom link component
  */
-export const UnderLink = ({
+export function UnderLink({
   href,
   children,
 }: {
   href: string
   children: React.ReactNode
-}): JSX.Element => {
+}): JSX.Element {
   // If the link is an external link, open in new tab
-  let isExternal = href.startsWith('http') ? true : false
+  const isExternal = !!href.startsWith('http')
 
   return (
     <Link

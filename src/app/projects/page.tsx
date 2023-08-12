@@ -1,5 +1,8 @@
 'use client'
 
+import { GitHubLogoIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
+import Link from 'next/link'
 import { PROJECTS } from '@/lib/constants'
 import {
   Card,
@@ -11,12 +14,8 @@ import {
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
-import Section from '@/components/Section';
+import Section from '@/components/Section'
 
 export default function Projects(): JSX.Element {
   return (
@@ -56,7 +55,7 @@ export default function Projects(): JSX.Element {
           {/* <Separator className='mb-6' /> */}
           <CardFooter className="flex flex-wrap">
             {project.tags.map((tag, idx) => (
-              <Badge key={`${tag}-${idx}`} className="mr-2 mb-2" variant={'secondary'}>
+              <Badge key={`${tag}-${idx}`} className="mr-2 mb-2" variant="secondary">
                 {tag}
               </Badge>
             ))}

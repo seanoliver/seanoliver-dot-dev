@@ -1,12 +1,12 @@
 'use client'
 
-import { NAV_ITEMS } from '@/lib/constants'
 import Link from 'next/link'
 import { Link as ScrollLink } from 'react-scroll'
-import { Separator } from './ui/separator'
 import * as React from 'react'
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import { MoonIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
+import { usePathname } from 'next/navigation'
+import { Separator } from './ui/separator'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -20,8 +20,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
-import { usePathname } from 'next/navigation'
+import { NAV_ITEMS } from '@/lib/constants'
 
 export default function Nav(): JSX.Element {
   const path = usePathname()
@@ -42,7 +41,7 @@ export default function Nav(): JSX.Element {
               name={item.name}
               url={path !== '/' ? item.pageLink : item.url}
               icon={item.icon}
-              scroll={item.icon || path !== '/' ? false : true}
+              scroll={!(item.icon || path !== '/')}
               separator={idx < NAV_ITEMS.length - 1}
             />
           ))}
@@ -52,7 +51,7 @@ export default function Nav(): JSX.Element {
   )
 }
 
-const CommonElements = ({
+function CommonElements({
   name,
   icon,
   scroll,
@@ -64,32 +63,34 @@ const CommonElements = ({
   scroll: boolean
   url: string
   separator: boolean
-}): JSX.Element => (
-  <>
-    {scroll ? (
-      <ScrollLink
-        to={name.toLowerCase()}
-        spy={true}
-        smooth={'easeInOutQuint'}
-        duration={1000}
-        offset={-100}
-        className={`flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer`}
-      >
-        {name}
-        {icon && icon}
-      </ScrollLink>
-    ) : (
-      <Link
-        href={url}
-        className={`flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer`}
-      >
-        {name}
-        {icon && icon}
-      </Link>
-    )}
-    {separator && <Separator className="mx-2" orientation="vertical" />}
-  </>
-)
+}): JSX.Element {
+  return (
+    <>
+      {scroll ? (
+        <ScrollLink
+          to={name.toLowerCase()}
+          spy
+          smooth="easeInOutQuint"
+          duration={1000}
+          offset={-100}
+          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer"
+        >
+          {name}
+          {icon && icon}
+        </ScrollLink>
+      ) : (
+        <Link
+          href={url}
+          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer"
+        >
+          {name}
+          {icon && icon}
+        </Link>
+      )}
+      {separator && <Separator className="mx-2" orientation="vertical" />}
+    </>
+  )
+}
 
 // menu logic:
 // - if on / scroll to section; otherwise go to url
@@ -97,7 +98,7 @@ const CommonElements = ({
 // - if link has icon, show icon
 // - if link is last, don't show separator
 
-export const NavLink = ({
+export function NavLink({
   name,
   url,
   icon,
@@ -111,7 +112,7 @@ export const NavLink = ({
   scroll: boolean
   separator: boolean
   dropdown?: boolean
-}): JSX.Element => {
+}): JSX.Element {
   return dropdown ? (
     <DropdownMenuItem>
       <CommonElements name={name} icon={icon} scroll={scroll} url={url} separator={separator} />
@@ -123,7 +124,7 @@ export const NavLink = ({
   )
 }
 
-const ModeToggle = () => {
+function ModeToggle() {
   const { setTheme } = useTheme()
 
   return (
@@ -144,7 +145,7 @@ const ModeToggle = () => {
   )
 }
 
-const HamburgerMenu = () => {
+function HamburgerMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -161,8 +162,8 @@ const HamburgerMenu = () => {
               name={item.name}
               url={item.url}
               icon={item.icon}
-              dropdown={true}
-              scroll={item.icon ? false : true}
+              dropdown
+              scroll={!item.icon}
               separator={idx === NAV_ITEMS.length - 2}
             />
           </DropdownMenuItem>

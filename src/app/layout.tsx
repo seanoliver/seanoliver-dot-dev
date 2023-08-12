@@ -2,16 +2,17 @@
 
 import './globals.css'
 import clsx from 'clsx'
-import Header from '@/components/Header'
-import { ThemeProvider } from '@/components/theme-provider'
 import { Analytics } from '@vercel/analytics/react'
 import Head from 'next/head'
 
 /** Inter Font */
 
 import { Inter } from 'next/font/google'
+import { ThemeProvider } from '@/components/theme-provider'
+import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',

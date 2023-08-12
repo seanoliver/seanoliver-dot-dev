@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns'
-import { UnderLink } from '@/components/under-link'
 import { Post } from 'contentlayer/generated'
+import { UnderLink } from '@/components/under-link'
 
 export default function PostList({ posts, limit }: { posts: Post[]; limit?: number }) {
   if (limit) {

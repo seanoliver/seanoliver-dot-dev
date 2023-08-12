@@ -49,7 +49,9 @@ const myDevTools = [
   'TypeScript',
 ]
 
-const ListItem = (item: string): JSX.Element => <li className="leading-7">{item}</li>
+function ListItem(item: string): JSX.Element {
+  return <li className="leading-7">{item}</li>
+}
 
 export default function Home(): JSX.Element {
   return (

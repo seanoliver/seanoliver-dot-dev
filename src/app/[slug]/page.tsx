@@ -17,7 +17,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   return { title: post.title }
 }
 
-const PostLayout = ({ params }: { params: { slug: string } }) => {
+function PostLayout({ params }: { params: { slug: string } }) {
   // Find post for current page
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
 

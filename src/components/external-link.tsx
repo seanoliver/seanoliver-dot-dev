@@ -11,14 +11,12 @@ export default function ExternalLink({
   className?: string
 }) {
   return (
-    <>
-      <Link
-        href={href}
-        className={`${className} font-medium text-primary underline underline-offset-4 hover:no-underline`}
-        target="_blank"
-      >
-        {children} <ArrowTopRightIcon className="inline w-4 h-4" />
-      </Link>
-    </>
+    <Link
+      href={href}
+      className={`${className} font-medium text-primary underline underline-offset-4 hover:no-underline`}
+      target="_blank"
+    >
+      {children} <ArrowTopRightIcon className="inline w-4 h-4" />
+    </Link>
   )
 }
