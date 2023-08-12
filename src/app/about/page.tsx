@@ -1,50 +1,9 @@
 'use client'
 
+import React from 'react'
 import Section from '@/components/Section'
-// import { SOCIAL_LINKS } from '@/lib/globals';
 import { UnderLink } from '@/components/under-link'
 
-/** About me metadata */
-// const metadata = {
-// 	title: 'Sean Oliver',
-// 	description: 'Software Engineer in San Francisco, CA',
-// 	longDescription: `I'm a software engineer and recovering
-// 	product marketer with 13 years of experience building and growing
-// 	technology products. My background in marketing helps me understand
-// 	people's needs and how to communicate with them. Now as a software
-// 	engineer, I build products that meet those needs.`,
-// };
-
-// const bodyVariants = {
-// 	hidden: { opacity: 0, y: 50 },
-// 	visible: { opacity: 1, y: 0 },
-// };
-
-// const myStack = [
-// 	'React',
-// 	'Next.js',
-// 	'Node.js',
-// 	'Typescript',
-// 	'Javascript',
-// 	'SQL',
-// 	'Python',
-// 	'Flask',
-// 	'HTML',
-// 	'CSS',
-// 	'Sass',
-// 	'PostgreSQL',
-// 	'AWS S3',
-// 	'Electron',
-// 	'Git',
-// 	'GitHub',
-// ];
-
-/**
- * About me page
- * @returns About me page
- * @example
- * <About />
- */
 export default function About(): JSX.Element {
   return (
     <Section title="About">

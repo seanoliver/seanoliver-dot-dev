@@ -11,7 +11,7 @@ import Posts from './posts/page'
 export default function Home(): JSX.Element {
   return (
     <>
-      <Posts />
+      <Posts limit={3} />
       <About />
       <Socials />
       <Projects />

@@ -4,11 +4,15 @@ import { format, parseISO } from 'date-fns'
 import usePosts from '@/hooks/use-posts'
 import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link'
+import { useRouter } from 'next/navigation'
 
-export default function Posts({ limit = 10 }: { limit: number }) {
+export default function Posts({ limit = 10 }: { limit?: number }): JSX.Element {
   let posts = usePosts()
-  if (!posts) return null
 
+  const router = useRouter()
+  if (!posts) router.push('/')
+
+  // @ts-ignore - if posts is undefined, router will push to home
   posts = posts.slice(0, limit)
 
   return (
