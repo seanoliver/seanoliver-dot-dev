@@ -1,18 +1,18 @@
 'use client'
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation'
 import { HamburgerMenu } from './hamburger-menu'
 import { ModeToggle } from './mode-toggle'
 import Nav from './navigation'
-import Section from './Section';
-import { NAV_ITEMS } from '@/lib/constants';
+import Section from './Section'
+import { NAV_ITEMS } from '@/lib/constants'
 
 export default function Header({ className }: { className: string }): JSX.Element {
-  const path = usePathname();
-  const navPaths = NAV_ITEMS.map((item) => item.pageLink);
-  navPaths.push('/');
+  const path = usePathname()
+  const navPaths = NAV_ITEMS.map((item) => item.pageLink)
+  navPaths.push('/')
 
-  const notBlogPost = navPaths.includes(path);
+  const notBlogPost = navPaths.includes(path)
 
   return (
     <>
@@ -25,10 +25,12 @@ export default function Header({ className }: { className: string }): JSX.Elemen
           </div>
         </div>
       </div>
-      {notBlogPost && <Section title="Home">
-        <h4 className="font-medium">Sean Oliver</h4>
-        <p className="text-muted-foreground">Software Engineer</p>
-      </Section>}
+      {notBlogPost && (
+        <Section title="Home">
+          <h4 className="font-medium">Sean Oliver</h4>
+          <p className="text-muted-foreground">Software Engineer</p>
+        </Section>
+      )}
     </>
   )
 }

@@ -122,12 +122,12 @@ This is a great simple template for a personal portfolio site using modern web t
 ## Roadmap
 
 - [ ] Uses Page
-- [ ] Contentlayer Blog
+- [x] Contentlayer Blog
 - [ ] Footer
 - [ ] Sticky Nav
 - [ ] Social Media Links
 - [ ] TBD: Contact Form
-- [ ] TBD: Project Details Modal / Page
+- [ ] TBD: Project Details Page
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
