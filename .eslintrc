@@ -1,6 +1,6 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["airbnb", "prettier", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
     "prettier/prettier": ["error"]
   },
@@ -11,9 +11,18 @@
       "jsx": true
     }
   },
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "node": true,
     "es6": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        // Add any TypeScript-specific rules here
+      }
+    }
+  ]
 }
