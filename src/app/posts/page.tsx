@@ -3,10 +3,13 @@
 import { format, parseISO } from 'date-fns'
 import usePosts from '@/hooks/use-posts'
 import Section from '@/components/Section'
-import { UnderLink } from '@/components/under-link';
+import { UnderLink } from '@/components/under-link'
 
-export default function Posts({ limit }: { limit?: number }) {
-  const posts = usePosts()
+export default function Posts({ limit = 10 }: { limit: number }) {
+  let posts = usePosts()
+  if (!posts) return null
+
+  posts = posts.slice(0, limit)
 
   return (
     <Section title="Writing">
