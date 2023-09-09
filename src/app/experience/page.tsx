@@ -19,7 +19,7 @@ export default function Experience(): JSX.Element {
               </Avatar>
               <div>
                 <CardTitle>{experience.company}</CardTitle>
-                <CardDescription>{experience.title}</CardDescription>
+                {/* <CardDescription>{experience.title}</CardDescription> */}
               </div>
             </div>
             <div className="hidden md:block">

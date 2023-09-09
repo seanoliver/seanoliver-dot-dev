@@ -60,9 +60,9 @@ export const PROJECTS: Project[] = [
     url: 'https://github.com/smol-ai/menubar',
     github: 'https://github.com/smol-ai/menubar',
     description:
-      'A menubar with Zero latency access to ChatGPT, Bard, Bing Chat, and Claude. I joined the Smol team out of a passion for LLMs and tools like this. Modularized chat providers and continue to maintain the project alongside Swyx.',
+      'A menubar with Zero latency access to ChatGPT, Bard, Bing Chat, and Claude. I joined the Smol team out of a passion for LLMs and tools like this. Modularized chat providers and continue to maintain the project.',
     image: '/projects/smolmenubar.png',
-    tags: ['JavaScript', 'Electron', 'CSS', 'ChatGPT', 'Bard', 'Bing Chat', 'Claude'],
+    tags: ['TypeScript', 'React', 'JavaScript', 'Electron', 'CSS', 'ChatGPT', 'Bard', 'Bing Chat', 'Claude'],
   },
   {
     name: 'SeanOliver.dev',
@@ -109,6 +109,25 @@ export const PROJECTS: Project[] = [
 ]
 
 export const EXPERIENCES = [
+  // TODO: Finish implementing these roles and find logos.
+  // {
+  //   title: 'Software Engineer',
+  //   company: 'State Technologies',
+  //   logo: '/logos/state.png',
+  //   date: '2023 - Present',
+  //   description:
+  //     'Building the future of enterprise software.',
+  //   tags: ['Remix', 'SST', 'AWS Amplify', 'Firebase', 'TypeScript', 'React', 'Supabase', 'PostgreSQL', 'Electron'],
+  // },
+  // {
+  //   title: 'Software Engineer',
+  //   company: 'Storybird.ai',
+  //   logo: '/logos/storybird.png',
+  //   date: '2023 - Present',
+  //   description:
+  //     'Building the future of storytelling with AI.',
+  //   tags: ['TypeScript', 'React', 'Redux'],
+  // },
   {
     title: 'Software Engineer',
     company: 'Smol AI',
@@ -116,6 +135,7 @@ export const EXPERIENCES = [
     date: '2023 - Present',
     description:
       'Building tools to help developers and enthusiasts leverage AI to be more creative, productive, and effective.',
+      tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Electron', 'Tailwind CSS'],
   },
   {
     title: 'Senior Product Marketing Manager',
@@ -123,7 +143,7 @@ export const EXPERIENCES = [
     logo: '/logos/block.png',
     date: '2021 - 2023',
     description:
-      "Led product marketing for Square Staff's new communication product, powered by the Crew app.",
+      "Led a cross-functional go-to-market effort for Square Team Communication, powered by the Crew app.",
   },
   {
     title: 'Director of Marketing',
@@ -139,7 +159,7 @@ export const EXPERIENCES = [
     logo: '/logos/lyft.png',
     date: '2015 - 2019',
     description:
-      'Spearheaded product marketing efforts, coordinating with various product and engineering teams, and introduced high-impact features like Scheduled Rides.',
+      'Led passenger GTM efforts, in tight coordination with operations, product, and engineering teams, introducing high-impact features like Scheduled Rides.',
   },
   {
     title: 'Senior Product Marketing Manager',
@@ -147,7 +167,7 @@ export const EXPERIENCES = [
     logo: '/logos/optimizely.png',
     date: '2013 - 2015',
     description:
-      'Introduced a framework for product adoption measurement, launched numerous products, and executed successful in-product marketing strategies.',
+      'Launched Optimizely\'s first mobile app testing SDK. Created and implemented a comprehensive framework for measuring the success of in-product promotional messaging.',
   },
   {
     title: 'Product Marketing Manager',
