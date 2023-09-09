@@ -1,3 +1,140 @@
+- <a name="readme-top"></a>
+-
+- <div align="center">
+-   <a href="https://github.com/seanoliver/seanoliver-dot-dev">
+-     <img src="public/projects/sodev.png" alt="SeanOliver dot dev">
+-   </a>
+-
+-   <h1 align="center">seanoliver [dot] dev</h1>
+-
+-   <p align="center">
+-     My minimalist portfolio website built with Next.js, Tailwind CSS, shadcn-ui, and TypeScript.
+-     <br />
+-     <br />
+-     <a href="https://seanoliver.dev/" target="_blank">View Site</a>
+-     ·
+-     <a href="https://github.com/seanoliver/seanoliver-dot-dev/issues">Report Bug</a>
+-     ·
+-     <a href="https://github.com/seanoliver/seanoliver-dot-dev/issues">Request Feature</a>
+-   </p>
+- </div>
+- <div align="center">
+-
+- ![Top Languages](https://img.shields.io/github/languages/top/seanoliver/seanoliver-dot-dev)
+- ![GitHub repo size](https://img.shields.io/github/repo-size/seanoliver/seanoliver-dot-dev)
+- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/seanoliver/seanoliver-dot-dev)
+- ![GitHub contributors](https://img.shields.io/github/contributors/seanoliver/seanoliver-dot-dev)
+- ![GitHub last commit](https://img.shields.io/github/last-commit/seanoliver/seanoliver-dot-dev)
+- ![GitHub issues](https://img.shields.io/github/issues/seanoliver/seanoliver-dot-dev)
+- ![GitHub](https://img.shields.io/github/license/seanoliver/seanoliver-dot-dev)
+-
+- </div>
+-
+- <!-- TABLE OF CONTENTS -->
+- <details>
+-   <summary>Table of Contents</summary>
+-   <ol>
+-     <li>
+-       <a href="#about-the-project">About The Project</a>
+-       <ul>
+-         <li><a href="#key-features">Key Features</a></li>
+-         <li><a href="#built-with">Built With</a></li>
+-       </ul>
+-     </li>
+-     <li>
+-       <a href="#getting-started">Getting Started</a>
+-     </li>
+-     <li><a href="#usage">Usage</a></li>
+-     <li><a href="#roadmap">Roadmap</a></li>
+-     <li><a href="#contributing">Contributing</a></li>
+-     <li><a href="#license">License</a></li>
+-     <li><a href="#contact">Contact</a></li>
+-     <li><a href="#acknowledgments">Acknowledgments</a></li>
+-   </ol>
+- </details>
+-
+- <!-- ABOUT THE PROJECT -->
+-
+- ## About The Project
+-
+- This is my minimalist portfolio website built with Next.js, Tailwind CSS, shadcn-ui, and TypeScript. It's a great template for a simple personal portfolio site, and it's a great way to get familiar with shadcn-ui components, TailwindCSS, and Next.js.
+-
+- It's also a great starter template using modern web technologies. Feel free to clone this repo and use it as a base for your own site. Credit is appreciated but not required.
+-
+- If you like this project, please consider giving it a ⭐ on GitHub!
+-
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-
+- ### Key Features
+-
+- - Dark/Light Mode
+- - Single Page Application
+- - Mobile-Friendly Responsive Design
+- - Scroll-to-Section Navigation using React-Scroll
+-
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-
+- ### Built With
+-
+- This project was built in 2023 using the following technologies.
+-
+- - ![Nextjs][Nextjs]
+- - ![TailwindCSS][TailwindCSS]
+- - ![React][React]
+- - ![TypeScript][TypeScript]
+- - ![Nodejs][Nodejs]
+- - ![shadcn-ui][shadcn-ui]
+- - ![Vercel][Vercel]
+-
+- See [requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/master/requirements.txt) for a full list of dependencies.
+-
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-
+- <!-- GETTING STARTED -->
+-
+- ## Getting Started
+-
+- This is a great simple template for a personal portfolio site using modern web technologies. Feel free to clone this repo and use it as a base for your own portfolio site. Credit is appreciated but not required.
+-
+- 1. Clone and cd into this repository
+-
+-    ```bash
+-    git clone https://github.com/seanoliver/seanoliver-dot-dev.git
+-    cd seanoliver-dot-dev
+-    ```
+-
+- 2. Install dependencies
+-
+-    ```bash
+-    npm install
+-    ```
+-
+- 3. That's it! Run the app. It will be served at `localhost:3000`
+-
+-    ```bash
+-     npm run dev
+-    ```
+-
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-
+- <!-- ROADMAP -->
+-
+- ## Roadmap
+-
+- - [ ] Uses Page
+- - [x] Contentlayer Blog
+- - [ ] Footer
+- - [ ] Sticky Nav
+- - [ ] Social Media Links
+- - [ ] TBD: Contact Form
+- - [ ] TBD: Project Details Page
+-
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-
+- <!-- CONTRIBUTING -->
+-
+- ## Contributing
+-
 <a name="readme-top"></a>
 
 <div align="center">
