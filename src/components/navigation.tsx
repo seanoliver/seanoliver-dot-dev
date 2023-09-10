@@ -20,7 +20,7 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { NAV_ITEMS } from '@/lib/constants'
-import { useNavContext } from '@/app/layout';
+import { useNavContext } from '@/hooks/use-nav-context'
 
 export default function Nav(): JSX.Element {
   const path = usePathname()
@@ -68,7 +68,7 @@ function CommonElements({
 }): JSX.Element {
 
   const refs = useNavContext()
-  const handleScroll = (ref: React.RefObject<HTMLElement>) => {
+  const handleScroll = (ref: React.RefObject<HTMLDivElement>) => {
     const element = ref.current;
     if (element)
       window.scrollTo({

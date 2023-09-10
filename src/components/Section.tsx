@@ -1,6 +1,6 @@
 import { Element } from 'react-scroll'
 import { Separator } from './ui/separator'
-import { useNavContext } from '@/app/layout';
+import { useNavContext } from '@/hooks/use-nav-context'
 import { NavRefsProps } from '@/lib/types';
 
 export default function Section({

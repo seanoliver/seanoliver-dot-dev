@@ -36,9 +36,9 @@ export interface CardWrapperProps {
 }
 
 export interface NavRefsProps {
-  Posts: React.RefObject<HTMLElement>;
-  About: React.RefObject<HTMLElement>;
-  Projects: React.RefObject<HTMLElement>;
-  Experience: React.RefObject<HTMLElement>;
-  [key: string]: React.RefObject<HTMLElement>;
+  Posts: React.RefObject<HTMLDivElement>;
+  About: React.RefObject<HTMLDivElement>;
+  Projects: React.RefObject<HTMLDivElement>;
+  Experience: React.RefObject<HTMLDivElement>;
+  [key: string]: React.RefObject<HTMLDivElement>;
 }

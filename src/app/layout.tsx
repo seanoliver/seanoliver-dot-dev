@@ -1,36 +1,27 @@
 'use client'
 
-import './globals.css'
-import clsx from 'clsx'
-import { Analytics } from '@vercel/analytics/react'
-import Head from 'next/head'
+import { Analytics } from '@vercel/analytics/react';
+import clsx from 'clsx';
+import Head from 'next/head';
+import './globals.css';
 
 /** Inter Font */
 
-import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
-import { createContext, createRef, useContext, useRef } from 'react'
-import { NAV_ITEMS } from '@/lib/constants'
-import Nav from '@/components/navigation'
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
+import { ThemeProvider } from '@/components/theme-provider';
+import { NAV_ITEMS } from '@/lib/constants';
 import { NavRefsProps } from '@/lib/types';
+import { Inter } from 'next/font/google';
+import { useRef } from 'react';
+import { NavContext } from '@/hooks/use-nav-context';
+
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
-
-/** Create nav context provider for smooth */
-const NavContext = createContext<NavRefsProps>({
-  Posts: createRef(),
-  About: createRef(),
-  Projects: createRef(),
-  Experience: createRef(),
-});
-
-export const useNavContext = () => useContext(NavContext)
 
 /**
  * Root layout component
