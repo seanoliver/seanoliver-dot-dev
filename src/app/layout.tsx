@@ -16,6 +16,7 @@ import { NavRefsProps } from '@/lib/types';
 import { Inter } from 'next/font/google';
 import { useRef } from 'react';
 import { NavContext } from '@/hooks/use-nav-context';
+import JumpToTop from '@/components/jump-to-top';
 
 
 const inter = Inter({
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </NavContext.Provider>
         </ThemeProvider>
         <Analytics />
+        <JumpToTop />
         <TailwindIndicator />
       </body>
     </html>
