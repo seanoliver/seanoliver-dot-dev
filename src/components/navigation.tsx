@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Link as ScrollLink } from 'react-scroll'
 import * as React from 'react'
 import { MoonIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
@@ -21,9 +20,12 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { NAV_ITEMS } from '@/lib/constants'
+import { useNavContext } from '@/app/layout';
 
 export default function Nav(): JSX.Element {
   const path = usePathname()
+
+
   return (
     <div className="flex items-center">
       <Link href="/">
@@ -64,20 +66,31 @@ function CommonElements({
   url: string
   separator: boolean
 }): JSX.Element {
+
+  const refs = useNavContext()
+  const handleScroll = (ref: React.MutableRefObject<HTMLElement>) => {
+    const element = ref.current;
+    console.log('ref.current', ref.current)
+    console.log('element', element)
+    console.log('element.offsetTop', element.offsetTop)
+    if (element)
+    window.scrollTo({
+      top: element.offsetTop - 50,
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <>
       {scroll ? (
-        <ScrollLink
-          to={name.toLowerCase()}
-          spy
-          smooth="easeInOutQuint"
-          duration={1000}
-          offset={-100}
+        <Link
+          href='#'
+          onClick={() => (refs[name]) ? handleScroll(refs[name]) : null}
           className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer"
         >
           {name}
           {icon && icon}
-        </ScrollLink>
+        </Link>
       ) : (
         <Link
           href={url}

@@ -1,0 +1,117 @@
+---
+title: Scrolling Nav Links in React
+date: 2023-09-10
+isPublished: false
+---
+
+The main navigation links on my site homepage are scrolling links. When you click on one of them, the page scrolls to the appropriate section. It's a nice technique that I've seen on a lot of sites, and I wanted to implement it on my site.
+
+I found `react-scroll`, a simple open source component that does exactly that and nothing else. It worked fine for a while, but after a recent React update, I started getting a nasty `TypeError`:
+
+```
+TypeError Here
+```
+
+After skimming the GitHub issues, it was starting to look like the maintainer had abandoned the project.
+
+Unfortunately, the other options available were far more complex than what I needed, so I decided to roll my own using React's basic built-in hooks, and it was pretty easy and a ton of fun.
+
+## Requirements
+
+To build your own scrolling links, you need a few things:
+
+1. **Scroll Target**: Element to scroll to. In my case this is the parent `div` of the section of the page I plan to scroll to.
+2. **Scroll Function**: Mechanism to perform the scroll. A callback function that you can pass to the `onClick` event of your link.
+3. **Offset**: Optional distance from the top. It's generally a good idea to offset the scroll target by the height of your header, so that the target is not hidden behind the header or flush with the top of the viewport.
+4. **Smooth Scrolling**: Optional, to make it look slick. This is a basic CSS property that you can apply to the scroll target that adds that nice easing effect.
+
+## React Hooks
+
+React's built-in hooks make this really easy to do, and it frees you from having to use a third-party library that might break when some dependency gets an update and the maintainer has stopped responding to issues. Scrolling is a pretty basic thing, and it's not worth the risk of using a third-party library. Plus, it's fun to build your own.
+
+### `useContext`
+
+This is optional depending on how your site is set up. Mine has a layout component that renders both the nav header (with the scrolling links) as well as all of the individual sections to which to scroll. `useContext` is useful tool in this case since the refs will need to be available two or three layers down different branches of the component tree from the layout component.
+
+```tsx {7,14}
+// Layout -> Header -> Nav -> CommonElements
+
+function CommonElements({
+  name // <- The link text
+}: { name: string }): JSX.Element {
+
+  const refs = useNavContext()
+
+  // ...
+
+return (
+    <Link
+        href='#'
+        onClick={() => (refs[name]) ? handleScroll(refs[name]) : null}
+    >
+        {name}
+    </Link>
+  )
+}
+
+```
+
+### `useRef`
+
+This is the part that makes it all work. `useRef` is a hook that allows you to create a reference to a DOM element. It's a way to get a reference to a DOM element without having to use `document.getElementById` or `document.querySelector`. It's a lot more efficient and it's the React way to do it.
+
+My [`Nav` component](https://github.com/seanoliver/seanoliver-dot-dev/blob/main/src/components/navigation.tsx) is pretty modular, so this is where `useContxt` came in super handly
+
+```tsx {15,16-26,33}
+function CommonElements({
+  name,
+  icon,
+  scroll,
+  url,
+  separator,
+}: {
+  name: string
+  icon?: React.ReactNode
+  scroll: boolean
+  url: string
+  separator: boolean
+}): JSX.Element {
+
+  const refs = useNavContext()
+  const handleScroll = (ref: React.MutableRefObject<HTMLElement>) => {
+    const element = ref.current;
+    console.log('ref.current', ref.current)
+    console.log('element', element)
+    console.log('element.offsetTop', element.offsetTop)
+    if (element)
+    window.scrollTo({
+      top: element.offsetTop - 50,
+      behavior: 'smooth'
+    });
+  }
+
+  return (
+    <>
+      {scroll ? (
+        <Link
+          href='#'
+          onClick={() => (refs[name]) ? handleScroll(refs[name]) : null}
+          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer"
+        >
+          {name}
+          {icon && icon}
+        </Link>
+      ) : (
+        <Link
+          href={url}
+          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer"
+        >
+          {name}
+          {icon && icon}
+        </Link>
+      )}
+      {separator && <Separator className="mx-2" orientation="vertical" />}
+    </>
+  )
+}
+```

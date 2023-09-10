@@ -9,7 +9,7 @@ export default function Posts(): JSX.Element {
   let posts = usePosts()
 
   return (
-    <Section title="Writing">
+    <Section title="Posts">
       {posts && posts.length > 0 && (
         <div className="mx-auto max-w-xl">
           {posts.map((post, idx) => (

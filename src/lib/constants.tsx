@@ -9,6 +9,11 @@ import { Project } from '@/lib/types'
 
 export const NAV_ITEMS = [
   {
+    name: 'Posts',
+    url: '#posts',
+    pageLink: '/posts',
+  },
+  {
     name: 'About',
     url: '#about',
     pageLink: '/about',

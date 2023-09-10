@@ -12,16 +12,36 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { createContext, createRef, useContext, useRef } from 'react'
+import { NAV_ITEMS } from '@/lib/constants'
+import Nav from '@/components/navigation'
+import { NavRefsProps } from '@/lib/types';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 
+/** Create nav context provider for smooth */
+const NavContext = createContext<NavRefsProps>({
+  Posts: createRef(),
+  About: createRef(),
+  Projects: createRef(),
+  Experience: createRef(),
+});
+
+export const useNavContext = () => useContext(NavContext)
+
 /**
  * Root layout component
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+  const navRefs: NavRefsProps = NAV_ITEMS.reduce((acc: any, item) => {
+    acc[item.name] = useRef(null)
+    return acc
+  }, {})
+
   return (
     <html
       lang="en"
@@ -36,11 +56,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Head>
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="container flex flex-col justify-center items-center xl:max-w-[700px] lg:max-w-[600px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto">
-            <Header className="w-full flex flex-col mt-5" />
-            {children}
-            <Footer />
-          </div>
+          <NavContext.Provider value={navRefs}>
+            <div className="container flex flex-col justify-center items-center xl:max-w-[700px] lg:max-w-[600px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto">
+              <Header className="w-full flex flex-col mt-5" />
+              {children}
+              <Footer />
+            </div>
+          </NavContext.Provider>
         </ThemeProvider>
         <Analytics />
         <TailwindIndicator />

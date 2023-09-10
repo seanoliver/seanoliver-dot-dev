@@ -27,8 +27,8 @@ export const mdxComponents: MDXComponents = {
   h5: (props) => <h5 {...props} className="text-md leading-5 break-words mb-4 first:mt-0 mt-16" />,
   h6: (props) => <h6 {...props} className="text-sm leading-4 break-words mb-4 first:mt-0 mt-16" />,
   ul: (props) => <ul {...props} className="my-6 ml-6 list-disc [&>li]:mt-2" />,
-  ol: (props) => <ol {...props} className="list-decimal pl-6 mb-6" />,
-  li: (props) => <li {...props} className="mb-2 text-sm" />,
+  ol: (props) => <ol {...props} className="list-decimal pl-6 my-6" />,
+  li: (props) => <li {...props} className="my-3 text-sm" />,
   a: (props) => (
     <UnderLink href={props.href as string} target="_blank" {...props}>
       {props.children}
