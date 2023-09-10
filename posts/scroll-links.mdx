@@ -78,7 +78,7 @@ function CommonElements({
 }): JSX.Element {
 
   const refs = useNavContext()
-  const handleScroll = (ref: React.MutableRefObject<HTMLElement>) => {
+  const handleScroll = (ref: React.RefObject<HTMLElement>) => {
     const element = ref.current;
     console.log('ref.current', ref.current)
     console.log('element', element)

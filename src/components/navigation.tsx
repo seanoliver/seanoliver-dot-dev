@@ -68,17 +68,14 @@ function CommonElements({
 }): JSX.Element {
 
   const refs = useNavContext()
-  const handleScroll = (ref: React.MutableRefObject<HTMLElement>) => {
+  const handleScroll = (ref: React.RefObject<HTMLElement>) => {
     const element = ref.current;
-    console.log('ref.current', ref.current)
-    console.log('element', element)
-    console.log('element.offsetTop', element.offsetTop)
     if (element)
-    window.scrollTo({
-      top: element.offsetTop - 50,
-      behavior: 'smooth'
-    });
-  }
+      window.scrollTo({
+        top: element.offsetTop - 50,
+        behavior: 'smooth'
+      });
+    }
 
   return (
     <>
