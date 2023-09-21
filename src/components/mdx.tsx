@@ -1,5 +1,5 @@
 import './mdx.css'
-import type { MDXComponents } from 'mdx/types'
+import type { Components as MDXComponents } from '@mdx-js/react/lib'
 import { UnderLink } from '@/components/under-link'
 import CodeBlock from '@/components/code-block'
 
