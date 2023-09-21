@@ -11,14 +11,14 @@ export default function Posts(): JSX.Element {
   return (
     <Section title="Posts">
       {posts && posts.length > 0 && (
-        <div className="mx-auto max-w-xl">
+        <div className="w-full max-w-xl">
           {posts.map((post, idx) => (
             <div key={idx} className="w-full flex items-center justify-between leading-7">
               <span className="font-medium">
                 <UnderLink href={post.url}>{post.title}</UnderLink>
               </span>
               <span className="text-muted-foreground text-xs hidden sm:inline">
-                {format(parseISO(post.date), 'MMMM dd, yyyy')}
+                {format(parseISO(post.date), 'yyyy MM dd')}
               </span>
             </div>
           ))}

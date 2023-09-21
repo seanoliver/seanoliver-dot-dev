@@ -2,7 +2,7 @@ import { NavRefsProps } from "@/lib/types";
 import { createRef, useContext } from "react";
 import { createContext } from "react";
 
-/** Create nav context provider for smooth */
+/** Create nav context provider for smooth scrolling */
 export const NavContext = createContext<NavRefsProps>({
     Posts: createRef(),
     About: createRef(),
