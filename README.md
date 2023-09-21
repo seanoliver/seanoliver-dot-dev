@@ -106,13 +106,13 @@ This is a great simple template for a personal portfolio site using modern web t
 2. Install dependencies
 
    ```bash
-   bun install
+   pnpm install
    ```
 
 3. That's it! Run the app. It will be served at `localhost:3000`
 
    ```bash
-    bun run dev
+    pnpm run dev
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -125,8 +125,7 @@ This is a great simple template for a personal portfolio site using modern web t
 - [x] Contentlayer Blog
 - [ ] Footer
 - [ ] Sticky Nav
-- [ ] Scroll Links (no packages)
-- [x] Switch to Bun
+- [x] Scroll Links (no packages)
 - [x] Social Media Links
 - [ ] TBD: Contact Form
 - [ ] TBD: Project Details Pages
