@@ -1,9 +1,8 @@
 'use client'
 
-import { GitHubLogoIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
-import { PROJECTS } from '@/lib/constants'
+import Section from '@/components/Section';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,11 +10,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { Button } from '@/components/ui/button'
-import Section from '@/components/Section'
+} from '@/components/ui/card';
+import { PROJECTS } from '@/lib/constants';
+import { ExternalLinkIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Projects(): JSX.Element {
   return (
@@ -42,15 +41,13 @@ export default function Projects(): JSX.Element {
             <CardDescription className="leading-7">{project.description}</CardDescription>
           </CardHeader>
           <CardContent>
-            <AspectRatio ratio={7 / 3}>
-              <Image
-                src={project.image}
-                alt={project.name}
-                className="object-cover rounded-lg"
-                width={700}
-                height={300}
-              />
-            </AspectRatio>
+            <Image
+              src={project.image}
+              alt={project.name}
+              className=" rounded-lg"
+              width={700}
+              height={300}
+            />
           </CardContent>
           <CardFooter className="flex flex-wrap">
             {project.tags.map((tag, idx) => (
