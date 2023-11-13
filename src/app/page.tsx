@@ -1,5 +1,3 @@
-'use client'
-
 import Goodreads from '@/components/goodreads';
 import Socials from '@/components/socials';
 import About from './about/page';

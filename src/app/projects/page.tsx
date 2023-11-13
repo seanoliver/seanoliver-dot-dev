@@ -52,7 +52,6 @@ export default function Projects(): JSX.Element {
               />
             </AspectRatio>
           </CardContent>
-          {/* <Separator className='mb-6' /> */}
           <CardFooter className="flex flex-wrap">
             {project.tags.map((tag, idx) => (
               <Badge key={`${tag}-${idx}`} className="mr-2 mb-2" variant="secondary">

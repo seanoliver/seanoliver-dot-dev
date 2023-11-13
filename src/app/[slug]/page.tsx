@@ -3,6 +3,7 @@ import { allPosts } from 'contentlayer/generated'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { notFound } from 'next/navigation'
 import { mdxComponents } from '@/components/mdx'
+import { Post } from 'contentlayer/generated'
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
@@ -14,7 +15,30 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   // 404 if the post does not exist.
   if (!post) notFound()
 
-  return { title: post.title }
+  const { title, date, image, summary: description, url } = post;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime: date,
+      url,
+      images: [
+        {
+          url: image,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
+    },
+  }
 }
 
 function PostLayout({ params }: { params: { slug: string } }) {

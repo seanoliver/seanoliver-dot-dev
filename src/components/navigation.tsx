@@ -5,7 +5,6 @@ import * as React from 'react'
 import { MoonIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
-import { Separator } from './ui/separator'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -58,13 +57,11 @@ function CommonElements({
   icon,
   scroll,
   url,
-  separator,
 }: {
   name: string
   icon?: React.ReactNode
   scroll: boolean
   url: string
-  separator: boolean
 }): JSX.Element {
 
   const refs = useNavContext()
@@ -97,7 +94,6 @@ function CommonElements({
           {icon && icon}
         </Link>
       )}
-      {separator && <Separator className="mx-2" orientation="vertical" />}
     </>
   )
 }
@@ -113,23 +109,21 @@ export function NavLink({
   url,
   icon,
   scroll,
-  separator,
   dropdown,
 }: {
   name: string
   url: string
   icon?: React.ReactNode
   scroll: boolean
-  separator: boolean
   dropdown?: boolean
 }): JSX.Element {
   return dropdown ? (
     <DropdownMenuItem>
-      <CommonElements name={name} icon={icon} scroll={scroll} url={url} separator={separator} />
+      <CommonElements name={name} icon={icon} scroll={scroll} url={url} />
     </DropdownMenuItem>
   ) : (
     <NavigationMenuItem>
-      <CommonElements name={name} icon={icon} scroll={scroll} url={url} separator={separator} />
+      <CommonElements name={name} icon={icon} scroll={scroll} url={url} />
     </NavigationMenuItem>
   )
 }
@@ -174,7 +168,6 @@ function HamburgerMenu() {
               icon={item.icon}
               dropdown
               scroll={!item.icon}
-              separator={idx === NAV_ITEMS.length - 2}
             />
           </DropdownMenuItem>
         ))}

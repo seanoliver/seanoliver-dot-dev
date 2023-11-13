@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Analytics } from '@vercel/analytics/react';
 import clsx from 'clsx';

@@ -11,7 +11,17 @@ export async function GET(request: Request) {
   const base64 = Buffer.from(buffer).toString('base64')
   const imageSrc = `data:image/jpeg;base64,${base64}`
 
-  const fontData = await fetch('http://localhost:3000/fonts/JetBrainsMono-Regular.ttf').then((res) => res.arrayBuffer())
+  const font =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf'
+      : 'https://seanoliver.dev/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf'
+
+  const bgImage =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/patterns/shattered-island.gif'
+      : 'https://seanoliver.dev/patterns/shattered-island.gif'
+
+  const fontData = await fetch(font).then((res) => res.arrayBuffer())
 
   return new ImageResponse(
     (
@@ -26,17 +36,34 @@ export async function GET(request: Request) {
           color: '#1A202C',
           width: '100%',
           height: '100%',
-          fontFamily: 'Typewriter',
-          paddingLeft: '50px'
+          paddingLeft: '50px',
+          backgroundImage: `url(${bgImage})`,
+          backgroundRepeat: 'repeat',
         }}
       >
-        <h1 style={{ fontSize: '52px', fontWeight: '600' }}>
+        <h1
+          style={{
+            fontSize: '48px',
+            fontWeight: '600',
+            // backgroundColor: '#334155',
+            color: '#F5F6F7',
+            // borderRadius: '30px',
+            // padding: '10px 20px',
+            // boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+          }}
+        >
           {title}
         </h1>
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
+            marginTop: '20px',
+            color: '#F5F6F7',
+            // backgroundColor: '#94A3B8',
+            // borderRadius: '15px',
+            // padding: '10px 20px',
+            // boxShadow: '0 0 20px rgba(0,0,0,0.1)',
           }}
         >
           <img
@@ -45,7 +72,7 @@ export async function GET(request: Request) {
               width: '40px',
               height: '40px',
               borderRadius: '50%',
-              marginRight: '10px',
+              marginRight: '20px',
             }}
           />
           <span

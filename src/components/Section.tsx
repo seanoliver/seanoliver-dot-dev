@@ -1,4 +1,5 @@
-import { Element } from 'react-scroll'
+'use client';
+
 import { Separator } from './ui/separator'
 import { useNavContext } from '@/hooks/use-nav-context'
 import { NavRefsProps } from '@/lib/types';

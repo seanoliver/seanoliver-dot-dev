@@ -1,3 +1,5 @@
+'use client';
+
 import GoodreadsBookshelf from 'react-goodreads-shelf'
 import Section from './Section'
 

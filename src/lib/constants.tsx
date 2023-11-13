@@ -61,6 +61,15 @@ export const SOCIAL_LINKS = [
 
 export const PROJECTS: Project[] = [
   {
+    name: 'Audioflare',
+    url: 'https://audioflare.seanoliver/dev/',
+    github: 'https://github.com/seanoliver/audioflare',
+    description:
+      'An all-in-one AI audio playground using Cloudflare AI Workers to transcribe, analyze, summarize, and translate any audio file.',
+    image: '/projects/audioflare.png',
+    tags: ['Cloudflare', 'TypeScript', 'React', 'Whisper', 'Tailwind CSS', 'Cloudflare AI Workers'],
+  },
+  {
     name: 'Smol Menubar',
     url: 'https://github.com/smol-ai/menubar',
     github: 'https://github.com/smol-ai/menubar',

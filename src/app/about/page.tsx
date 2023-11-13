@@ -1,8 +1,29 @@
-'use client'
-
 import React from 'react'
 import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'About Sean Oliver',
+  openGraph: {
+    title: 'About',
+    description: 'About Sean Oliver',
+    type: 'article',
+    url: 'https://seanoliver.dev/about',
+    images: [
+      {
+        url: 'https://seanoliver.dev/images/about.png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About',
+    description: 'About Sean Oliver',
+    images: ['https://seanoliver.dev/images/about.png'],
+  },
+}
 
 export default function About(): JSX.Element {
   return (
