@@ -43,7 +43,6 @@ export default function Nav(): JSX.Element {
               url={path !== '/' ? item.pageLink : item.url}
               icon={item.icon}
               scroll={!(item.icon || path !== '/')}
-              separator={idx < NAV_ITEMS.length - 1}
             />
           ))}
         </NavigationMenuList>
@@ -102,7 +101,6 @@ function CommonElements({
 // - if on / scroll to section; otherwise go to url
 // - if external link, open in new tab
 // - if link has icon, show icon
-// - if link is last, don't show separator
 
 export function NavLink({
   name,

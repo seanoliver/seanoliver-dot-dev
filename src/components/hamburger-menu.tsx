@@ -30,7 +30,6 @@ export function HamburgerMenu() {
               icon={item.icon}
               dropdown
               scroll={!item.icon}
-              separator={idx === NAV_ITEMS.length - 2}
             />
           </DropdownMenuItem>
         ))}
