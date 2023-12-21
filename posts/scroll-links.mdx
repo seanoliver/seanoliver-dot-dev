@@ -2,12 +2,20 @@
 title: Scrolling Anchor Links in React
 date: 2023-09-21
 isPublished: true
-summary: 'How to create smooth scrolling anchor links in React using built-in hooks.'
+summary:
+  'How to create smooth scrolling anchor links in React using built-in hooks.'
 ---
 
-Anchor links, also known as "jump links" or "in-page links," let users navigate to specific sections within a webpage. They're especially useful for content-heavy pages and also improve accessibility. However, the default behavior can be jarring—clicking one snaps you to the target section without any smooth transition.
+Anchor links, also known as "jump links" or "in-page links," let users navigate
+to specific sections within a webpage. They're especially useful for
+content-heavy pages and also improve accessibility. However, the default
+behavior can be jarring—clicking one snaps you to the target section without any
+smooth transition.
 
-To elevate user experience, it's possible to add smooth scrolling to anchor links. I recently swapped out the [`react-scroll`](https://github.com/fisshy/react-scroll) library for a custom setup using React's built-in hooks. Here's how you can do it too.
+To elevate user experience, it's possible to add smooth scrolling to anchor
+links. I recently swapped out the
+[`react-scroll`](https://github.com/fisshy/react-scroll) library for a custom
+setup using React's built-in hooks. Here's how you can do it too.
 
 ### Requirements
 
@@ -20,97 +28,113 @@ Here's a checklist of what you'll need:
 
 ### Using React Hooks
 
-React Hooks make this task a cinch, offering you a native solution without third-party dependencies. This enhances your app's longevity and minimizes maintenance efforts.
+React Hooks make this task a cinch, offering you a native solution without
+third-party dependencies. This enhances your app's longevity and minimizes
+maintenance efforts.
 
 #### `useContext`
 
-This hook is optional but recommended if your site has a layout component containing the nav header and target sections split out into separate components (as [mine](https://github.com/seanoliver/seanoliver-dot-dev/blob/main/src/components/navigation.tsx) does). `useContext` simplifies passing down refs through the component tree.
+This hook is optional but recommended if your site has a layout component
+containing the nav header and target sections split out into separate components
+(as
+[mine](https://github.com/seanoliver/seanoliver-dot-dev/blob/main/src/components/navigation.tsx)
+does). `useContext` simplifies passing down refs through the component tree.
 
 ```tsx
 // use-nav-context.tsx
-import { createContext, useContext, createRef } from 'react';
-import { NavRefsProps } from '@/lib/types';
+import { createContext, useContext, createRef } from 'react'
+import { NavRefsProps } from '@/lib/types'
 
 export const NavContext = createContext<NavRefsProps>({
   Posts: createRef(),
   About: createRef(),
   Projects: createRef(),
   Experience: createRef(),
-});
+})
 
-export const useNavContext = () => useContext(NavContext);
+export const useNavContext = () => useContext(NavContext)
 ```
 
 Wrap your root layout component with `NavContext.Provider`:
 
 ```tsx
 // layout.tsx
-import { NavContext } from '@/hooks/use-nav-context';
+import { NavContext } from '@/hooks/use-nav-context'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html>
       <body>
-        <NavContext.Provider value={navRefs}>
-          {children}
-        </NavContext.Provider>
+        <NavContext.Provider value={navRefs}>{children}</NavContext.Provider>
       </body>
     </html>
-  );
+  )
 }
 ```
 
-To access `NavContext` in deeply nested components, use the `useNavContext` hook:
+To access `NavContext` in deeply nested components, use the `useNavContext`
+hook:
 
 ```tsx
 // NavLink.tsx
 function NavLink({ name }: { name: string }): JSX.Element {
-  const refs = useNavContext();
+  const refs = useNavContext()
 
   return (
-    <Link href="#" onClick={() => (refs[name] ? handleScroll(refs[name]) : null)}>
+    <Link
+      href='#'
+      onClick={() => (refs[name] ? handleScroll(refs[name]) : null)}
+    >
       {name}
     </Link>
-  );
+  )
 }
 ```
 
 #### `useRef`
 
-`useRef` is where the real magic happens. It lets you hold a reference to DOM elements in a React-friendly manner.
+`useRef` is where the real magic happens. It lets you hold a reference to DOM
+elements in a React-friendly manner.
 
 ```tsx
 // NavLink.tsx
 function NavLink({ scroll }: { scroll: boolean }): JSX.Element {
-  const refs = useNavContext();
+  const refs = useNavContext()
 
   const handleScroll = (ref: React.RefObject<HTMLElement>) => {
-    const element = ref.current;
+    const element = ref.current
     if (element) {
       window.scrollTo({
         top: element.offsetTop - 50,
         behavior: 'smooth',
-      });
+      })
     }
-  };
+  }
 
   const linkProps = scroll
-    ? { href: "#", onClick: () => (refs[name] ? handleScroll(refs[name]) : null) }
-    : { href: url };
+    ? {
+        href: '#',
+        onClick: () => (refs[name] ? handleScroll(refs[name]) : null),
+      }
+    : { href: url }
 
   return (
     <>
-      <Link {...linkProps}>
-        {name}
-      </Link>
+      <Link {...linkProps}>{name}</Link>
     </>
-  );
+  )
 }
 ```
 
 ### Smooth Scrolling Using `window.scrollTo`
 
-You can achieve smooth scrolling directly via JavaScript by utilizing the `window.scrollTo` function. The function accepts an options object where you can specify `top` and `left` positions along with `behavior`.
+You can achieve smooth scrolling directly via JavaScript by utilizing the
+`window.scrollTo` function. The function accepts an options object where you can
+specify `top` and `left` positions along with `behavior`.
 
 Call this function from nav link component:
 
@@ -118,19 +142,32 @@ Call this function from nav link component:
 window.scrollTo({
   top: element.offsetTop - 50,
   behavior: 'smooth',
-});
+})
 ```
 
-- `top`: This is the vertical scroll position in pixels. `element.offsetTop` gives you the distance of the element from the top of its parent. We subtract 50 pixels to account for any fixed header or margin you may have.
+- `top`: This is the vertical scroll position in pixels. `element.offsetTop`
+  gives you the distance of the element from the top of its parent. We subtract
+  50 pixels to account for any fixed header or margin you may have.
 
-- `behavior`: Setting it to `smooth` ensures that the scrolling effect is animated and not abrupt. This mimics the CSS `scroll-behavior: smooth;` but offers more control since you're doing it programmatically.
+- `behavior`: Setting it to `smooth` ensures that the scrolling effect is
+  animated and not abrupt. This mimics the CSS `scroll-behavior: smooth;` but
+  offers more control since you're doing it programmatically.
 
-By using `window.scrollTo` this way, you bypass the need to set CSS properties like `scroll-behavior`, giving you fine-grained control over the scroll functionality.
+By using `window.scrollTo` this way, you bypass the need to set CSS properties
+like `scroll-behavior`, giving you fine-grained control over the scroll
+functionality.
 
-The scrolling behavior itself is pretty efficient. However, if your page has numerous elements or complex layouts, consider using throttling or debouncing techniques to control the frequency of scroll events.
+The scrolling behavior itself is pretty efficient. However, if your page has
+numerous elements or complex layouts, consider using throttling or debouncing
+techniques to control the frequency of scroll events.
 
 ### Wrapping Up
 
-Using React's built-in hooks, you can efficiently create smooth scrolling anchor links. You'll avoid third-party library risks, keep your component tree clean, and most importantly, deliver a refined user experience. Your users will find it easier to navigate your long, content-rich pages, and you get to maintain a leaner, more robust codebase.
+Using React's built-in hooks, you can efficiently create smooth scrolling anchor
+links. You'll avoid third-party library risks, keep your component tree clean,
+and most importantly, deliver a refined user experience. Your users will find it
+easier to navigate your long, content-rich pages, and you get to maintain a
+leaner, more robust codebase.
 
-Feel free to check out the complete code in action on this site's [GitHub repo](https://github.com/seanoliver/seanoliver-dot-dev).
+Feel free to check out the complete code in action on this site's
+[GitHub repo](https://github.com/seanoliver/seanoliver-dot-dev).

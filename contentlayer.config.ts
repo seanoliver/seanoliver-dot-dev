@@ -1,7 +1,7 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
 import rehypePrettyCode from 'rehype-pretty-code'
-import { join } from 'path';
+import { join } from 'path'
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -27,7 +27,7 @@ const Post = defineDocumentType(() => ({
       type: 'string',
       description: 'The summary of the post',
       required: true,
-    }
+    },
   },
   computedFields: {
     url: {
@@ -44,7 +44,10 @@ const Post = defineDocumentType(() => ({
     },
     image: {
       type: 'string',
-      resolve: (doc) => `https://seanoliver.dev/api/og?title=${doc.title.split(' '),join('+')}`,
+      resolve: (doc) =>
+        `https://seanoliver.dev/api/og?title=${
+          (doc.title.split(' '), join('+'))
+        }`,
     },
     datePublished: {
       type: 'string',
@@ -69,7 +72,7 @@ const options = {
 export default makeSource({
   contentDirPath: 'posts',
   documentTypes: [Post],
-  date: { timezone: 'America/Los_Angeles'},
+  date: { timezone: 'America/Los_Angeles' },
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, options]],

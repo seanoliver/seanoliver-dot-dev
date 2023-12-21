@@ -32,7 +32,7 @@ export const NAV_ITEMS = [
     name: 'Newsletter',
     url: 'https://newsletter.seanoliver.dev/',
     pageLink: 'https://newsletter.seanoliver.dev/',
-    icon: <ArrowTopRightIcon className="ml-1 mt-1 inline w-4 h-4" />,
+    icon: <ArrowTopRightIcon className='ml-1 mt-1 inline w-4 h-4' />,
   },
 ]
 
@@ -67,7 +67,14 @@ export const PROJECTS: Project[] = [
     description:
       'An all-in-one AI audio playground using Cloudflare AI Workers to transcribe, analyze, summarize, and translate any audio file.',
     image: '/projects/audioflare.png',
-    tags: ['Cloudflare', 'TypeScript', 'React', 'Whisper', 'Tailwind CSS', 'Cloudflare AI Workers'],
+    tags: [
+      'Cloudflare',
+      'TypeScript',
+      'React',
+      'Whisper',
+      'Tailwind CSS',
+      'Cloudflare AI Workers',
+    ],
   },
   {
     name: 'Smol Menubar',
@@ -76,7 +83,17 @@ export const PROJECTS: Project[] = [
     description:
       'A menubar with Zero latency access to ChatGPT, Bard, Bing Chat, and Claude. I joined the Smol team out of a passion for LLMs and tools like this. Modularized chat providers and continue to maintain the project.',
     image: '/projects/smolmenubar.png',
-    tags: ['TypeScript', 'React', 'JavaScript', 'Electron', 'CSS', 'ChatGPT', 'Bard', 'Bing Chat', 'Claude'],
+    tags: [
+      'TypeScript',
+      'React',
+      'JavaScript',
+      'Electron',
+      'CSS',
+      'ChatGPT',
+      'Bard',
+      'Bing Chat',
+      'Claude',
+    ],
   },
   {
     name: 'SeanOliver.dev',
@@ -149,7 +166,14 @@ export const EXPERIENCES = [
     date: '2023 - Present',
     description:
       'Building tools to help developers and enthusiasts leverage AI to be more creative, productive, and effective.',
-      tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Electron', 'Tailwind CSS'],
+    tags: [
+      'Next.js',
+      'TypeScript',
+      'Supabase',
+      'PostgreSQL',
+      'Electron',
+      'Tailwind CSS',
+    ],
   },
   {
     title: 'Senior Product Marketing Manager',
@@ -157,7 +181,7 @@ export const EXPERIENCES = [
     logo: '/logos/block.png',
     date: '2021 - 2023',
     description:
-      "Led a cross-functional go-to-market effort for Square Team Communication, powered by the Crew app.",
+      'Led a cross-functional go-to-market effort for Square Team Communication, powered by the Crew app.',
   },
   {
     title: 'Director of Marketing',
@@ -181,7 +205,7 @@ export const EXPERIENCES = [
     logo: '/logos/optimizely.png',
     date: '2013 - 2015',
     description:
-      'Launched Optimizely\'s first mobile app testing SDK. Created and implemented a comprehensive framework for measuring the success of in-product promotional messaging.',
+      "Launched Optimizely's first mobile app testing SDK. Created and implemented a comprehensive framework for measuring the success of in-product promotional messaging.",
   },
   {
     title: 'Product Marketing Manager',

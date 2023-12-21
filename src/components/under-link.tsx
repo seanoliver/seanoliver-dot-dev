@@ -19,7 +19,7 @@ export function UnderLink({
   return (
     <Link
       href={href}
-      className="font-medium text-primary underline underline-offset-4 hover:no-underline"
+      className='font-medium text-primary underline underline-offset-4 hover:no-underline'
       target={isExternal ? '_blank' : '_self'}
     >
       {children}

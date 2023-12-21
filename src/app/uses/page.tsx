@@ -50,28 +50,28 @@ const myDevTools = [
 ]
 
 function ListItem(item: string): JSX.Element {
-  return <li className="leading-7">{item}</li>
+  return <li className='leading-7'>{item}</li>
 }
 
 export default function Home(): JSX.Element {
   return (
     <>
-      <Section title="Home">
-        <h4 className="font-medium">Uses</h4>
-        <p className="text-muted-foreground">
+      <Section title='Home'>
+        <h4 className='font-medium'>Uses</h4>
+        <p className='text-muted-foreground'>
           I have an additiction and her name is &quot;gear.&quot;
         </p>
       </Section>
-      <Section title="Apps">
+      <Section title='Apps'>
         <ul>{myApps.map((i) => ListItem(i))}</ul>
       </Section>
-      <Section title="Gear">
+      <Section title='Gear'>
         <ul>{myGear.map((i) => ListItem(i))}</ul>
       </Section>
-      <Section title="AI Tools">
+      <Section title='AI Tools'>
         <ul>{myAI.map((i) => ListItem(i))}</ul>
       </Section>
-      <Section title="Dev Tools">
+      <Section title='Dev Tools'>
         <ul>{myDevTools.map((i) => ListItem(i))}</ul>
       </Section>
     </>

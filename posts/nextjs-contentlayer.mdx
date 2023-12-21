@@ -5,13 +5,24 @@ isPublished: true
 summary: 'A walkthrough of my Next.js + Contentlayer blog setup'
 ---
 
-I've been happy with [Substack](https://substack.com/) for my coding newsletter, but I've been wanting a place to house more evergreen notes and takeaways about the things I'm learning that I can reference later.
+I've been happy with [Substack](https://substack.com/) for my coding newsletter,
+but I've been wanting a place to house more evergreen notes and takeaways about
+the things I'm learning that I can reference later.
 
-Also, working more closely with [Swyx](https://twitter.com/swyx) lately has inspired me to do more of my learning [in public](https://www.swyx.io/learn-in-public) and particularly to do it in a place that lends itself to applying an [annealing policy](https://www.swyx.io/blogpost-annealing), an evergreen content store that allows me to continuously refine ideas and improve on them over time.
+Also, working more closely with [Swyx](https://twitter.com/swyx) lately has
+inspired me to do more of my learning
+[in public](https://www.swyx.io/learn-in-public) and particularly to do it in a
+place that lends itself to applying an
+[annealing policy](https://www.swyx.io/blogpost-annealing), an evergreen content
+store that allows me to continuously refine ideas and improve on them over time.
 
-Since I'm already using [Next.js](https://nextjs.org/) on this site, [Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural choice for managing this kind of content.
+Since I'm already using [Next.js](https://nextjs.org/) on this site,
+[Contentlayer](https://www.contentlayer.dev/) appeared to be the most natural
+choice for managing this kind of content.
 
-Contentlayer is a type-safe content SDK that turns your Next.js app into a kind of headless CMS, allowing you to store your content in Markdown or MDX files, and then import it into your app as data.
+Contentlayer is a type-safe content SDK that turns your Next.js app into a kind
+of headless CMS, allowing you to store your content in Markdown or MDX files,
+and then import it into your app as data.
 
 This means you can:
 
@@ -21,9 +32,15 @@ This means you can:
 
 ## Installation
 
-The [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7) is a great starting off point, but there are still some implementation details I thought worth documenting as my setup here evolves.
+The
+[Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7)
+is a great starting off point, but there are still some implementation details I
+thought worth documenting as my setup here evolves.
 
-As of this writing, the current version of `contentlayer@0.3.4` is [not compatible](https://github.com/contentlayerdev/contentlayer/issues/506) with the Next.js 13 App Router. So for now it's best to install `^0.3.1` of both `contentlayer` and `next-contentlayer`:
+As of this writing, the current version of `contentlayer@0.3.4` is
+[not compatible](https://github.com/contentlayerdev/contentlayer/issues/506)
+with the Next.js 13 App Router. So for now it's best to install `^0.3.1` of both
+`contentlayer` and `next-contentlayer`:
 
 ```bash
 npm install contentlayer^0.3.1 next-contentlayer^0.3.1
@@ -42,13 +59,20 @@ Or specify this version in your `package.json`:
 
 ## `contentlayer.config.ts`
 
-In Contentlayer, your content is turned into data, and `contentlayer.config.ts` is where you define the shape of that data along with any other plugins or settings you want to employ in the MDX parsing process.
+In Contentlayer, your content is turned into data, and `contentlayer.config.ts`
+is where you define the shape of that data along with any other plugins or
+settings you want to employ in the MDX parsing process.
 
 ### The `Post` Object
 
-It's worth noting you can have different types of data here, but in most cases you'll just need a single `Post` object. You can think of it kind of like a schema for your content, where you indicate the different pieces of metadata you want to include with your posts.
+It's worth noting you can have different types of data here, but in most cases
+you'll just need a single `Post` object. You can think of it kind of like a
+schema for your content, where you indicate the different pieces of metadata you
+want to include with your posts.
 
-Mine looks like this, and I've highlighted the places where my setup differs from the [Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7):
+Mine looks like this, and I've highlighted the places where my setup differs
+from the
+[Getting Started Guide](https://www.contentlayer.dev/docs/getting-started-cddd76b7):
 
 ```tsx {16-20, 27-30}
 const Post = defineDocumentType(() => ({
@@ -85,10 +109,13 @@ const Post = defineDocumentType(() => ({
 }))
 ```
 
-- `isPublished` is a boolean indicating whether the post is ready to be published (more on this below)
-- `author` is just hardcoded to my name so I don't need to add it to the frontmatter in each post
+- `isPublished` is a boolean indicating whether the post is ready to be
+  published (more on this below)
+- `author` is just hardcoded to my name so I don't need to add it to the
+  frontmatter in each post
 
-`isPublished` is consumed by a custom React hook, `usePosts`, that returns an array of all posts when in `development` and only the published posts otherwise:
+`isPublished` is consumed by a custom React hook, `usePosts`, that returns an
+array of all posts when in `development` and only the published posts otherwise:
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -116,10 +143,13 @@ export default function usePosts() {
 
 ### Plugins
 
-This is also the file where you add plugins you want to use in the MDX parser. Here are the ones I'm using:
+This is also the file where you add plugins you want to use in the MDX parser.
+Here are the ones I'm using:
 
-- [`remark-gfm`](https://github.com/remarkjs/remark-gfm) - Adds GitHub Flavored Markdown (e.g. tables, strikethrough, etc.)
-- [`rehype-pretty-code`](https://rehype-pretty-code.netlify.app/) - Adds powerful syntax highlighting to code blocks
+- [`remark-gfm`](https://github.com/remarkjs/remark-gfm) - Adds GitHub Flavored
+  Markdown (e.g. tables, strikethrough, etc.)
+- [`rehype-pretty-code`](https://rehype-pretty-code.netlify.app/) - Adds
+  powerful syntax highlighting to code blocks
 
 And here they are in context:
 
@@ -138,7 +168,7 @@ const options = {
 export default makeSource({
   contentDirPath: 'posts',
   documentTypes: [Post],
-  date: { timezone: 'America/Los_Angeles'},
+  date: { timezone: 'America/Los_Angeles' },
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, options]],
@@ -146,11 +176,16 @@ export default makeSource({
 })
 ```
 
-> Note: Don't forget to specify your timezone here as well, otherwise your posts will appear to be published a day in the past if you're on the West Coast.
+> Note: Don't forget to specify your timezone here as well, otherwise your posts
+> will appear to be published a day in the past if you're on the West Coast.
 
 ## Styling Components
 
-One of the great benefits of Contentlayer and MDX is that you can use all the same components you're using in your app to style your content. For now, I'm just using [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui's standard typography rules](https://ui.shadcn.com/docs/components/typography) to style the content itself:
+One of the great benefits of Contentlayer and MDX is that you can use all the
+same components you're using in your app to style your content. For now, I'm
+just using [Tailwind CSS](https://tailwindcss.com/) with
+[shadcn/ui's standard typography rules](https://ui.shadcn.com/docs/components/typography)
+to style the content itself:
 
 ```tsx
 import './mdx.css'
@@ -159,36 +194,54 @@ import UnderLink from '@/components/under-link'
 import CodeBlock from '@/components/code-block'
 
 export const mdxComponents: MDXComponents = {
-  p: (props) => <p {...props} className="leading-7 [&:not(:first-child)]:mt-6" />,
-  h1: (props) => <h1 {...props} className="text-3xl leading-9 mb-4" />,
+  p: (props) => (
+    <p {...props} className='leading-7 [&:not(:first-child)]:mt-6' />
+  ),
+  h1: (props) => <h1 {...props} className='text-3xl leading-9 mb-4' />,
   h2: (props) => (
     <h2
       {...props}
-      className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16"
+      className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mt-16'
     />
   ),
   h3: (props) => (
-    <h3 {...props} className="scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16" />
+    <h3
+      {...props}
+      className='scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 mt-16'
+    />
   ),
   h4: (props) => (
-    <h4 {...props} className="scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16" />
+    <h4
+      {...props}
+      className='scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 mt-16'
+    />
   ),
-  h5: (props) => <h5 {...props} className="text-md leading-5 mb-4 first:mt-0 mt-16" />,
-  h6: (props) => <h6 {...props} className="text-sm leading-4 mb-4 first:mt-0 mt-16" />,
-  ul: (props) => <ul {...props} className="my-6 ml-6 list-disc [&>li]:mt-2" />,
-  ol: (props) => <ol {...props} className="list-decimal pl-6 mb-6" />,
-  li: (props) => <li {...props} className="mb-2 text-sm" />,
-  a: (props) => <UnderLink target="_blank" {...props} />,
-  blockquote: (props) => <blockquote {...props} className="mt-6 border-l-2 pl-6 italic" />,
-  hr: (props) => <hr {...props} className="border-gray-300 my-6" />,
-  table: (props) => <table {...props} className="w-full text-left border-collapse" />,
+  h5: (props) => (
+    <h5 {...props} className='text-md leading-5 mb-4 first:mt-0 mt-16' />
+  ),
+  h6: (props) => (
+    <h6 {...props} className='text-sm leading-4 mb-4 first:mt-0 mt-16' />
+  ),
+  ul: (props) => <ul {...props} className='my-6 ml-6 list-disc [&>li]:mt-2' />,
+  ol: (props) => <ol {...props} className='list-decimal pl-6 mb-6' />,
+  li: (props) => <li {...props} className='mb-2 text-sm' />,
+  a: (props) => <UnderLink target='_blank' {...props} />,
+  blockquote: (props) => (
+    <blockquote {...props} className='mt-6 border-l-2 pl-6 italic' />
+  ),
+  hr: (props) => <hr {...props} className='border-gray-300 my-6' />,
+  table: (props) => (
+    <table {...props} className='w-full text-left border-collapse' />
+  ),
   th: (props) => (
     <th
       {...props}
-      className="px-6 py-3 border-b border-gray-300 text-sm font-semibold text-gray-600"
+      className='px-6 py-3 border-b border-gray-300 text-sm font-semibold text-gray-600'
     />
   ),
-  td: (props) => <td {...props} className="px-6 py-4 border-b border-gray-300 text-sm" />,
+  td: (props) => (
+    <td {...props} className='px-6 py-4 border-b border-gray-300 text-sm' />
+  ),
   code: (props) => (
     <code
       {...props}
@@ -202,7 +255,9 @@ export const mdxComponents: MDXComponents = {
 }
 ```
 
-You can read this object as, "Anytime you render Markdown as HTML, use these components instead of the default ones." For example, if you have a Markdown file that looks like this:
+You can read this object as, "Anytime you render Markdown as HTML, use these
+components instead of the default ones." For example, if you have a Markdown
+file that looks like this:
 
 ```md
 # Hello World
@@ -230,7 +285,8 @@ It will be rendered as:
 </ul>
 ```
 
-But if you add an `mdxComponents` object like the one above, it will be rendered as:
+But if you add an `mdxComponents` object like the one above, it will be rendered
+as:
 
 ```tsx
 <h1 class='text-3xl leading-9 mb-4'>Hello World</h1>
@@ -245,7 +301,9 @@ But if you add an `mdxComponents` object like the one above, it will be rendered
 
 ## Custom Components
 
-For even more control over the look and feel, you can also replace the default HTML elements with custom components. I'm using custom components for code blocks and text links:
+For even more control over the look and feel, you can also replace the default
+HTML elements with custom components. I'm using custom components for code
+blocks and text links:
 
 ```tsx
 import './mdx.css'
@@ -254,15 +312,15 @@ import UnderLink from '@/components/under-link'
 import CodeBlock from '@/components/code-block'
 
 export const mdxComponents: MDXComponents = {
-
   // ... other components
 
-  a: (props) => <UnderLink target="_blank" {...props} />,
+  a: (props) => <UnderLink target='_blank' {...props} />,
   pre: (props) => <CodeBlock {...props} />,
 }
 ```
 
-Then you can just design your components to take the props you need and render them however you want. For example, here's my `UnderLink` component:
+Then you can just design your components to take the props you need and render
+them however you want. For example, here's my `UnderLink` component:
 
 ```tsx
 import Link from 'next/link'
@@ -289,7 +347,8 @@ export const UnderLink = ({
 }
 ```
 
-And the beauty of MDX is that you can embed React components directly in your Markdown files:
+And the beauty of MDX is that you can embed React components directly in your
+Markdown files:
 
 ```mdx
 # Hello World
@@ -303,9 +362,15 @@ This is another paragraph.
 - This is a list item
 - This is another list item
 
-<UnderLink href="https://google.com">This is a link</UnderLink>
+<UnderLink href='https://google.com'>This is a link</UnderLink>
 ```
 
-I haven't had much use for this yet, but it's great to have the flexibility to create totally embed totally custom components in blog posts when the situation calls for it.
+I haven't had much use for this yet, but it's great to have the flexibility to
+create totally embed totally custom components in blog posts when the situation
+calls for it.
 
-Overall, I'm really happy with the way things shaped up. It's a little more involved than something like Substack or Ghost, but in exchange for a little more work upfront, I get a lot more flexibility and control over the look and feel of my blog. And I'm not locked into a proprietary platform that could disappear at any moment.
+Overall, I'm really happy with the way things shaped up. It's a little more
+involved than something like Substack or Ghost, but in exchange for a little
+more work upfront, I get a lot more flexibility and control over the look and
+feel of my blog. And I'm not locked into a proprietary platform that could
+disappear at any moment.

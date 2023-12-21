@@ -57,9 +57,14 @@
 
 ## About The Project
 
-This is my minimalist portfolio website built with Next.js, Tailwind CSS, shadcn-ui, and TypeScript. It's a great template for a simple personal portfolio site, and it's a great way to get familiar with shadcn-ui components, TailwindCSS, and Next.js.
+This is my minimalist portfolio website built with Next.js, Tailwind CSS,
+shadcn-ui, and TypeScript. It's a great template for a simple personal portfolio
+site, and it's a great way to get familiar with shadcn-ui components,
+TailwindCSS, and Next.js.
 
-It's also a great starter template using modern web technologies. Feel free to clone this repo and use it as a base for your own site. Credit is appreciated but not required.
+It's also a great starter template using modern web technologies. Feel free to
+clone this repo and use it as a base for your own site. Credit is appreciated
+but not required.
 
 If you like this project, please consider giving it a ⭐ on GitHub!
 
@@ -86,7 +91,9 @@ This project was built in 2023 using the following technologies.
 - ![shadcn-ui][shadcn-ui]
 - ![Vercel][Vercel]
 
-See [requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/master/requirements.txt) for a full list of dependencies.
+See
+[requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/master/requirements.txt)
+for a full list of dependencies.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -94,7 +101,9 @@ See [requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/mas
 
 ## Getting Started
 
-This is a great simple template for a personal portfolio site using modern web technologies. Feel free to clone this repo and use it as a base for your own portfolio site. Credit is appreciated but not required.
+This is a great simple template for a personal portfolio site using modern web
+technologies. Feel free to clone this repo and use it as a base for your own
+portfolio site. Credit is appreciated but not required.
 
 1. Clone and cd into this repository
 
@@ -136,7 +145,10 @@ This is a great simple template for a personal portfolio site using modern web t
 
 ## Contributing
 
-This is a great project base template for a simple personal portfolio site, and it's a great way to get familiar with shadcn-ui components, TailwindCSS, and Next.js. Feel free to fork this repo and make it your own. If you have any questions or suggestions, please feel free to contact me!
+This is a great project base template for a simple personal portfolio site, and
+it's a great way to get familiar with shadcn-ui components, TailwindCSS, and
+Next.js. Feel free to fork this repo and make it your own. If you have any
+questions or suggestions, please feel free to contact me!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -150,9 +162,12 @@ This is a great project base template for a simple personal portfolio site, and 
 
 ## License
 
-If you're looking for a lightweight starter template, feel free to clone and make it your own. Credit is appreciated but not required.
+If you're looking for a lightweight starter template, feel free to clone and
+make it your own. Credit is appreciated but not required.
 
-Distributed under the MIT License. See [LICENSE](https://github.com/seanoliver/seanoliver-dot-dev/LICENSE) for more information.
+Distributed under the MIT License. See
+[LICENSE](https://github.com/seanoliver/seanoliver-dot-dev/LICENSE) for more
+information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -160,9 +175,11 @@ Distributed under the MIT License. See [LICENSE](https://github.com/seanoliver/s
 
 ## Contact
 
-Your Name - [@SeanOliver](https://twitter.com/SeanOliver) - helloseanoliver@gmail.com
+Your Name - [@SeanOliver](https://twitter.com/SeanOliver) -
+helloseanoliver@gmail.com
 
-Project Link: [https://github.com/seanoliver/warbler](https://github.com/seanoliver/seanoliver-dot-dev)
+Project Link:
+[https://github.com/seanoliver/warbler](https://github.com/seanoliver/seanoliver-dot-dev)
 
 Live Site: [https://seanoliver.dev/](https://seanoliver.dev/)
 
@@ -172,7 +189,8 @@ Live Site: [https://seanoliver.dev/](https://seanoliver.dev/)
 
 ## Acknowledgments
 
-Here are some of other amazing minimalist portfolio sites that inspired this project:
+Here are some of other amazing minimalist portfolio sites that inspired this
+project:
 
 - [Samuel Kraft](https://samuelkraft.com/)
 - [Brittany Chiang](https://brittanychiang.com/)
@@ -185,10 +203,15 @@ Here are some of other amazing minimalist portfolio sites that inspired this pro
 
 <!-- TECHNOLOGY BADGES -->
 
-[Nextjs]: https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white
+[Nextjs]:
+  https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white
 [React]: https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB
-[TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white
-[Nodejs]: https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white
-[shadcn-ui]: https://img.shields.io/badge/shadcn--ui-FF0000?logo=shadcn-ui&logoColor=white
-[TailwindCSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white
+[TypeScript]:
+  https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white
+[Nodejs]:
+  https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white
+[shadcn-ui]:
+  https://img.shields.io/badge/shadcn--ui-FF0000?logo=shadcn-ui&logoColor=white
+[TailwindCSS]:
+  https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white
 [Vercel]: https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white

@@ -4,9 +4,9 @@ import Section from './Section'
 
 export default function Socials(): JSX.Element {
   return (
-    <Section title="Social">
+    <Section title='Social'>
       {SOCIAL_LINKS.map((link, index) => (
-        <ExternalLink key={index} className="px-2" href={link.url}>
+        <ExternalLink key={index} className='px-2' href={link.url}>
           {link.name}
         </ExternalLink>
       ))}

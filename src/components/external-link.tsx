@@ -14,9 +14,9 @@ export default function ExternalLink({
     <Link
       href={href}
       className={`${className} font-medium text-primary underline underline-offset-4 hover:no-underline`}
-      target="_blank"
+      target='_blank'
     >
-      {children} <ArrowTopRightIcon className="inline w-4 h-4" />
+      {children} <ArrowTopRightIcon className='inline w-4 h-4' />
     </Link>
   )
 }

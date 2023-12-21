@@ -17,11 +17,11 @@ module.exports = {
     },
     extend: {
       fontSize: {
-        'xs': '12px', // was '12px'
-        'sm': '14px', // was '14px'
-        'base': '16px', // was '16px'
-        'lg': '18px', // was '18px'
-        'xl': '20px', // was '20px'
+        xs: '12px', // was '12px'
+        sm: '14px', // was '14px'
+        base: '16px', // was '16px'
+        lg: '18px', // was '18px'
+        xl: '20px', // was '20px'
         '2xl': '24px', // was '24px'
         '3xl': '28px', // was '30px'
         '4xl': '32px', // was '36px'

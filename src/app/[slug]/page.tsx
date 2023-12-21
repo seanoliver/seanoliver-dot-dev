@@ -15,7 +15,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   // 404 if the post does not exist.
   if (!post) notFound()
 
-  const { title, date, image, summary: description, url } = post;
+  const { title, date, image, summary: description, url } = post
 
   return {
     title,
@@ -52,28 +52,31 @@ function PostLayout({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code)
 
   // Allow unpublished posts to appear in development with a label.
-  const showUnpublished = process.env.NODE_ENV === 'development' && !post.isPublished
+  const showUnpublished =
+    process.env.NODE_ENV === 'development' && !post.isPublished
 
   return (
-    <div className="text-sm w-full my-10 md:my-20">
+    <div className='text-sm w-full my-10 md:my-20'>
       {/* Post Header */}
       <div>
         {/* Title */}
-        <h1 className="tescroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        <h1 className='tescroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
           {post.title}
         </h1>
 
         {/* Byline */}
-        <p className="text-md text-muted-foreground mt-3 mb-10">
+        <p className='text-md text-muted-foreground mt-3 mb-10'>
           By {post.author} · {format(parseISO(post.date), 'LLLL d, yyyy')}
           {showUnpublished && ' · '}
           {showUnpublished && (
-            <span className="text-md font-semibold text-red-600">Unpublished</span>
+            <span className='text-md font-semibold text-red-600'>
+              Unpublished
+            </span>
           )}
         </p>
       </div>
       {/* Post Content */}
-      <div className="mx-auto">
+      <div className='mx-auto'>
         <MDXContent components={mdxComponents} />
       </div>
     </div>

@@ -24,18 +24,17 @@ import { useNavContext } from '@/hooks/use-nav-context'
 export default function Nav(): JSX.Element {
   const path = usePathname()
 
-
   return (
-    <div className="flex items-center">
-      <Link href="/">
-        <Avatar className="mr-4">
-          <AvatarImage src="./profile.jpeg" />
+    <div className='flex items-center'>
+      <Link href='/'>
+        <Avatar className='mr-4'>
+          <AvatarImage src='./profile.jpeg' />
           <AvatarFallback>SO</AvatarFallback>
         </Avatar>
       </Link>
 
       <NavigationMenu>
-        <NavigationMenuList className="md:flex hidden">
+        <NavigationMenuList className='md:flex hidden'>
           {NAV_ITEMS.map((item, idx) => (
             <NavLink
               key={`${item.name}-${idx}`}
@@ -62,24 +61,23 @@ function CommonElements({
   scroll: boolean
   url: string
 }): JSX.Element {
-
   const refs = useNavContext()
   const handleScroll = (ref: React.RefObject<HTMLDivElement>) => {
-    const element = ref.current;
+    const element = ref.current
     if (element)
       window.scrollTo({
         top: element.offsetTop - 50,
-        behavior: 'smooth'
-      });
-    }
+        behavior: 'smooth',
+      })
+  }
 
   return (
     <>
       {scroll ? (
         <Link
           href='#'
-          onClick={() => (refs[name]) ? handleScroll(refs[name]) : null}
-          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer"
+          onClick={() => (refs[name] ? handleScroll(refs[name]) : null)}
+          className='flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer'
         >
           {name}
           {icon && icon}
@@ -87,7 +85,7 @@ function CommonElements({
       ) : (
         <Link
           href={url}
-          className="flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer"
+          className='flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foregroun cursor-pointer'
         >
           {name}
           {icon && icon}
@@ -132,16 +130,22 @@ function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+        <Button variant='outline' size='icon'>
+          <SunIcon className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+          <MoonIcon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+          <span className='sr-only'>Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
+      <DropdownMenuContent align='end'>
+        <DropdownMenuItem onClick={() => setTheme('light')}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark')}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('system')}>
+          System
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -151,12 +155,12 @@ function HamburgerMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="md:hidden ml-1">
-          <HamburgerMenuIcon className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">Toggle menu</span>
+        <Button variant='outline' size='icon' className='md:hidden ml-1'>
+          <HamburgerMenuIcon className='h-[1.2rem] w-[1.2rem]' />
+          <span className='sr-only'>Toggle menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align='end'>
         {NAV_ITEMS.map((item, idx) => (
           <DropdownMenuItem key={`${item.name}-${idx}`}>
             <NavLink

@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getCompleteMetadata({
   title,
   description,
-  type='website',
+  type = 'website',
 }: {
   title: string
   description: string

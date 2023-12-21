@@ -15,12 +15,12 @@ export function HamburgerMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="md:hidden ml-1">
-          <HamburgerMenuIcon className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">Toggle menu</span>
+        <Button variant='outline' size='icon' className='md:hidden ml-1'>
+          <HamburgerMenuIcon className='h-[1.2rem] w-[1.2rem]' />
+          <span className='sr-only'>Toggle menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align='end'>
         {NAV_ITEMS.map((item, idx) => (
           <DropdownMenuItem key={`${item.name}-${idx}`}>
             <NavLink
