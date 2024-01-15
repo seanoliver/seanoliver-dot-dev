@@ -161,9 +161,17 @@ export const EXPERIENCES = [
   // },
   {
     title: 'Software Engineer',
+    company: 'Gamma',
+    logo: '/logos/gamma.png',
+    date: '2023 - Present',
+    description:
+      'Building a new platform that helps people share knowledge in ways that engage, using AI-powered, interactive, multimodal docs that eliminate the dread of a blank page.'
+  },
+  {
+    title: 'Software Engineer',
     company: 'Smol AI',
     logo: '/logos/smol.png',
-    date: '2023 - Present',
+    date: '2023',
     description:
       'Building tools to help developers and enthusiasts leverage AI to be more creative, productive, and effective.',
     tags: [
