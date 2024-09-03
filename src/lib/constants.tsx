@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/seanoliver/seanoliver-dot-dev',
     description: 'My personal website built with Next.js and Tailwind CSS.',
     image: '/projects/sodev.png',
-    tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Vercel'],
+    tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Vercel', 'Shadcn', 'Contentlayer', 'Radix UI'],
   },
   // {
   // 	name: 'Sharebnb',
