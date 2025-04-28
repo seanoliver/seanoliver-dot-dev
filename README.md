@@ -91,10 +91,6 @@ This project was built in 2023 using the following technologies.
 - ![shadcn-ui][shadcn-ui]
 - ![Vercel][Vercel]
 
-See
-[requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/master/requirements.txt)
-for a full list of dependencies.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
