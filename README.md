@@ -175,7 +175,7 @@ Your Name - [@SeanOliver](https://twitter.com/SeanOliver) -
 helloseanoliver@gmail.com
 
 Project Link:
-[https://github.com/seanoliver/warbler](https://github.com/seanoliver/seanoliver-dot-dev)
+[https://github.com/seanoliver/seanoliver-dot-dev](https://github.com/seanoliver/seanoliver-dot-dev)
 
 Live Site: [https://seanoliver.dev/](https://seanoliver.dev/)
 
