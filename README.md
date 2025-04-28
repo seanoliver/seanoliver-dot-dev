@@ -171,7 +171,7 @@ information.
 
 ## Contact
 
-[@SeanOliver](https://twitter.com/SeanOliver)
+Twitter/X: [@SeanOliver](https://twitter.com/SeanOliver)
 
 Project Link:
 [https://github.com/seanoliver/seanoliver-dot-dev](https://github.com/seanoliver/seanoliver-dot-dev)
