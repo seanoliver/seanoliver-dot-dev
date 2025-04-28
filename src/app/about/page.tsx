@@ -30,33 +30,35 @@ export default function About(): JSX.Element {
     <Section title='About'>
       <div className='About'>
         <p className='leading-7 [&:not(:first-child)]:mt-6'>
-          I’m a software engineer at{' '}
-          <UnderLink href='https://gamma.app'>Gamma</UnderLink> obsessed with
-          AI, PKM, and productivity. I have 13 years of experience building and
-          growing products at leading companies like{' '}
+          I’m a software engineer passionate about building AI-powered
+          applications and frictionless user experiences.
+        </p>
+        <p className='leading-7 [&:not(:first-child)]:mt-6'>
+          After a decade growing products at{' '}
           <UnderLink href='https://www.microsoft.com/'>Microsoft</UnderLink>,{' '}
           <UnderLink href='https://www.linkedin.com/'>LinkedIn</UnderLink>,{' '}
           <UnderLink href='https://www.lyft.com/'>Lyft</UnderLink>, and{' '}
-          <UnderLink href='https://www.block.xyz/'>Block</UnderLink>.
+          <UnderLink href='https://www.block.xyz/'>Block</UnderLink>, I pivoted
+          fully into software engineering — most recently at{' '}
+          <UnderLink href='https://gamma.app/'>Gamma</UnderLink>, an AI startup
+          rethinking how people present and share ideas.
         </p>
         <p className='leading-7 [&:not(:first-child)]:mt-6'>
-          My background in marketing and growth has taught me that the best
-          marketing is a product that prioritizes users’ needs above all else
-          and then meets those needs in ways that feel natural and effortless.
+          Today, I focus on frontend development with React, Next.js, and
+          TypeScript, and love designing interfaces where AI and UX meet.
         </p>
         <p className='leading-7 [&:not(:first-child)]:mt-6'>
-          I have a{' '}
+          I also write a{' '}
           <UnderLink href='https://newsletter.seanoliver.dev/'>
             newsletter
           </UnderLink>{' '}
-          where I write about programming, productivity, personal knowledge
-          management.
+          about programming, productivity, and personal knowledge management.
         </p>
         <p className='leading-7 [&:not(:first-child)]:mt-6'>
-          I live in San Francisco, CA with my amazing wife, two children, and
-          our 3.5 lbs dog named Pixel (no relation to the phone). I love
-          productivity tools and systems, personal knowledge management, AI,
-          tennis, and casual mobile games.
+          I live in San Francisco, CA with my wife, two kids, and our 3.5-pound
+          dog, Pixel (no relation to the phone). Outside of work, I love
+          exploring productivity tools, experimenting with AI side projects,
+          playing tennis, and designing casual mobile games.
         </p>
       </div>
     </Section>

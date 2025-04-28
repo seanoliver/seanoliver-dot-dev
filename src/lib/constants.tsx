@@ -101,7 +101,16 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/seanoliver/seanoliver-dot-dev',
     description: 'My personal website built with Next.js and Tailwind CSS.',
     image: '/projects/sodev.png',
-    tags: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Vercel', 'Shadcn', 'Contentlayer', 'Radix UI'],
+    tags: [
+      'Next.js',
+      'React',
+      'Tailwind CSS',
+      'TypeScript',
+      'Vercel',
+      'Shadcn',
+      'Contentlayer',
+      'Radix UI',
+    ],
   },
   // {
   // 	name: 'Sharebnb',
@@ -140,32 +149,13 @@ export const PROJECTS: Project[] = [
 ]
 
 export const EXPERIENCES = [
-  // TODO: Finish implementing these roles and find logos.
-  // {
-  //   title: 'Software Engineer',
-  //   company: 'State Technologies',
-  //   logo: '/logos/state.png',
-  //   date: '2023 - Present',
-  //   description:
-  //     'Building the future of enterprise software.',
-  //   tags: ['Remix', 'SST', 'AWS Amplify', 'Firebase', 'TypeScript', 'React', 'Supabase', 'PostgreSQL', 'Electron'],
-  // },
-  // {
-  //   title: 'Software Engineer',
-  //   company: 'Storybird.ai',
-  //   logo: '/logos/storybird.png',
-  //   date: '2023 - Present',
-  //   description:
-  //     'Building the future of storytelling with AI.',
-  //   tags: ['TypeScript', 'React', 'Redux'],
-  // },
   {
     title: 'Software Engineer',
     company: 'Gamma',
     logo: '/logos/gamma.png',
-    date: '2023 - Present',
+    date: '2023 - 2025',
     description:
-      'Building a new platform that helps people share knowledge in ways that engage, using AI-powered, interactive, multimodal docs that eliminate the dread of a blank page.'
+      'Building a new platform that helps people share knowledge in ways that engage, using AI-powered, interactive, multimodal docs that eliminate the dread of a blank page.',
   },
   {
     title: 'Software Engineer',
@@ -182,6 +172,33 @@ export const EXPERIENCES = [
       'Electron',
       'Tailwind CSS',
     ],
+  },
+  {
+    title: 'Software Engineer',
+    company: 'State Technologies',
+    logo: '/logos/state.png',
+    date: '2023',
+    description: 'Building the future of enterprise software.',
+    tags: [
+      'Remix',
+      'SST',
+      'AWS Amplify',
+      'Firebase',
+      'TypeScript',
+      'React',
+      'Supabase',
+      'PostgreSQL',
+      'Electron',
+    ],
+  },
+  {
+    title: 'Frontend Engineer',
+    company: 'Story.com',
+    logo: '/logos/story.png',
+    date: '2023',
+    description:
+      'Frontend engineer for a startup building a platform for creating and sharing stories with AI.',
+    tags: ['TypeScript', 'React', 'Redux'],
   },
   {
     title: 'Senior Product Marketing Manager',

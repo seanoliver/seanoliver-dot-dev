@@ -81,7 +81,7 @@ If you like this project, please consider giving it a ⭐ on GitHub!
 
 ### Built With
 
-This project was built in 2023 using the following technologies.
+This project was first built in 2023 using the following technologies.
 
 - ![Nextjs][Nextjs]
 - ![TailwindCSS][TailwindCSS]
@@ -90,10 +90,6 @@ This project was built in 2023 using the following technologies.
 - ![Nodejs][Nodejs]
 - ![shadcn-ui][shadcn-ui]
 - ![Vercel][Vercel]
-
-See
-[requirements.txt](https://github.com/seanoliver/seanoliver-dot-dev/blob/master/requirements.txt)
-for a full list of dependencies.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -179,7 +175,7 @@ Your Name - [@SeanOliver](https://twitter.com/SeanOliver) -
 helloseanoliver@gmail.com
 
 Project Link:
-[https://github.com/seanoliver/warbler](https://github.com/seanoliver/seanoliver-dot-dev)
+[https://github.com/seanoliver/seanoliver-dot-dev](https://github.com/seanoliver/seanoliver-dot-dev)
 
 Live Site: [https://seanoliver.dev/](https://seanoliver.dev/)
 
