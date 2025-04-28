@@ -171,8 +171,7 @@ information.
 
 ## Contact
 
-Your Name - [@SeanOliver](https://twitter.com/SeanOliver) -
-helloseanoliver@gmail.com
+[@SeanOliver](https://twitter.com/SeanOliver)
 
 Project Link:
 [https://github.com/seanoliver/seanoliver-dot-dev](https://github.com/seanoliver/seanoliver-dot-dev)
