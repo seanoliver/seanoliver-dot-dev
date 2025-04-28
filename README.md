@@ -81,7 +81,7 @@ If you like this project, please consider giving it a ⭐ on GitHub!
 
 ### Built With
 
-This project was built in 2023 using the following technologies.
+This project was first built in 2023 using the following technologies.
 
 - ![Nextjs][Nextjs]
 - ![TailwindCSS][TailwindCSS]
