@@ -38,8 +38,8 @@ export const NAV_ITEMS = [
 
 export const SOCIAL_LINKS = [
   {
-    name: 'Twitter',
-    url: 'https://twitter.com/SeanOliver',
+    name: 'X',
+    url: 'https://x.com/SeanOliver',
     icon: <TwitterLogoIcon />,
   },
   {
@@ -60,6 +60,25 @@ export const SOCIAL_LINKS = [
 ]
 
 export const PROJECTS: Project[] = [
+  {
+    name: 'TheraGPT',
+    url: 'https://theragpt.ai',
+    github: 'https://github.com/seanoliver/theragpt-app',
+    description:
+      'An AI-powered CBT journal to help people identify cognitive distortions and reframe negative thoughts.',
+    image: '/projects/theragpt-new.png',
+    tags: [
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'OpenAI',
+      'Vercel',
+      'TypeScript',
+      'Expo',
+      'Supabase',
+      'Shadcn',
+    ],
+  },
   {
     name: 'Audioflare',
     url: 'https://audioflare.seanoliver/dev/',
@@ -112,33 +131,8 @@ export const PROJECTS: Project[] = [
       'Radix UI',
     ],
   },
-  // {
-  // 	name: 'Sharebnb',
-  // 	url: 'https://sharebnb.vercel.app',
-  // 	github: 'https://github.com/seanoliver/sharebnb-backend',
-  // 	description:
-  // 		'A clone of Airbnb for sharing remarkable outdoor spaces. Express backend with Next.js and React on the frontend.',
-  // 	image: 'https://placehold.co/700x300',
-  // 	tags: ['Next.js', 'React', 'Express', 'JavaScript', 'AWS', 'PostgreSQL'],
-  // },
   {
-    name: 'Jobly',
-    url: 'https://jobly.seanoliver.dev',
-    github: 'https://github.com/seanoliver/react-jobly',
-    description: 'A job board built with React and Express.',
-    image: '/projects/jobly.png',
-    tags: ['React', 'Express', 'JavaScript', 'PostgreSQL'],
-  },
-  {
-    name: 'Warbler',
-    url: 'https://sean-warbler.onrender.com/',
-    github: 'https://github.com/seanoliver/warbler',
-    description: 'A Twitter clone built with Flask.',
-    image: '/projects/warbler.png',
-    tags: ['Flask', 'PostgreSQL', 'JavaScript'],
-  },
-  {
-    name: 'TheraGPT',
+    name: 'TheraGPT (v1)',
     url: 'https://theragpt.ai',
     github: 'https://github.com/seanoliver/thera-gpt',
     description:
@@ -178,7 +172,8 @@ export const EXPERIENCES = [
     company: 'State Technologies',
     logo: '/logos/state.png',
     date: '2023',
-    description: 'Building the future of enterprise software.',
+    description:
+      'Building the future of AI-powered quote-to-cash solutions for enterprise organizations.',
     tags: [
       'Remix',
       'SST',
