@@ -144,12 +144,20 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCES = [
   {
+    title: 'Growth Engineer',
+    company: 'Supabase',
+    logo: '/logos/supabase.png',
+    date: '2025 - Present',
+    description:
+      'Driving growth through experimentation and data-driven feature development at the open source Firebase alternative, building tools that help developers ship faster.',
+  },
+  {
     title: 'Software Engineer',
     company: 'Gamma',
     logo: '/logos/gamma.png',
     date: '2023 - 2025',
     description:
-      'Building a new platform that helps people share knowledge in ways that engage, using AI-powered, interactive, multimodal docs that eliminate the dread of a blank page.',
+      'Built AI-powered features for a platform that helps people share knowledge through interactive, multimodal docs that eliminate the dread of a blank page.',
   },
   {
     title: 'Software Engineer',
