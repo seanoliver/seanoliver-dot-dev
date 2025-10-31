@@ -3,6 +3,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 import { notFound } from 'next/navigation'
 import { mdxComponents } from '@/components/mdx'
 import { Post } from 'contentlayer/generated'
+import { BlogPostingJsonLd } from '@/components/json-ld'
 import { formatDate } from '@/lib/date-utils'
 
 export const generateStaticParams = async () =>
@@ -56,9 +57,23 @@ function PostLayout({ params }: { params: { slug: string } }) {
     process.env.NODE_ENV === 'development' && !post.isPublished
 
   return (
-    <div className='text-sm w-full my-10 md:my-20'>
-      {/* Post Header */}
-      <div>
+    <>
+      <BlogPostingJsonLd
+        post={{
+          headline: post.title,
+          datePublished: post.date,
+          author: {
+            name: post.author,
+            url: 'https://seanoliver.dev',
+          },
+          image: post.image,
+          description: post.summary,
+          url: `https://seanoliver.dev${post.url}`,
+        }}
+      />
+      <div className='text-sm w-full my-10 md:my-20'>
+        {/* Post Header */}
+        <div>
         {/* Title */}
         <h1 className='tescroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
           {post.title}
@@ -75,11 +90,12 @@ function PostLayout({ params }: { params: { slug: string } }) {
           )}
         </p>
       </div>
-      {/* Post Content */}
-      <div className='mx-auto'>
-        <MDXContent components={mdxComponents} />
+        {/* Post Content */}
+        <div className='mx-auto'>
+          <MDXContent components={mdxComponents} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
