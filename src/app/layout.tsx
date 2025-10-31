@@ -6,6 +6,7 @@ import Head from 'next/head'
 import './globals.css'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import SkipNav from '@/components/skip-nav'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 import { NAV_ITEMS } from '@/lib/constants'
@@ -100,11 +101,14 @@ export default function RootLayout({
         <meta property='og:title' content='Sean Oliver' key='title' />
       </Head>
       <body className={`font-sans flex flex-col min-h-screen`}>
+        <SkipNav />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <NavContext.Provider value={navRefs}>
             <div className='container flex flex-col justify-center items-center xl:max-w-[850px] lg:max-w-[850px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto'>
               <Header className='w-full flex flex-col mt-5' />
-              {children}
+              <main id="main-content" className='w-full'>
+                {children}
+              </main>
               <Footer />
             </div>
           </NavContext.Provider>
