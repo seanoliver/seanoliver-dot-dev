@@ -5,16 +5,20 @@ export default function ExternalLink({
   href,
   children,
   className,
+  'aria-label': ariaLabel,
 }: {
   href: string
   children: React.ReactNode
   className?: string
+  'aria-label'?: string
 }) {
   return (
     <Link
       href={href}
       className={`${className} font-medium text-primary underline underline-offset-4 hover:no-underline`}
       target='_blank'
+      rel='noopener noreferrer'
+      aria-label={ariaLabel}
     >
       {children} <ArrowTopRightIcon className='inline w-4 h-4' />
     </Link>
