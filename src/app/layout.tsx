@@ -25,39 +25,9 @@ const jetBrainsMono = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-Italic.ttf',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-BoldItalic.ttf',
-      weight: '700',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-ExtraBold.ttf',
-      weight: '800',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-ExtraBoldItalic.ttf',
-      weight: '800',
-      style: 'italic',
-    },
-    {
       path: '../../public/fonts/jetbrains-mono/JetBrainsMono-Medium.ttf',
       weight: '500',
       style: 'normal',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-MediumItalic.ttf',
-      weight: '500',
-      style: 'italic',
     },
     {
       path: '../../public/fonts/jetbrains-mono/JetBrainsMono-SemiBold.ttf',
@@ -65,23 +35,14 @@ const jetBrainsMono = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-SemiBoldItalic.ttf',
-      weight: '600',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-Thin.ttf',
-      weight: '300',
+      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-ExtraBold.ttf',
+      weight: '800',
       style: 'normal',
-    },
-    {
-      path: '../../public/fonts/jetbrains-mono/JetBrainsMono-ThinItalic.ttf',
-      weight: '300',
-      style: 'italic',
     },
   ],
   display: 'swap',
   variable: '--font-jetbrains-mono',
+  preload: true,
 })
 
 const monolisa = localFont({
@@ -92,53 +53,19 @@ const monolisa = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-RegularItalic.ttf',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-BoldItalic.ttf',
-      weight: '700',
-      style: 'italic',
-    },
-    {
       path: '../../public/fonts/monolisa/MonoLisaSeanStyle-Medium.ttf',
       weight: '500',
       style: 'normal',
-    },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-MediumItalic.ttf',
-      weight: '500',
-      style: 'italic',
     },
     {
       path: '../../public/fonts/monolisa/MonoLisaSeanStyle-SemiBold.ttf',
       weight: '600',
       style: 'normal',
     },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-SemiBoldItalic.ttf',
-      weight: '600',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-Light.ttf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/monolisa/MonoLisaSeanStyle-LightItalic.ttf',
-      weight: '300',
-      style: 'italic',
-    },
   ],
   display: 'swap',
   variable: '--font-monolisa',
+  preload: true,
 })
 
 const inter = Inter({

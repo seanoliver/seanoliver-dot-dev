@@ -1,6 +1,6 @@
-import { format, parseISO } from 'date-fns'
 import { Post } from 'contentlayer/generated'
 import { UnderLink } from '@/components/under-link'
+import { formatDate } from '@/lib/date-utils'
 
 export default function PostList({
   posts,
@@ -24,7 +24,7 @@ export default function PostList({
             <UnderLink href={post.url}>{post.title}</UnderLink>
           </span>
           <span className='text-muted-foreground text-xs'>
-            {format(parseISO(post.date), 'MMMM dd, yyyy')}
+            {formatDate(post.date)}
           </span>
         </div>
       ))}
