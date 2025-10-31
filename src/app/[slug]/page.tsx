@@ -1,9 +1,9 @@
-import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { notFound } from 'next/navigation'
 import { mdxComponents } from '@/components/mdx'
 import { Post } from 'contentlayer/generated'
+import { formatDate } from '@/lib/date-utils'
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
@@ -66,7 +66,7 @@ function PostLayout({ params }: { params: { slug: string } }) {
 
         {/* Byline */}
         <p className='text-md text-muted-foreground mt-3 mb-10'>
-          By {post.author} · {format(parseISO(post.date), 'LLLL d, yyyy')}
+          By {post.author} · {formatDate(post.date)}
           {showUnpublished && ' · '}
           {showUnpublished && (
             <span className='text-md font-semibold text-red-600'>
