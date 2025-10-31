@@ -6,7 +6,11 @@ import { MoonIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import {
+  OptimizedAvatar,
+  OptimizedAvatarFallback,
+  OptimizedAvatarImage,
+} from '@/components/optimized-avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,10 +31,14 @@ export default function Nav(): JSX.Element {
   return (
     <div className='flex items-center'>
       <Link href='/'>
-        <Avatar className='mr-4'>
-          <AvatarImage src='./profile.jpeg' />
-          <AvatarFallback>SO</AvatarFallback>
-        </Avatar>
+        <OptimizedAvatar className='mr-4'>
+          <OptimizedAvatarImage
+            src='/profile.jpeg'
+            alt='Sean Oliver'
+            priority
+          />
+          <OptimizedAvatarFallback>SO</OptimizedAvatarFallback>
+        </OptimizedAvatar>
       </Link>
 
       <NavigationMenu>
