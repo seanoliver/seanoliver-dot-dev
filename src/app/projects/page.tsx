@@ -45,10 +45,12 @@ export default function Projects(): JSX.Element {
           <CardContent>
             <Image
               src={project.image}
-              alt={project.name}
-              className=' rounded-lg shadow-sm'
+              alt={`${project.name} project screenshot`}
+              className='rounded-lg shadow-sm'
               width={700}
               height={300}
+              priority={index === 0}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px"
             />
           </CardContent>
           <CardFooter className='flex flex-wrap'>
