@@ -9,7 +9,11 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import {
+  OptimizedAvatar,
+  OptimizedAvatarFallback,
+  OptimizedAvatarImage,
+} from '@/components/optimized-avatar'
 import Section from '@/components/Section'
 
 export default function Experience(): JSX.Element {
@@ -22,10 +26,15 @@ export default function Experience(): JSX.Element {
         >
           <CardHeader className='flex flex-row justify-between'>
             <div className='flex items-center gap-4'>
-              <Avatar>
-                <AvatarImage src={experience.logo} />
-                <AvatarFallback>{experience.company[0]}</AvatarFallback>
-              </Avatar>
+              <OptimizedAvatar>
+                <OptimizedAvatarImage
+                  src={experience.logo}
+                  alt={`${experience.company} logo`}
+                />
+                <OptimizedAvatarFallback>
+                  {experience.company[0]}
+                </OptimizedAvatarFallback>
+              </OptimizedAvatar>
               <div>
                 <CardTitle>{experience.company}</CardTitle>
                 {/* <CardDescription>{experience.title}</CardDescription> */}

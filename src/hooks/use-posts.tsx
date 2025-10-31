@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { allPosts, type Post } from 'contentlayer/generated'
-import { compareDesc } from 'date-fns'
+import { compareDateDesc } from '@/lib/date-utils'
 
 export default function usePosts() {
   const [posts, setPosts] = useState<Post[]>()
 
   const sortPosts = (posts: Post[]): Post[] =>
-    posts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    posts.sort((a, b) => compareDateDesc(new Date(a.date), new Date(b.date)))
 
   useEffect(() => {
     const filteredPosts =
