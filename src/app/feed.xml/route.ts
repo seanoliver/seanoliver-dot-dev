@@ -23,13 +23,19 @@ export async function GET(): Promise<Response> {
   try {
     // Filter published posts and sort by date
     const publishedPosts = allPosts
-      .filter((post) => post?.isPublished && post?.title && post?.date && post?.summary && post?.url)
+      .filter(
+        (post) =>
+          post?.isPublished &&
+          post?.title &&
+          post?.date &&
+          post?.summary &&
+          post?.url
+      )
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
     // Get the latest post date for lastBuildDate
-    const latestPostDate = publishedPosts.length > 0
-      ? new Date(publishedPosts[0].date)
-      : new Date()
+    const latestPostDate =
+      publishedPosts.length > 0 ? new Date(publishedPosts[0].date) : new Date()
 
     const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
@@ -71,7 +77,7 @@ export async function GET(): Promise<Response> {
     console.error('[rss] Feed generation failed:', error)
     return new Response('Feed generation failed', {
       status: 500,
-      headers: { 'Content-Type': 'text/plain' }
+      headers: { 'Content-Type': 'text/plain' },
     })
   }
 }

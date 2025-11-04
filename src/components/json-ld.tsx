@@ -26,7 +26,7 @@ export function PersonJsonLd({ person }: { person: PersonSchema }) {
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )
@@ -64,7 +64,7 @@ export function BlogPostingJsonLd({ post }: { post: BlogPostingSchema }) {
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )
@@ -96,7 +96,7 @@ export function WebsiteJsonLd({ website }: { website: WebsiteSchema }) {
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )
