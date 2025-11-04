@@ -1,36 +1,105 @@
 'use client'
 
-import GoodreadsBookshelf from 'react-goodreads-shelf'
+import { useEffect, useState } from 'react'
 import Section from './Section'
+import ExternalLink from './external-link'
+import { formatDate } from '@/lib/date-utils'
+
+interface Book {
+  title: string
+  author: string
+  dateRead: string
+  link: string
+}
 
 export default function Goodreads(): JSX.Element {
+  const [books, setBooks] = useState<Book[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch('/api/goodreads')
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch books')
+        }
+
+        const data = await response.json()
+        setBooks(data.books || [])
+        setLoading(false)
+      } catch (err) {
+        console.error('Failed to fetch Goodreads data:', err)
+        setError(true)
+        setLoading(false)
+      }
+    }
+
+    fetchBooks()
+  }, [])
+
   return (
-    <Section title='Reading'>
-      <div className=''>
-        <p className='leading-7'>
-          I love reading, but not with my eyes. I&apos;ve been addicted to
-          audiobooks since 2019 on a trip to China when I gulped down{' '}
-          <i>Bad Blood</i>, <i>Educated</i>, and a few other totally kickass
-          books. I aim to &quot;read&quot; about 30 books per year, and usually
-          hit it.
-        </p>
-        <br />
-        <p>Here are the 30 I&apos;ve read most recently:</p>
-        <br />
-        <GoodreadsBookshelf
-          userId='26616336'
-          limit={30}
-          width={30}
-          displayOptions={{
-            hideBackgroundImages: false,
-            hideDetails: {
-              author: true,
-              rating: true,
-              subtitle: true,
-              title: true,
-            },
-          }}
-        />
+    <Section title='Read'>
+      <div className='w-full max-w-xl'>
+        {loading && (
+          <div className='text-sm text-muted-foreground'>Loading books...</div>
+        )}
+
+        {error && (
+          <div className='text-sm text-muted-foreground'>
+            Unable to load reading list.{' '}
+            <ExternalLink
+              href='https://www.goodreads.com/user/show/26616336'
+              className='text-sm'
+            >
+              View on Goodreads
+            </ExternalLink>
+          </div>
+        )}
+
+        {!loading && !error && books.length > 0 && (
+          <div className='space-y-1'>
+            {books.map((book, idx) => (
+              <div
+                key={idx}
+                className='w-full flex items-center justify-between leading-7 gap-4'
+              >
+                <a
+                  href={book.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-sm hover:underline flex-1 min-w-0 truncate'
+                >
+                  {book.title}
+                </a>
+                <span className='text-muted-foreground text-sm whitespace-nowrap'>
+                  {book.author}
+                </span>
+                {book.dateRead && (
+                  <span className='text-muted-foreground text-xs whitespace-nowrap'>
+                    {formatDate(book.dateRead, {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {!loading && !error && books.length > 0 && (
+          <div className='mt-10'>
+            <ExternalLink
+              href='https://www.goodreads.com/user/show/26616336'
+              className='text-xs'
+            >
+              View my full reading list on Goodreads
+            </ExternalLink>
+          </div>
+        )}
       </div>
     </Section>
   )
