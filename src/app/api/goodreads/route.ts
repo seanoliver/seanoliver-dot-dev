@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server'
 
 // Use Node.js runtime for better XML parsing performance
 export const runtime = 'nodejs'
-
-// Revalidate cache every hour
 export const revalidate = 3600
 
 interface Book {
@@ -123,7 +121,6 @@ export async function GET(): Promise<Response> {
       }
     }
 
-    // Sort by date read (most recent first)
     books.sort((a, b) => {
       if (!a.dateRead || !b.dateRead) return 0
       return new Date(b.dateRead).getTime() - new Date(a.dateRead).getTime()
@@ -131,7 +128,6 @@ export async function GET(): Promise<Response> {
 
     return NextResponse.json({ books, currentlyReading })
   } catch (error) {
-    // Only log in development
     if (process.env.NODE_ENV === 'development') {
       console.error('[goodreads] API fetch failed:', error)
     }

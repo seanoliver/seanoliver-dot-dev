@@ -51,68 +51,51 @@ export default function Goodreads(): JSX.Element | null {
     }
   }, [])
 
-  // Don't render the section until loading is complete
-  if (loading) {
+  if (loading || error || books.length === 0) {
     return null
   }
 
   return (
     <Section title='Read'>
       <div className='w-full max-w-xl'>
-        {error && (
-          <div className='text-sm text-muted-foreground'>
-            Unable to load reading list.{' '}
-            <ExternalLink
-              href='https://www.goodreads.com/user/show/26616336'
-              className='text-sm'
+        <div className='space-y-1'>
+          {books.map((book) => (
+            <div
+              key={book.link || `${book.title}-${book.author}`}
+              className='w-full flex items-center justify-between leading-7 gap-4'
             >
-              View on Goodreads
-            </ExternalLink>
-          </div>
-        )}
-
-        {!error && books.length > 0 && (
-          <div className='space-y-1'>
-            {books.map((book) => (
-              <div
-                key={book.link || `${book.title}-${book.author}`}
-                className='w-full flex items-center justify-between leading-7 gap-4'
+              <a
+                href={book.link}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-sm hover:underline flex-1 min-w-0 truncate'
               >
-                <a
-                  href={book.link}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-sm hover:underline flex-1 min-w-0 truncate'
-                >
-                  {book.title}
-                </a>
-                <span className='text-muted-foreground text-sm whitespace-nowrap'>
-                  {book.author}
+                {book.title}
+              </a>
+              <span className='text-muted-foreground text-sm whitespace-nowrap'>
+                {book.author}
+              </span>
+              {book.dateRead && (
+                <span className='text-muted-foreground text-xs whitespace-nowrap'>
+                  {formatDate(book.dateRead, {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })}
                 </span>
-                {book.dateRead && (
-                  <span className='text-muted-foreground text-xs whitespace-nowrap'>
-                    {formatDate(book.dateRead, {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+              )}
+            </div>
+          ))}
+        </div>
 
-        {!error && books.length > 0 && (
-          <div className='mt-10'>
-            <ExternalLink
-              href='https://www.goodreads.com/user/show/26616336'
-              className='text-xs'
-            >
-              View my full reading list on Goodreads
-            </ExternalLink>
-          </div>
-        )}
+        <div className='mt-10'>
+          <ExternalLink
+            href='https://www.goodreads.com/user/show/26616336'
+            className='text-xs'
+          >
+            View my full reading list on Goodreads
+          </ExternalLink>
+        </div>
       </div>
     </Section>
   )
