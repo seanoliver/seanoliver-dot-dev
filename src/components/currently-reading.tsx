@@ -51,18 +51,14 @@ export default function CurrentlyReading(): JSX.Element | null {
     }
   }, [])
 
-  // Don't render the section at all if there's no book
-  if (!loading && !book) {
+  // Don't render the section until loading is complete or if there's no book
+  if (loading || !book) {
     return null
   }
 
   return (
     <Section title='Reading'>
       <div className='w-full max-w-xl'>
-        {loading && (
-          <div className='text-sm text-muted-foreground'>Loading...</div>
-        )}
-
         {error && (
           <div className='text-sm text-muted-foreground'>
             Unable to load currently reading.{' '}
@@ -75,7 +71,7 @@ export default function CurrentlyReading(): JSX.Element | null {
           </div>
         )}
 
-        {!loading && !error && book && (
+        {!error && (
           <div className='w-full flex items-center justify-between leading-7 gap-4'>
             <a
               href={book.link}

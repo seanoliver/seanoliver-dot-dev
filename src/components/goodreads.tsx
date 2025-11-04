@@ -12,7 +12,7 @@ interface Book {
   link: string
 }
 
-export default function Goodreads(): JSX.Element {
+export default function Goodreads(): JSX.Element | null {
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -51,13 +51,14 @@ export default function Goodreads(): JSX.Element {
     }
   }, [])
 
+  // Don't render the section until loading is complete
+  if (loading) {
+    return null
+  }
+
   return (
     <Section title='Read'>
       <div className='w-full max-w-xl'>
-        {loading && (
-          <div className='text-sm text-muted-foreground'>Loading books...</div>
-        )}
-
         {error && (
           <div className='text-sm text-muted-foreground'>
             Unable to load reading list.{' '}
@@ -70,7 +71,7 @@ export default function Goodreads(): JSX.Element {
           </div>
         )}
 
-        {!loading && !error && books.length > 0 && (
+        {!error && books.length > 0 && (
           <div className='space-y-1'>
             {books.map((book) => (
               <div
@@ -102,7 +103,7 @@ export default function Goodreads(): JSX.Element {
           </div>
         )}
 
-        {!loading && !error && books.length > 0 && (
+        {!error && books.length > 0 && (
           <div className='mt-10'>
             <ExternalLink
               href='https://www.goodreads.com/user/show/26616336'
