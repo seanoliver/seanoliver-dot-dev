@@ -5,6 +5,7 @@ import { mdxComponents } from '@/components/mdx'
 import { Post } from 'contentlayer/generated'
 import { BlogPostingJsonLd } from '@/components/json-ld'
 import { formatDate } from '@/lib/date-utils'
+import ReadingProgress from '@/components/reading-progress'
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
@@ -58,6 +59,7 @@ function PostLayout({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      <ReadingProgress />
       <BlogPostingJsonLd
         post={{
           headline: post.title,

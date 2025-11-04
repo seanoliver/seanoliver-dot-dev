@@ -1,0 +1,28 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: hsl(var(--primary) / 0.2);
+  z-index: 50;
+}
+
+.bar {
+  height: 100%;
+  background: hsl(var(--primary));
+  transform-origin: left;
+
+  /* Modern browsers: pure CSS scroll-driven animation */
+  animation: reading-progress linear;
+  animation-timeline: scroll(root);
+}
+
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
