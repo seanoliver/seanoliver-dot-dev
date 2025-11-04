@@ -5,17 +5,25 @@
   right: 0;
   height: 4px;
   background: hsl(var(--primary) / 0.2);
-  z-index: 50;
+  z-index: 40; /* Below dropdowns (z-50) but above content */
 }
 
 .bar {
   height: 100%;
   background: hsl(var(--primary));
   transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
 
-  /* Modern browsers: pure CSS scroll-driven animation */
-  animation: reading-progress linear;
-  animation-timeline: scroll(root);
+/* Progressive enhancement: Use CSS scroll-driven animations in supporting browsers */
+@supports (animation-timeline: scroll()) {
+  .bar {
+    animation: reading-progress linear;
+    animation-timeline: scroll(root);
+    transition: none;
+  }
 }
 
 @keyframes reading-progress {
@@ -24,5 +32,13 @@
   }
   to {
     transform: scaleX(1);
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -6,6 +6,7 @@ import { Post } from 'contentlayer/generated'
 import { BlogPostingJsonLd } from '@/components/json-ld'
 import { formatDate } from '@/lib/date-utils'
 import ReadingProgress from '@/components/reading-progress'
+import { ReadingProgressFallback } from '@/components/reading-progress-fallback'
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
@@ -60,6 +61,7 @@ function PostLayout({ params }: { params: { slug: string } }) {
   return (
     <>
       <ReadingProgress />
+      <ReadingProgressFallback />
       <BlogPostingJsonLd
         post={{
           headline: post.title,
