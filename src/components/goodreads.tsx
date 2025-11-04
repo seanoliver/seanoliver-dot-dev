@@ -22,7 +22,7 @@ export default function Goodreads(): JSX.Element {
           limit={30}
           width={30}
           displayOptions={{
-            hideBackgroundImages: undefined,
+            hideBackgroundImages: false,
             hideDetails: {
               author: true,
               rating: true,

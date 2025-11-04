@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
       <Socials />
       <Projects />
       <Experience />
-      {/* <Goodreads /> */}
+      <Goodreads />
     </>
   )
 }
