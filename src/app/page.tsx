@@ -1,3 +1,4 @@
+import CurrentlyReading from '@/components/currently-reading'
 import Goodreads from '@/components/goodreads'
 import Socials from '@/components/socials'
 import About from './about/page'
@@ -13,7 +14,8 @@ export default function Home(): JSX.Element {
       <Socials />
       <Projects />
       <Experience />
-      {/* <Goodreads /> */}
+      <CurrentlyReading />
+      <Goodreads />
     </>
   )
 }
