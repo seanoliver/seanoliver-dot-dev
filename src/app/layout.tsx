@@ -99,6 +99,12 @@ export default function RootLayout({
       <Head>
         <title>Sean Oliver</title>
         <meta property='og:title' content='Sean Oliver' key='title' />
+        <link
+          rel='alternate'
+          type='application/rss+xml'
+          title='Sean Oliver RSS Feed'
+          href='https://seanoliver.dev/feed.xml'
+        />
       </Head>
       <body className={`font-sans flex flex-col min-h-screen`}>
         <SkipNav />
