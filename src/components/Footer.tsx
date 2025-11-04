@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 
 /**
- * Simple RSS icon SVG
+ * Simple RSS icon SVG component
+ * @param className - Optional CSS classes
  */
 const RssIcon = ({ className }: { className?: string }) => (
   <svg
@@ -14,6 +15,8 @@ const RssIcon = ({ className }: { className?: string }) => (
     strokeLinecap='round'
     strokeLinejoin='round'
     className={className}
+    role='img'
+    aria-label='RSS feed icon'
   >
     <path d='M4 11a9 9 0 0 1 9 9' />
     <path d='M4 4a16 16 0 0 1 16 16' />
