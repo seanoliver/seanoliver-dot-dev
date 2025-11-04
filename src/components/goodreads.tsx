@@ -18,6 +18,8 @@ export default function Goodreads(): JSX.Element {
   const [error, setError] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
     const fetchBooks = async () => {
       try {
         const response = await fetch('/api/goodreads')
@@ -27,16 +29,26 @@ export default function Goodreads(): JSX.Element {
         }
 
         const data = await response.json()
-        setBooks(data.books || [])
-        setLoading(false)
+        if (mounted) {
+          setBooks(data.books || [])
+          setLoading(false)
+        }
       } catch (err) {
-        console.error('Failed to fetch Goodreads data:', err)
-        setError(true)
-        setLoading(false)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to fetch Goodreads data:', err)
+        }
+        if (mounted) {
+          setError(true)
+          setLoading(false)
+        }
       }
     }
 
     fetchBooks()
+
+    return () => {
+      mounted = false
+    }
   }, [])
 
   return (
@@ -60,9 +72,9 @@ export default function Goodreads(): JSX.Element {
 
         {!loading && !error && books.length > 0 && (
           <div className='space-y-1'>
-            {books.map((book, idx) => (
+            {books.map((book) => (
               <div
-                key={idx}
+                key={book.link || `${book.title}-${book.author}`}
                 className='w-full flex items-center justify-between leading-7 gap-4'
               >
                 <a

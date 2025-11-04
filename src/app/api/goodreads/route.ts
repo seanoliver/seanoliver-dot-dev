@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 
-export const runtime = 'edge'
+// Use Node.js runtime for better XML parsing performance
+export const runtime = 'nodejs'
+
+// Revalidate cache every hour
+export const revalidate = 3600
 
 interface Book {
   title: string
@@ -18,13 +22,22 @@ interface CurrentlyReadingBook {
 
 export async function GET(): Promise<Response> {
   try {
+    const userId = process.env.GOODREADS_USER_ID
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'GOODREADS_USER_ID environment variable not set' },
+        { status: 500 }
+      )
+    }
+
     // Fetch both read and currently-reading shelves
     const [readResponse, currentlyReadingResponse] = await Promise.all([
-      fetch('https://www.goodreads.com/review/list_rss/26616336?shelf=read', {
+      fetch(`https://www.goodreads.com/review/list_rss/${userId}?shelf=read`, {
         headers: { 'User-Agent': 'Mozilla/5.0' },
       }),
       fetch(
-        'https://www.goodreads.com/review/list_rss/26616336?shelf=currently-reading',
+        `https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading`,
         {
           headers: { 'User-Agent': 'Mozilla/5.0' },
         }
@@ -32,7 +45,13 @@ export async function GET(): Promise<Response> {
     ])
 
     if (!readResponse.ok) {
-      throw new Error(`Goodreads returned ${readResponse.status}`)
+      throw new Error(`Goodreads read shelf returned ${readResponse.status}`)
+    }
+
+    if (!currentlyReadingResponse.ok) {
+      throw new Error(
+        `Goodreads currently-reading shelf returned ${currentlyReadingResponse.status}`
+      )
     }
 
     const readXml = await readResponse.text()
@@ -112,7 +131,10 @@ export async function GET(): Promise<Response> {
 
     return NextResponse.json({ books, currentlyReading })
   } catch (error) {
-    console.error('[goodreads] API fetch failed:', error)
+    // Only log in development
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[goodreads] API fetch failed:', error)
+    }
     return NextResponse.json(
       { error: 'Failed to fetch reading list' },
       { status: 500 }

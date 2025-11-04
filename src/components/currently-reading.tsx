@@ -18,6 +18,8 @@ export default function CurrentlyReading(): JSX.Element | null {
   const [error, setError] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
     const fetchBook = async () => {
       try {
         const response = await fetch('/api/goodreads')
@@ -27,16 +29,26 @@ export default function CurrentlyReading(): JSX.Element | null {
         }
 
         const data = await response.json()
-        setBook(data.currentlyReading || null)
-        setLoading(false)
+        if (mounted) {
+          setBook(data.currentlyReading || null)
+          setLoading(false)
+        }
       } catch (err) {
-        console.error('Failed to fetch currently reading data:', err)
-        setError(true)
-        setLoading(false)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to fetch currently reading data:', err)
+        }
+        if (mounted) {
+          setError(true)
+          setLoading(false)
+        }
       }
     }
 
     fetchBook()
+
+    return () => {
+      mounted = false
+    }
   }, [])
 
   // Don't render the section at all if there's no book
