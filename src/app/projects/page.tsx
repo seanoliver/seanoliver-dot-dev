@@ -1,8 +1,8 @@
 'use client'
 
-import Section from '@/components/Section';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import Section from '@/components/Section'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -10,11 +10,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { PROJECTS } from '@/lib/constants';
-import { ExternalLinkIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
-import Link from 'next/link';
+} from '@/components/ui/card'
+import { PROJECTS } from '@/lib/constants'
+import { ExternalLinkIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Projects(): JSX.Element {
   return (
@@ -50,7 +50,7 @@ export default function Projects(): JSX.Element {
               width={700}
               height={300}
               priority={index === 0}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px"
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px'
             />
           </CardContent>
           <CardFooter className='flex flex-wrap'>

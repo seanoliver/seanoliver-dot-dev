@@ -99,6 +99,12 @@ export default function RootLayout({
       <Head>
         <title>Sean Oliver</title>
         <meta property='og:title' content='Sean Oliver' key='title' />
+        <link
+          rel='alternate'
+          type='application/rss+xml'
+          title='Sean Oliver RSS Feed'
+          href='https://seanoliver.dev/feed.xml'
+        />
       </Head>
       <body className={`font-sans flex flex-col min-h-screen`}>
         <SkipNav />
@@ -106,7 +112,7 @@ export default function RootLayout({
           <NavContext.Provider value={navRefs}>
             <div className='container flex flex-col justify-center items-center xl:max-w-[850px] lg:max-w-[850px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto'>
               <Header className='w-full flex flex-col mt-5' />
-              <main id="main-content" className='w-full'>
+              <main id='main-content' className='w-full'>
                 {children}
               </main>
               <Footer />

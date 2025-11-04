@@ -41,9 +41,9 @@ const OptimizedAvatarImage = React.forwardRef<
       src={src}
       alt={alt}
       fill
-      sizes="40px"
+      sizes='40px'
       priority={priority}
-      className="object-cover"
+      className='object-cover'
     />
   </div>
 ))
