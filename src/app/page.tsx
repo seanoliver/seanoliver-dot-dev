@@ -9,9 +9,9 @@ import Projects from './projects/page'
 export default function Home(): JSX.Element {
   return (
     <>
-      <Posts />
       <About />
       <Socials />
+      <Posts />
       <Projects />
       <Experience />
       <CurrentlyReading />

@@ -3,13 +3,36 @@
 import { useEffect, useState } from 'react'
 import Section from './Section'
 import ExternalLink from './external-link'
-import { formatDate } from '@/lib/date-utils'
+import { formatDateSpaced } from '@/lib/date-utils'
 
 interface Book {
   title: string
   author: string
   dateRead: string
   link: string
+  rating: number
+}
+
+const MAX_RATING = 5
+
+function StarRating({ rating }: { rating: number }) {
+  if (rating === 0) {
+    return <span className='text-muted-foreground text-sm'>—</span>
+  }
+
+  return (
+    <div
+      className='flex items-center gap-0.5'
+      role='img'
+      aria-label={`Rating: ${rating} out of ${MAX_RATING} stars`}
+    >
+      {Array.from({ length: MAX_RATING }, (_, i) => i + 1).map((star) => (
+        <span key={star} className='text-muted-foreground text-sm' aria-hidden='true'>
+          {star <= rating ? '★' : '☆'}
+        </span>
+      ))}
+    </div>
+  )
 }
 
 export default function Goodreads(): JSX.Element | null {
@@ -72,16 +95,12 @@ export default function Goodreads(): JSX.Element | null {
               >
                 {book.title}
               </a>
-              <span className='text-muted-foreground text-sm whitespace-nowrap'>
-                {book.author}
-              </span>
+              <div className='whitespace-nowrap hidden sm:flex'>
+                <StarRating rating={book.rating} />
+              </div>
               {book.dateRead && (
                 <span className='text-muted-foreground text-xs whitespace-nowrap'>
-                  {formatDate(book.dateRead, {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                  })}
+                  {formatDateSpaced(book.dateRead)}
                 </span>
               )}
             </div>

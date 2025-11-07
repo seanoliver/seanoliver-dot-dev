@@ -1,71 +1,37 @@
 'use client'
 
 import Section from '@/components/Section'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { UnderLink } from '@/components/under-link'
 import { PROJECTS } from '@/lib/constants'
-import { ExternalLinkIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
 export default function Projects(): JSX.Element {
   return (
     <Section title='Projects'>
-      {PROJECTS.map((project, index) => (
-        <Card
-          key={`${project.name}-${index}`}
-          className='mb-4 rounded-md hover:transition-shadow hover:shadow-lg'
-        >
-          <CardHeader>
-            <CardTitle className='flex items-center'>
-              {project.name}{' '}
-              <Button variant='link' className='pl-2 pr-1' asChild>
-                <Link href={project.github} target='_blank'>
-                  <GitHubLogoIcon />
-                </Link>
-              </Button>{' '}
-              <Button variant='link' className='px-1' asChild>
-                <Link href={project.url} target='_blank'>
-                  <ExternalLinkIcon />
-                </Link>
-              </Button>
-            </CardTitle>
-            <CardDescription className='leading-7'>
-              {project.description}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Image
-              src={project.image}
-              alt={`${project.name} project screenshot`}
-              className='rounded-lg shadow-sm'
-              width={700}
-              height={300}
-              priority={index === 0}
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px'
-            />
-          </CardContent>
-          <CardFooter className='flex flex-wrap'>
-            {project.tags.map((tag, idx) => (
-              <Badge
-                key={`${tag}-${idx}`}
-                className='mr-2 mb-2'
-                variant='secondary'
-              >
-                {tag}
-              </Badge>
-            ))}
-          </CardFooter>
-        </Card>
-      ))}
+      <div className='w-full max-w-xl'>
+        {PROJECTS.map((project, idx) => (
+          <div
+            key={idx}
+            className='w-full flex items-center justify-between leading-7 gap-4'
+          >
+            <span className='font-medium flex-1 min-w-0'>
+              <UnderLink href={project.url}>{project.name}</UnderLink>
+            </span>
+            <span className='text-muted-foreground text-sm whitespace-nowrap hidden sm:inline'>
+              {project.summary}
+            </span>
+            <a
+              href={project.github}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-muted-foreground hover:text-foreground transition-colors'
+              aria-label='View GitHub repository'
+            >
+              <GitHubLogoIcon className='w-4 h-4' />
+            </a>
+          </div>
+        ))}
+      </div>
     </Section>
   )
 }

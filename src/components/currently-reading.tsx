@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Section from './Section'
 import ExternalLink from './external-link'
-import { formatDate } from '@/lib/date-utils'
+import { formatDateSpaced } from '@/lib/date-utils'
 
 interface CurrentlyReadingBook {
   title: string
@@ -86,11 +86,7 @@ export default function CurrentlyReading(): JSX.Element | null {
             </span>
             {book.dateStarted && (
               <span className='text-muted-foreground text-xs whitespace-nowrap'>
-                {formatDate(book.dateStarted, {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}
+                {formatDateSpaced(book.dateStarted)}
               </span>
             )}
           </div>

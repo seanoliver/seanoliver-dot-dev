@@ -17,6 +17,19 @@ export function formatDate(
 }
 
 /**
+ * Format a date string or Date object to space-separated format
+ * @param date - ISO date string or Date object
+ * @returns Formatted date string (e.g., "01 15 2024")
+ */
+export function formatDateSpaced(date: string | Date): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+  const day = String(dateObj.getDate()).padStart(2, '0')
+  const year = dateObj.getFullYear()
+  return `${month} ${day} ${year}`
+}
+
+/**
  * Compare two dates in descending order (newest first)
  * @param a - First date
  * @param b - Second date
