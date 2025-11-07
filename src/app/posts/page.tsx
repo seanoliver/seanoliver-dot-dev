@@ -3,7 +3,7 @@
 import usePosts from '@/hooks/use-posts'
 import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link'
-import { formatDate } from '@/lib/date-utils'
+import { formatDateSpaced } from '@/lib/date-utils'
 
 export default function Posts(): JSX.Element {
   let posts = usePosts()
@@ -21,11 +21,7 @@ export default function Posts(): JSX.Element {
                 <UnderLink href={post.url}>{post.title}</UnderLink>
               </span>
               <span className='text-muted-foreground text-xs hidden sm:inline'>
-                {formatDate(post.date, {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}
+                {formatDateSpaced(post.date)}
               </span>
             </div>
           ))}

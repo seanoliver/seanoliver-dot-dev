@@ -5,7 +5,7 @@ import {
   InstagramLogoIcon,
   ArrowTopRightIcon,
 } from '@radix-ui/react-icons'
-import { Project } from '@/lib/types'
+import { Project, Experience } from '@/lib/types'
 
 export const NAV_ITEMS = [
   {
@@ -66,6 +66,7 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/seanoliver/theragpt-app',
     description:
       'An AI-powered CBT journal to help people identify cognitive distortions and reframe negative thoughts.',
+    summary: 'AI-powered CBT journal for mental health',
     image: '/projects/theragpt-new.png',
     tags: [
       'React',
@@ -85,6 +86,7 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/seanoliver/audioflare',
     description:
       'An all-in-one AI audio playground using Cloudflare AI Workers to transcribe, analyze, summarize, and translate any audio file.',
+    summary: 'AI audio transcription and translation tool',
     image: '/projects/audioflare.png',
     tags: [
       'Cloudflare',
@@ -101,6 +103,7 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/smol-ai/menubar',
     description:
       'A menubar with Zero latency access to ChatGPT, Bard, Bing Chat, and Claude. I joined the Smol team out of a passion for LLMs and tools like this. Modularized chat providers and continue to maintain the project.',
+    summary: 'Menubar app for multiple AI chatbots',
     image: '/projects/smolmenubar.png',
     tags: [
       'TypeScript',
@@ -119,6 +122,7 @@ export const PROJECTS: Project[] = [
     url: 'https://seanoliver.dev',
     github: 'https://github.com/seanoliver/seanoliver-dot-dev',
     description: 'My personal website built with Next.js and Tailwind CSS.',
+    summary: 'Personal portfolio and blog website',
     image: '/projects/sodev.png',
     tags: [
       'Next.js',
@@ -137,15 +141,17 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/seanoliver/thera-gpt',
     description:
       "A web app using OpenAI's Chat Completions API to help people reframe negative thoughts.",
+    summary: 'Web app to reframe negative thoughts',
     image: '/projects/theragpt.png',
     tags: ['Flask', 'OpenAI', 'JavaScript', 'Python'],
   },
 ]
 
-export const EXPERIENCES = [
+export const EXPERIENCES: Experience[] = [
   {
     title: 'Growth Engineer',
     company: 'Supabase',
+    url: 'https://supabase.com/',
     logo: '/logos/supabase.png',
     date: '2025 - Present',
     description:
@@ -154,6 +160,7 @@ export const EXPERIENCES = [
   {
     title: 'Software Engineer',
     company: 'Gamma',
+    url: 'https://gamma.app/',
     logo: '/logos/gamma.png',
     date: '2023 - 2025',
     description:
@@ -162,8 +169,9 @@ export const EXPERIENCES = [
   {
     title: 'Software Engineer',
     company: 'Smol AI',
+    url: 'https://github.com/smol-ai',
     logo: '/logos/smol.png',
-    date: '2023',
+    date: '2023 - 2023',
     description:
       'Building tools to help developers and enthusiasts leverage AI to be more creative, productive, and effective.',
     tags: [
@@ -176,36 +184,9 @@ export const EXPERIENCES = [
     ],
   },
   {
-    title: 'Software Engineer',
-    company: 'State Technologies',
-    logo: '/logos/state.png',
-    date: '2023',
-    description:
-      'Building the future of AI-powered quote-to-cash solutions for enterprise organizations.',
-    tags: [
-      'Remix',
-      'SST',
-      'AWS Amplify',
-      'Firebase',
-      'TypeScript',
-      'React',
-      'Supabase',
-      'PostgreSQL',
-      'Electron',
-    ],
-  },
-  {
-    title: 'Frontend Engineer',
-    company: 'Story.com',
-    logo: '/logos/story.png',
-    date: '2023',
-    description:
-      'Frontend engineer for a startup building a platform for creating and sharing stories with AI.',
-    tags: ['TypeScript', 'React', 'Redux'],
-  },
-  {
     title: 'Senior Product Marketing Manager',
-    company: 'Block, Inc.',
+    company: 'Block',
+    url: 'https://block.xyz/',
     logo: '/logos/block.png',
     date: '2021 - 2023',
     description:
@@ -214,6 +195,7 @@ export const EXPERIENCES = [
   {
     title: 'Director of Marketing',
     company: 'Crew',
+    url: 'https://www.crewapp.com/',
     logo: '/logos/crew.png',
     date: '2019 - 2021',
     description:
@@ -222,6 +204,7 @@ export const EXPERIENCES = [
   {
     title: 'Senior Manager, Product Marketing',
     company: 'Lyft',
+    url: 'https://www.lyft.com/',
     logo: '/logos/lyft.png',
     date: '2015 - 2019',
     description:
@@ -230,6 +213,7 @@ export const EXPERIENCES = [
   {
     title: 'Senior Product Marketing Manager',
     company: 'Optimizely',
+    url: 'https://www.optimizely.com/',
     logo: '/logos/optimizely.png',
     date: '2013 - 2015',
     description:
@@ -238,6 +222,7 @@ export const EXPERIENCES = [
   {
     title: 'Product Marketing Manager',
     company: 'LinkedIn',
+    url: 'https://www.linkedin.com/',
     logo: '/logos/linkedin.webp',
     date: '2012 - 2013',
     description:
@@ -246,6 +231,7 @@ export const EXPERIENCES = [
   {
     title: 'Product Manager',
     company: 'Microsoft',
+    url: 'https://www.microsoft.com/',
     logo: '/logos/microsoft.png',
     date: '2009 - 2012',
     description:

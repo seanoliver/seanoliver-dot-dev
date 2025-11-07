@@ -4,9 +4,20 @@ export type Project = {
   name: string
   url: string
   description: string
+  summary: string
   image: string
   tags: string[]
   github: string
+}
+
+export type Experience = {
+  title: string
+  company: string
+  url: string
+  logo: string
+  date: string
+  description: string
+  tags?: string[]
 }
 
 /**

@@ -9,6 +9,7 @@ interface Book {
   author: string
   dateRead: string
   link: string
+  rating: number
 }
 
 interface CurrentlyReadingBook {
@@ -70,6 +71,7 @@ export async function GET(): Promise<Response> {
         /<user_read_at><!\[CDATA\[(.*?)\]\]><\/user_read_at>/
       )
       const authorMatch = item.match(/<author_name>(.*?)<\/author_name>/)
+      const ratingMatch = item.match(/<user_rating>(.*?)<\/user_rating>/)
 
       if (!titleMatch || !authorMatch) return null
 
@@ -78,6 +80,7 @@ export async function GET(): Promise<Response> {
         author: authorMatch[1].trim(),
         dateRead: dateReadMatch ? dateReadMatch[1] : '',
         link: linkMatch ? linkMatch[1] : '',
+        rating: ratingMatch ? parseInt(ratingMatch[1], 10) : 0,
       }
     }
 
