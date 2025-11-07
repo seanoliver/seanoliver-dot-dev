@@ -2,26 +2,21 @@
 
 import { EXPERIENCES } from '@/lib/constants'
 import Section from '@/components/Section'
+import List, { ListItem } from '@/components/list'
 import { UnderLink } from '@/components/under-link'
 
-export default function Experience(): JSX.Element {
+export default function Experience({ limit, href }: { limit?: number; href?: string } = {}): JSX.Element {
+  const displayExperiences = limit ? EXPERIENCES.slice(0, limit) : EXPERIENCES
+
+  const items: ListItem[] = displayExperiences.map((experience, idx) => ({
+    key: idx,
+    left: <UnderLink href={experience.url}>{experience.company}</UnderLink>,
+    right: experience.date,
+  }))
+
   return (
-    <Section title='Experience'>
-      <div className='w-full max-w-xl'>
-        {EXPERIENCES.map((experience, idx) => (
-          <div
-            key={idx}
-            className='w-full flex items-center justify-between leading-7 gap-4'
-          >
-            <span className='font-medium flex-1 min-w-0'>
-              <UnderLink href={experience.url}>{experience.company}</UnderLink>
-            </span>
-            <span className='text-muted-foreground text-xs whitespace-nowrap'>
-              {experience.date}
-            </span>
-          </div>
-        ))}
-      </div>
+    <Section title='Experience' href={href}>
+      <List items={items} />
     </Section>
   )
 }

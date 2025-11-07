@@ -11,11 +11,11 @@ export default function Home(): JSX.Element {
     <>
       <About />
       <Socials />
-      <Posts />
-      <Projects />
-      <Experience />
+      <Posts limit={3} href='/posts' />
+      <Projects limit={3} href='/projects' />
+      <Experience limit={3} href='/experience' />
       <CurrentlyReading />
-      <Goodreads />
+      <Goodreads limit={3} href='/read' />
     </>
   )
 }
