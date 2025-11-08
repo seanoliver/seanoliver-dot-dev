@@ -39,3 +39,9 @@ package-lock.json
 
 # contentlayer
 .contentlayer
+
+# Claude Code settings
+.claude/settings.local.json
+
+# Serena MCP data
+.serena/

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Section from './Section'
-import ExternalLink from './external-link'
+import List, { ListItem } from './list'
 import { formatDateSpaced } from '@/lib/date-utils'
 
 interface Book {
@@ -27,7 +27,11 @@ function StarRating({ rating }: { rating: number }) {
       aria-label={`Rating: ${rating} out of ${MAX_RATING} stars`}
     >
       {Array.from({ length: MAX_RATING }, (_, i) => i + 1).map((star) => (
-        <span key={star} className='text-muted-foreground text-sm' aria-hidden='true'>
+        <span
+          key={star}
+          className='text-muted-foreground text-sm'
+          aria-hidden='true'
+        >
           {star <= rating ? '★' : '☆'}
         </span>
       ))}
@@ -35,7 +39,11 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-export default function Goodreads(): JSX.Element | null {
+export default function Goodreads(props?: {
+  limit?: number
+  href?: string
+}): JSX.Element | null {
+  const { limit, href } = props ?? {}
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -78,44 +86,28 @@ export default function Goodreads(): JSX.Element | null {
     return null
   }
 
-  return (
-    <Section title='Read'>
-      <div className='w-full max-w-xl'>
-        <div className='space-y-1'>
-          {books.map((book) => (
-            <div
-              key={book.link || `${book.title}-${book.author}`}
-              className='w-full flex items-center justify-between leading-7 gap-4'
-            >
-              <a
-                href={book.link}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-sm hover:underline flex-1 min-w-0 truncate'
-              >
-                {book.title}
-              </a>
-              <div className='whitespace-nowrap hidden sm:flex'>
-                <StarRating rating={book.rating} />
-              </div>
-              {book.dateRead && (
-                <span className='text-muted-foreground text-xs whitespace-nowrap'>
-                  {formatDateSpaced(book.dateRead)}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+  const displayBooks = limit ? books.slice(0, limit) : books
+  const hasMore = limit != null && books.length > limit
 
-        <div className='mt-10'>
-          <ExternalLink
-            href='https://www.goodreads.com/user/show/26616336'
-            className='text-xs'
-          >
-            View my full reading list on Goodreads
-          </ExternalLink>
-        </div>
-      </div>
+  const items: ListItem[] = displayBooks.map((book) => ({
+    key: book.link || `${book.title}-${book.author}`,
+    left: (
+      <a
+        href={book.link}
+        target='_blank'
+        rel='noopener noreferrer'
+        className='hover:underline'
+      >
+        {book.title}
+      </a>
+    ),
+    middle: <StarRating rating={book.rating} />,
+    right: book.dateRead ? formatDateSpaced(book.dateRead) : undefined,
+  }))
+
+  return (
+    <Section title='Read' href={href} hasMore={hasMore}>
+      <List items={items} />
     </Section>
   )
 }

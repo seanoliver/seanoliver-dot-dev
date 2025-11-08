@@ -1,32 +1,8 @@
-'use client'
+import PostsContent from '@/components/posts-content'
+import { metadata as postsMetadata } from './metadata'
 
-import usePosts from '@/hooks/use-posts'
-import Section from '@/components/Section'
-import { UnderLink } from '@/components/under-link'
-import { formatDateSpaced } from '@/lib/date-utils'
+export const metadata = postsMetadata
 
-export default function Posts(): JSX.Element {
-  let posts = usePosts()
-
-  return (
-    <Section title='Posts'>
-      {posts && posts.length > 0 && (
-        <div className='w-full max-w-xl'>
-          {posts.map((post, idx) => (
-            <div
-              key={idx}
-              className='w-full flex items-center justify-between leading-7'
-            >
-              <span className='font-medium'>
-                <UnderLink href={post.url}>{post.title}</UnderLink>
-              </span>
-              <span className='text-muted-foreground text-xs hidden sm:inline'>
-                {formatDateSpaced(post.date)}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </Section>
-  )
+export default function PostsPage(): JSX.Element {
+  return <PostsContent />
 }

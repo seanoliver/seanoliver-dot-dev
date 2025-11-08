@@ -1,8 +1,6 @@
-import React from 'react'
-import Section from '@/components/Section'
-import { UnderLink } from '@/components/under-link'
 import { Metadata } from 'next'
 import { PersonJsonLd } from '@/components/json-ld'
+import AboutContent from '@/components/about-content'
 
 export const metadata: Metadata = {
   title: 'About Sean Oliver',
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function About(): JSX.Element {
+export default function AboutPage(): JSX.Element {
   return (
     <>
       <PersonJsonLd
@@ -47,35 +45,7 @@ export default function About(): JSX.Element {
             'Growth Engineer at Supabase blending technical expertise with user insights.',
         }}
       />
-      <Section title='About'>
-        <div className='About'>
-          <p className='leading-7'>
-            Growth Engineer at{' '}
-            <UnderLink href='https://supabase.com/'>Supabase</UnderLink>.
-            Building <UnderLink href='https://theragpt.ai/'>TheraGPT</UnderLink>{' '}
-            to improve mental health through better reflection and reframing.
-            Previously led growth and marketing at{' '}
-            <UnderLink href='https://www.microsoft.com/'>Microsoft</UnderLink>,{' '}
-            <UnderLink href='https://www.linkedin.com/'>LinkedIn</UnderLink>,{' '}
-            <UnderLink href='https://www.lyft.com/'>Lyft</UnderLink>,{' '}
-            <UnderLink href='https://www.block.xyz/'>Block</UnderLink>, and{' '}
-            <UnderLink href='https://gamma.app/'>Gamma</UnderLink>.
-          </p>
-          <br />
-          <p className='leading-7'>
-            I also write a{' '}
-            <UnderLink href='https://newsletter.seanoliver.dev/'>
-              newsletter
-            </UnderLink>{' '}
-            about indie hacking and productivity. I live in San
-            Francisco with my wife, two kids, and our 5 lbs poodle{' '}
-            <UnderLink href='https://instagram.com/pixelthemaltipoo'>
-              Pixel
-            </UnderLink>
-            .
-          </p>
-        </div>
-      </Section>
+      <AboutContent />
     </>
   )
 }

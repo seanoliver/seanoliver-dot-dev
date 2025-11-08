@@ -45,11 +45,3 @@ export type NavItemProps = {
 export interface CardWrapperProps {
   children: React.ReactNode
 }
-
-export interface NavRefsProps {
-  Posts: React.RefObject<HTMLDivElement>
-  About: React.RefObject<HTMLDivElement>
-  Projects: React.RefObject<HTMLDivElement>
-  Experience: React.RefObject<HTMLDivElement>
-  [key: string]: React.RefObject<HTMLDivElement>
-}

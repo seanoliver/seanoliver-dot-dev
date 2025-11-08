@@ -1,27 +1,8 @@
-'use client'
+import ExperienceContent from '@/components/experience-content'
+import { metadata as experienceMetadata } from './metadata'
 
-import { EXPERIENCES } from '@/lib/constants'
-import Section from '@/components/Section'
-import { UnderLink } from '@/components/under-link'
+export const metadata = experienceMetadata
 
-export default function Experience(): JSX.Element {
-  return (
-    <Section title='Experience'>
-      <div className='w-full max-w-xl'>
-        {EXPERIENCES.map((experience, idx) => (
-          <div
-            key={idx}
-            className='w-full flex items-center justify-between leading-7 gap-4'
-          >
-            <span className='font-medium flex-1 min-w-0'>
-              <UnderLink href={experience.url}>{experience.company}</UnderLink>
-            </span>
-            <span className='text-muted-foreground text-xs whitespace-nowrap'>
-              {experience.date}
-            </span>
-          </div>
-        ))}
-      </div>
-    </Section>
-  )
+export default function ExperiencePage(): JSX.Element {
+  return <ExperienceContent />
 }
