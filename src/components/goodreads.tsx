@@ -27,7 +27,11 @@ function StarRating({ rating }: { rating: number }) {
       aria-label={`Rating: ${rating} out of ${MAX_RATING} stars`}
     >
       {Array.from({ length: MAX_RATING }, (_, i) => i + 1).map((star) => (
-        <span key={star} className='text-muted-foreground text-sm' aria-hidden='true'>
+        <span
+          key={star}
+          className='text-muted-foreground text-sm'
+          aria-hidden='true'
+        >
           {star <= rating ? '★' : '☆'}
         </span>
       ))}
@@ -35,7 +39,11 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-export default function Goodreads({ limit, href }: { limit?: number; href?: string } = {}): JSX.Element | null {
+export default function Goodreads(props?: {
+  limit?: number
+  href?: string
+}): JSX.Element | null {
+  const { limit, href } = props ?? {}
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -79,6 +87,7 @@ export default function Goodreads({ limit, href }: { limit?: number; href?: stri
   }
 
   const displayBooks = limit ? books.slice(0, limit) : books
+  const hasMore = limit != null && books.length > limit
 
   const items: ListItem[] = displayBooks.map((book) => ({
     key: book.link || `${book.title}-${book.author}`,
@@ -97,7 +106,7 @@ export default function Goodreads({ limit, href }: { limit?: number; href?: stri
   }))
 
   return (
-    <Section title='Read' href={href}>
+    <Section title='Read' href={href} hasMore={hasMore}>
       <List items={items} />
     </Section>
   )

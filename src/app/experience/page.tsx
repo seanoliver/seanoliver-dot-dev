@@ -1,22 +1,8 @@
-'use client'
+import ExperienceContent from '@/components/experience-content'
+import { metadata as experienceMetadata } from './metadata'
 
-import { EXPERIENCES } from '@/lib/constants'
-import Section from '@/components/Section'
-import List, { ListItem } from '@/components/list'
-import { UnderLink } from '@/components/under-link'
+export const metadata = experienceMetadata
 
-export default function Experience({ limit, href }: { limit?: number; href?: string } = {}): JSX.Element {
-  const displayExperiences = limit ? EXPERIENCES.slice(0, limit) : EXPERIENCES
-
-  const items: ListItem[] = displayExperiences.map((experience, idx) => ({
-    key: idx,
-    left: <UnderLink href={experience.url}>{experience.company}</UnderLink>,
-    right: experience.date,
-  }))
-
-  return (
-    <Section title='Experience' href={href}>
-      <List items={items} />
-    </Section>
-  )
+export default function ExperiencePage(): JSX.Element {
+  return <ExperienceContent />
 }

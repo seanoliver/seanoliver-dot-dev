@@ -9,11 +9,7 @@ import Header from '@/components/Header'
 import SkipNav from '@/components/skip-nav'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
-import { NAV_ITEMS } from '@/lib/constants'
-import { NavRefsProps } from '@/lib/types'
 import { Inter } from 'next/font/google'
-import { useRef } from 'react'
-import { NavContext } from '@/hooks/use-nav-context'
 import JumpToTop from '@/components/jump-to-top'
 import localFont from 'next/font/local'
 
@@ -81,11 +77,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const navRefs: NavRefsProps = NAV_ITEMS.reduce((acc: any, item) => {
-    acc[item.name] = useRef(null)
-    return acc
-  }, {})
-
   return (
     <html
       lang='en'
@@ -109,15 +100,13 @@ export default function RootLayout({
       <body className={`font-sans flex flex-col min-h-screen`}>
         <SkipNav />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <NavContext.Provider value={navRefs}>
-            <div className='container flex flex-col justify-center items-center xl:max-w-[850px] lg:max-w-[850px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto'>
-              <Header className='w-full flex flex-col mt-5' />
-              <main id='main-content' className='w-full'>
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </NavContext.Provider>
+          <div className='container flex flex-col justify-center items-center xl:max-w-[850px] lg:max-w-[850px] md:max-w-3/4 sm:max-w-4/5 max-w-5/6 mx-auto'>
+            <Header className='w-full flex flex-col mt-5' />
+            <main id='main-content' className='w-full'>
+              {children}
+            </main>
+            <Footer />
+          </div>
         </ThemeProvider>
         <Analytics />
         <JumpToTop />
