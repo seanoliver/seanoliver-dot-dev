@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactNode } from 'react'
 
 export interface ListItem {
@@ -19,7 +17,7 @@ export default function List({ items }: { items: ListItem[] }): JSX.Element {
         >
           <span className='font-medium flex-1 min-w-0'>{item.left}</span>
           {item.middle && (
-            <span className='text-muted-foreground text-sm whitespace-nowrap hidden sm:inline'>
+            <span className='text-muted-foreground text-xs whitespace-nowrap hidden sm:inline'>
               {item.middle}
             </span>
           )}
