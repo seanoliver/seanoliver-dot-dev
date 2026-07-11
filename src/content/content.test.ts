@@ -170,6 +170,17 @@ describe('schema: invalid metadata', () => {
     expectErrorNaming(withoutDate, 'publishedAt')
   })
 
+  it('rejects a published entry whose publishedAt key is empty (YAML null)', () => {
+    // An empty `publishedAt:` key parses to null; the null→undefined
+    // preprocess for optional keys must still trip the published-requires-date
+    // rule rather than silently accepting a dateless published entry.
+    expectErrorNaming(
+      { ...validArticle, publishedAt: null },
+      'publishedAt',
+      'required when status is "published"'
+    )
+  })
+
   it('rejects a substackUrl on an entry not selected for email', () => {
     expectErrorNaming(
       {

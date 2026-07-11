@@ -107,7 +107,9 @@ export function isPublishedMetadata(
 
 /**
  * Validation failure for one or more content files. `errors` holds one
- * human-readable line per problem, each prefixed with the source path.
+ * human-readable entry per problem, each prefixed with the source path;
+ * an entry may span multiple lines (e.g. YAML parse errors include a
+ * snippet of the offending frontmatter).
  */
 export class ContentValidationError extends Error {
   readonly errors: readonly string[]

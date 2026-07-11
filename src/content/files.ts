@@ -45,6 +45,10 @@ export type SitemapEntryProjection = {
   lastModified: string
 }
 
+function describeError(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
 async function findMdxFiles(directory: string): Promise<string[]> {
   const dirents = await fs.readdir(directory, { withFileTypes: true })
   const files: string[] = []
@@ -104,9 +108,7 @@ export async function loadEntries(
     filePaths = await findMdxFiles(contentRoot)
   } catch (error) {
     throw new ContentValidationError([
-      `${contentRoot}: content root cannot be read (${
-        error instanceof Error ? error.message : String(error)
-      })`,
+      `${contentRoot}: content root cannot be read (${describeError(error)})`,
     ])
   }
 
@@ -116,18 +118,23 @@ export async function loadEntries(
 
   for (const sourcePath of filePaths) {
     // Read + parse per file inside try/catch so an unreadable file or
-    // malformed YAML becomes one aggregated error line instead of aborting
-    // the whole load and hiding every other file's problems.
+    // malformed YAML becomes one aggregated error entry instead of aborting
+    // the whole load and hiding every other file's problems. The two failure
+    // modes carry distinct labels: `read:` for filesystem errors,
+    // `frontmatter:` for YAML parse errors.
+    let rawFile: string
+    try {
+      rawFile = await fs.readFile(sourcePath, 'utf8')
+    } catch (error) {
+      errors.push(`${sourcePath}: read: ${describeError(error)}`)
+      continue
+    }
+
     let data: unknown
     try {
-      const rawFile = await fs.readFile(sourcePath, 'utf8')
       ;({ data } = matter(rawFile))
     } catch (error) {
-      errors.push(
-        `${sourcePath}: frontmatter: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      )
+      errors.push(`${sourcePath}: frontmatter: ${describeError(error)}`)
       continue
     }
 
