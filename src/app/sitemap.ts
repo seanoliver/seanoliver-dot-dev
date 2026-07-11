@@ -9,13 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   )
 
-  const posts =
-    allPosts
-      .filter((post) => post.isPublished)
-      .map((post) => ({
-        url: `https://seanoliver.dev/posts/${post.slug}`,
-        lastModified: post.date,
-      })) ?? []
+  const posts = allPosts
+    .filter((post) => post.isPublished)
+    .map((post) => ({
+      url: `https://seanoliver.dev${post.url}`,
+      lastModified: post.date,
+    }))
 
   return [...routes, ...posts]
 }

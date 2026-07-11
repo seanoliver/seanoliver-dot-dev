@@ -1,7 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
 import rehypePrettyCode from 'rehype-pretty-code'
-import { join } from 'path'
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -45,9 +44,7 @@ const Post = defineDocumentType(() => ({
     image: {
       type: 'string',
       resolve: (doc) =>
-        `https://seanoliver.dev/api/og?title=${
-          (doc.title.split(' '), join('+'))
-        }`,
+        `https://seanoliver.dev/api/og?title=${encodeURIComponent(doc.title)}`,
     },
     datePublished: {
       type: 'string',

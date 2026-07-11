@@ -8,12 +8,24 @@ import { formatDate } from '@/lib/date-utils'
 import ReadingProgress from '@/components/reading-progress'
 import { ReadingProgressFallback } from '@/components/reading-progress-fallback'
 
+// Only published posts are routable in production. Drafts remain visible in
+// development so they can be previewed with the "Unpublished" label.
+const routablePosts =
+  process.env.NODE_ENV === 'development'
+    ? allPosts
+    : allPosts.filter((post) => post.isPublished)
+
+// Reject any slug not returned by generateStaticParams with a 404.
+export const dynamicParams = false
+
 export const generateStaticParams = async () =>
-  allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
+  routablePosts.map((post) => ({ slug: post._raw.flattenedPath }))
 
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   // Find post for current page
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
+  const post = routablePosts.find(
+    (post) => post._raw.flattenedPath === params.slug
+  )
 
   // 404 if the post does not exist.
   if (!post) notFound()
@@ -46,7 +58,9 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 
 function PostLayout({ params }: { params: { slug: string } }) {
   // Find post for current page
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
+  const post = routablePosts.find(
+    (post) => post._raw.flattenedPath === params.slug
+  )
 
   // 404 if the post does not exist.
   if (!post) notFound()

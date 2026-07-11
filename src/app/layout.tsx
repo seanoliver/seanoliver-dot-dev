@@ -1,8 +1,6 @@
-'use client'
-
 import { Analytics } from '@vercel/analytics/react'
 import clsx from 'clsx'
-import Head from 'next/head'
+import type { Metadata } from 'next'
 import './globals.css'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -69,6 +67,23 @@ const inter = Inter({
   display: 'swap',
 })
 
+export const metadata: Metadata = {
+  title: 'Sean Oliver',
+  openGraph: {
+    title: 'Sean Oliver',
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        {
+          url: 'https://seanoliver.dev/feed.xml',
+          title: 'Sean Oliver RSS Feed',
+        },
+      ],
+    },
+  },
+}
+
 /**
  * Root layout component
  */
@@ -87,16 +102,6 @@ export default function RootLayout({
         inter.className
       )}
     >
-      <Head>
-        <title>Sean Oliver</title>
-        <meta property='og:title' content='Sean Oliver' key='title' />
-        <link
-          rel='alternate'
-          type='application/rss+xml'
-          title='Sean Oliver RSS Feed'
-          href='https://seanoliver.dev/feed.xml'
-        />
-      </Head>
       <body className={`font-sans flex flex-col min-h-screen`}>
         <SkipNav />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
