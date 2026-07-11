@@ -45,3 +45,6 @@ package-lock.json
 
 # Serena MCP data
 .serena/
+
+# Local git worktrees
+.worktrees/
