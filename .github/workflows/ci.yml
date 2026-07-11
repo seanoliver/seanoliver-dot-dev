@@ -11,10 +11,14 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Never cancel in-flight runs on main so rapid merges don't leave gaps in
+  # main's CI history; PR branches cancel superseded runs as usual.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   quality:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
     name: Quality
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -38,8 +42,9 @@ jobs:
 
       # TEMPORARY: `contentlayer build` intermittently crashes in its exit
       # handler on Node 22 (clipanion race -> nonzero exit) even when content
-      # generation succeeded. Give it a single retry so the flake cannot fail
-      # the job, without masking real generation errors (the retry step fails
+      # generation succeeded. Give it a single retry so a single flake cannot
+      # fail the job, without masking real generation errors (the retry step
+      # fails
       # the job if generation is genuinely broken). Remove once Task 8 of
       # docs/plans/2026-07-10-blog-platform-modernization.md drops Contentlayer.
       - name: Generate content (Contentlayer)
@@ -64,6 +69,8 @@ jobs:
         run: pnpm test:unit
 
   build:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
     name: Production build
     needs: quality
     runs-on: ubuntu-latest
@@ -100,6 +107,8 @@ jobs:
           retention-days: 7
 
   browser-contracts:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
     name: Browser contracts
     needs: build
     runs-on: ubuntu-latest
@@ -168,8 +177,8 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      # No `pnpm install` here: `pnpm audit` works off package.json and the
+      # lockfile and does not need node_modules.
 
       # Non-blocking by design: the audit surfaces findings in the job summary
       # but never fails CI. Remediation is tracked by Task 11 (dependency
@@ -187,7 +196,7 @@ jobs:
             echo '```'
             if [ "$status" -ne 0 ]; then
               echo ''
-              echo '> Audit exited non-zero (findings above). Non-blocking; remediation tracked by the dependency modernization task (Task 11).'
+              echo '> Audit exited non-zero (findings or audit error above). Non-blocking; remediation tracked by the dependency modernization task (Task 11).'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
           echo "$output"
