@@ -68,6 +68,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://seanoliver.dev'),
   title: 'Sean Oliver',
   openGraph: {
     title: 'Sean Oliver',
@@ -95,6 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
+      suppressHydrationWarning
       className={clsx(
         'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300',
         monolisa.variable,

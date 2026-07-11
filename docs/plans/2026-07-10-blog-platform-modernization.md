@@ -292,6 +292,11 @@ webServer: {
 
 Set `baseURL` to `http://127.0.0.1:3000`. Do not start `next dev` in E2E.
 
+Approved deviation (quality review): E2E runs on a dedicated port 3100
+(`pnpm start --port 3100`, `baseURL` `http://127.0.0.1:3100`) so
+`reuseExistingServer` can never silently attach to a `next dev` instance on the
+default port 3000.
+
 **Step 2: Write failing browser contracts**
 
 Create `tests/e2e/publishing.spec.ts` asserting:

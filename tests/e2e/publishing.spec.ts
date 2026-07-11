@@ -13,6 +13,9 @@ const PUBLISHED_POSTS = [
   },
 ]
 
+// This contract holds because posts/ai-function-calling.mdx has
+// `isPublished: false`. If that post is ever published, this test inverts:
+// point DRAFT_POST_PATH at another draft (or drop the test if none exist).
 const DRAFT_POST_PATH = '/ai-function-calling'
 
 const STATIC_ROUTE_PATHS = new Set([
