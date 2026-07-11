@@ -79,6 +79,7 @@ Do not silently substitute a new major. Read its release notes first.
 **Files:**
 
 - Modify: `package.json`
+- Modify: `.eslintrc.json`
 - Create: `.prettierignore`
 
 **Step 1: Record the package manager and add check scripts**
@@ -99,7 +100,7 @@ build, and start:
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit --incremental false",
+    "typecheck": "contentlayer build && tsc --noEmit --incremental false",
     "check:format": "prettier --check .",
     "format": "prettier --write .",
     "test": "pnpm test:unit",
@@ -112,6 +113,16 @@ build, and start:
 
 Remove `--debug` from the production build; debug logging should be opted into
 locally rather than required in CI.
+
+Baseline corrections (verified in the working tree before implementation):
+
+- `typecheck` must run `contentlayer build` before `tsc` because
+  `.contentlayer/generated` does not exist in a clean checkout until
+  Contentlayer runs. Task 8 removes the `contentlayer build &&` prefix when
+  Contentlayer is deleted.
+- Add `"root": true` to `.eslintrc.json` so ESLint stops resolving parent
+  configs (required for nested worktrees; harmless elsewhere). Include
+  `.eslintrc.json` in the Task 1 commit.
 
 Create `.prettierignore` with generated and test-artifact paths:
 
@@ -153,7 +164,7 @@ for a later scoped task.
 **Step 4: Commit**
 
 ```bash
-git add package.json pnpm-lock.yaml .prettierignore
+git add package.json pnpm-lock.yaml .prettierignore .eslintrc.json
 git commit -m "chore: add repeatable quality commands"
 ```
 
