@@ -10,6 +10,11 @@ import { formatDateSpaced } from '@/lib/date-utils'
  * `next dev`, newest first) and this component only presents them: every link
  * is the entry's canonical route path — no filesystem reads, frontmatter
  * parsing, or URL building happen here.
+ *
+ * Invariant: this component receives full ContentEntry objects (including the
+ * server filesystem `sourcePath`) and must remain a server component. If it
+ * ever needs 'use client', project entries to a slim
+ * `{ slug, title, publishedAt }` view model at the page boundary first.
  */
 export default function WritingIndex({
   entries,

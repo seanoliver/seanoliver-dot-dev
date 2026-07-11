@@ -28,13 +28,3 @@ export function formatDateSpaced(date: string | Date): string {
   const year = dateObj.getFullYear()
   return `${month} ${day} ${year}`
 }
-
-/**
- * Compare two dates in descending order (newest first)
- * @param a - First date
- * @param b - Second date
- * @returns Positive if a is older, negative if b is older, 0 if equal
- */
-export function compareDateDesc(a: Date, b: Date): number {
-  return b.getTime() - a.getTime()
-}
