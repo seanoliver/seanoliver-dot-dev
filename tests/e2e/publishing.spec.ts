@@ -72,6 +72,13 @@ test('tracer /writing route serves the article with highlighted code', async ({
     html,
     'fenced code should be processed by rehype-pretty-code'
   ).toContain('data-language="bash"')
+  // If remark-frontmatter is ever dropped from next.config.mjs, @next/mdx
+  // renders the YAML block as visible text while every assertion above still
+  // passes — so prove the raw frontmatter never reaches the HTML.
+  expect(
+    html,
+    'raw frontmatter must not leak into the rendered HTML'
+  ).not.toContain('status: published')
 })
 
 test('draft entry gets no /writing route in the production build', async ({

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getEntryBySlug, getEntryRouteParams } from '@/content'
+import { getCanonicalUrl, getEntryBySlug, getEntryRouteParams } from '@/content'
 
 /**
  * Tracer route for the first-party content pipeline: metadata comes from the
@@ -29,6 +29,10 @@ export async function generateMetadata({
   return {
     title: entry.metadata.title,
     description: entry.metadata.summary,
+    // Canonical tag closes the transition-period duplicate-content window:
+    // until the old Contentlayer routes redirect, `/nextjs-contentlayer` and
+    // `/writing/nextjs-contentlayer` both return 200 for the same article.
+    alternates: { canonical: getCanonicalUrl(entry.slug) },
   }
 }
 
@@ -38,6 +42,13 @@ export default async function WritingEntryPage({ params }: PageProps) {
 
   // Native MDX import of the exact file the schema validated; webpack bundles
   // every `content/writing/*.mdx` candidate and compiles it with @next/mdx.
+  // Two constraints follow from that template string:
+  // - content/writing/ must stay FLAT: an entry in a nested subdirectory
+  //   would validate in the content domain but fail here at build time with
+  //   a webpack "Cannot find module" error.
+  // - the webpack context bundles every .mdx candidate, drafts included:
+  //   drafts are unroutable in production, but their compiled bodies still
+  //   exist in the server bundle.
   const { default: Body } = await import(
     `../../../../content/writing/${params.slug}.mdx`
   )
