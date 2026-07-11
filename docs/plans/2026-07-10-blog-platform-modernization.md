@@ -853,6 +853,49 @@ choose and document an initial threshold. Update GitHub Actions so regressions
 at that threshold fail. Do not mute advisories without a dated rationale and
 review owner.
 
+**Execution note (2026-07-11):**
+
+- **Unused removals** (dedicated commit, verified by import inventory — MDX
+  prose mentions don't count): `@headlessui/react`, `@heroicons/react`,
+  `@makotot/ghostui`, `framer-motion`, `react-scroll` + `@types/react-scroll`,
+  `react-use`, `react-icons`, `rehype-highlight`, `@vercel/og` (the OG route
+  uses built-in `next/og`), devDeps `bun-types` and `supabase` (its
+  `ignoredBuiltDependencies` entry pruned). `eslint-config-next` moved to
+  devDependencies. `tsconfig.json` now pins
+  `typeRoots: ["./node_modules/@types"]` — without it, tsc walks up out of a
+  nested git worktree and auto-includes the main clone's stale `@types`.
+- **Clusters**: (1) `@types/node` 20.1.2 → 22.20.1 (matches Node 22; moved to
+  devDependencies); TS stays 5.9.3 (typescript-eslint cap). (2)
+  `rehype-pretty-code` 0.10 → 0.14.4 + `shiki` 0.14 → 4.3.1; single-theme output
+  now stamps `data-theme="poimandres"` (was `"default"`) and wraps blocks in
+  `<figure data-rehype-pretty-code-figure>`; the e2e theme pin was deliberately
+  updated to the (stronger) literal theme name. (3) Radix primitives to latest,
+  no API drift. (4) Tailwind 3.3.2 → 3.4.19 with postcss/autoprefixer/clsx 2/cva
+  0.7/tailwind-merge 2 (the Tailwind-3 line — tailwind-merge 3 targets Tailwind
+  4 syntax). (5) `@vercel/analytics` → 2.0.1 with the `/next` entrypoint per
+  Vercel docs; `next-themes` → 0.4.6 (fixed the removed `next-themes/dist/types`
+  deep import).
+- **Tailwind 3 → 4 deliberately deferred**: v4 is a CSS-first architectural
+  migration (config-in-CSS, `@tailwindcss/postcss` split, automatic content
+  detection replacing globs). Given the prior purge incident with root-level
+  `mdx-components.tsx`
+  (docs/bugs/2026-07-11-tailwind-purged-mdx-component-classes.md), it warrants a
+  dedicated task with full visual QA, not a cluster rider.
+- **Audit**: 22 prod advisories (11 high/9 moderate/2 low) at task start → **1
+  moderate** after removals, cluster upgrades, reclassifying build-time tooling
+  (tailwindcss/postcss/autoprefixer/typescript) to devDependencies, and in-range
+  transitive refreshes (js-yaml 3.15.0, glob 10.5.0, minimatch 9.0.9,
+  brace-expansion 2.0.3, picomatch 2.3.2, yaml 2.9.0, flatted 3.4.2). Remaining:
+  `next>postcss` 8.4.31 (CVE-2026-41305, moderate) — pinned exactly by `next`,
+  build-time-only processing of this repo's own CSS, waiting on an upstream next
+  bump. No advisories were muted.
+- **Blocking threshold (2026-07-11, review owner: Sean Oliver)**: the
+  `Dependency report` job now fails on **high/critical advisories in production
+  dependencies** (`pnpm audit --prod --audit-level high`); moderate/low and
+  dev-only chains remain report-only in the job summary. Making
+  `Dependency report` a required branch-protection context on `main` is a
+  separate decision left to the repo owner.
+
 ### Task 12: Complete the article/note writing experience
 
 **Files:**
