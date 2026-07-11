@@ -1,12 +1,4 @@
 import createMDX from '@next/mdx'
-import rehypePrettyCode from 'rehype-pretty-code'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkGfm from 'remark-gfm'
-
-/** @type {import('rehype-pretty-code').Options} */
-const prettyCodeOptions = {
-  theme: 'poimandres',
-}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -44,10 +36,15 @@ const nextConfig = {
   },
 }
 
+// Plugins are specified as strings (with JSON-serializable options) so the
+// MDX pipeline works under Turbopack, the default bundler for `next dev` and
+// `next build` since Next.js 16. Plugin functions cannot be passed to
+// Turbopack's Rust side. See:
+// https://nextjs.org/docs/app/guides/mdx#using-plugins-with-turbopack
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkFrontmatter, remarkGfm],
-    rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    remarkPlugins: ['remark-frontmatter', 'remark-gfm'],
+    rehypePlugins: [['rehype-pretty-code', { theme: 'poimandres' }]],
   },
 })
 

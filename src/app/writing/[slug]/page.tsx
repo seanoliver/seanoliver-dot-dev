@@ -68,13 +68,14 @@ export default async function WritingEntryPage(props: PageProps) {
   const { title, summary, publishedAt, updatedAt, status } = entry.metadata
   const canonicalUrl = getCanonicalUrl(entry.slug)
 
-  // Native MDX import of the exact file the schema validated; webpack bundles
-  // every `content/writing/*.mdx` candidate and compiles it with @next/mdx.
+  // Native MDX import of the exact file the schema validated; the bundler
+  // (Turbopack since Next 16) bundles every `content/writing/*.mdx` candidate
+  // and compiles it with @next/mdx.
   // Two constraints follow from that template string:
   // - content/writing/ must stay FLAT: an entry in a nested subdirectory
   //   would validate in the content domain but fail here at build time with
-  //   a webpack "Cannot find module" error.
-  // - the webpack context bundles every .mdx candidate, drafts included:
+  //   a "Cannot find module" error.
+  // - the bundler's module context includes every .mdx candidate, drafts included:
   //   drafts are unroutable in production, but their compiled bodies still
   //   exist in the server bundle.
   const { default: Body } = await import(

@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit --incremental false",
     "check:format": "prettier --check .",
     "format": "prettier --write .",
@@ -24,7 +24,7 @@
     "@heroicons/react": "^2.0.18",
     "@makotot/ghostui": "^2.0.0",
     "@mdx-js/loader": "^3.1.1",
-    "@next/mdx": "15.5.20",
+    "@next/mdx": "16.2.10",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -39,10 +39,10 @@
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
-    "eslint-config-next": "15.5.20",
+    "eslint-config-next": "16.2.10",
     "framer-motion": "^10.12.12",
     "gray-matter": "4.0.3",
-    "next": "15.5.20",
+    "next": "16.2.10",
     "next-themes": "^0.2.1",
     "postcss": "8.4.23",
     "react": "19.2.7",
@@ -67,17 +67,8 @@
     "@types/mdx": "^2.0.14",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
     "bun-types": "^1.0.1",
-    "eslint": "^8.45.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-plugin-import": "^2.28.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "^7.33.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint": "^9.39.5",
     "prettier": "3.5.3",
     "supabase": "^1.75.3",
     "vitest": "4.1.10"
@@ -86,6 +77,9 @@
     "ignoredBuiltDependencies": [
       "supabase",
       "unrs-resolver"
+    ],
+    "onlyBuiltDependencies": [
+      "sharp"
     ]
   }
 }

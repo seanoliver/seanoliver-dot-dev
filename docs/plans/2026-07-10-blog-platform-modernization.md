@@ -718,9 +718,12 @@ Run the full gate and audit, then commit the framework cluster.
   scope creep**: current `@types/react@19` (19.2.17) requires TS ≥ 5.3
   (DefinitelyTyped's rolling ~2-year support window pins `ts5.0` back at 19.0.12
   and `ts5.2` at 19.2.14). 5.9.3 is the newest stable TypeScript supported by
-  the `@typescript-eslint` v8 line that `eslint-config-next@15` resolves (npm
-  `latest` is TypeScript 7, which nothing in this toolchain supports yet). Task
-  11's "TypeScript and Node types" cluster now covers only the
+  the `@typescript-eslint` v8 line (npm `latest` is TypeScript 7, which nothing
+  in this toolchain supports yet). _(Correction, 2026-07-11:
+  `eslint-config-next@15` actually resolved the project's direct
+  `@typescript-eslint@6.21.0` devDeps — a line that only declares support for TS
+  <5.4.0 — not v8; the v8 line arrives with `eslint-config-next@16` in Task
+  10.)_ Task 11's "TypeScript and Node types" cluster now covers only the
   `@types/node`/`bun-types` leftovers.
 - Framework line: Next **15.5.20** (the `15.x` backport tag — npm `latest` is
   already Next 16, which is Task 10), React/ReactDOM **19.2.7**, `@types/react`
@@ -770,6 +773,52 @@ Run the full gate twice: once from a warm workspace and once after deleting
 **Step 5: Commit**
 
 Commit only Next 16, React 19.2-compatible changes, and lint migration.
+
+**Execution note (2026-07-11):**
+
+- **Turbopack/MDX decision: Turbopack stays the default for both `next dev` and
+  `next build` — no webpack opt-out needed.** The official MDX guide documents
+  the non-experimental resolution: `@next/mdx` plugins specified as strings with
+  JSON-serializable options (`['rehype-pretty-code', { theme: 'poimandres' }]`),
+  because plugin functions cannot cross into Turbopack's Rust side. The
+  templated `import()` of `content/writing/<slug>.mdx` is the guide's own
+  documented Turbopack pattern; both published posts SSG-prerendered and all 14
+  e2e contracts (including `data-language="bash"` highlighting and
+  frontmatter-not-leaked) passed against the Turbopack production build. No
+  `--webpack`, no `mdxRs`.
+- `next build` rewrote `tsconfig.json` as mandatory Next 16 changes:
+  `moduleResolution: "bundler"`, `jsx: "react-jsx"`, and
+  `.next/dev/types/**/*.ts` in `include` (dev now outputs to `.next/dev`).
+- Lint: `next lint` is removed in 16. `pnpm lint` is now `eslint .` with the
+  documented flat config (`eslint-config-next/core-web-vitals` +
+  `globalIgnores`). ESLint pinned to the 9.x line (`^9.39.5`), not 10.x:
+  `eslint-plugin-react`, `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, and
+  `@next/eslint-plugin-next` in `eslint-config-next@16.2.10`'s chain only
+  declare peer support through ESLint 9. Rule parity verified: identical two
+  `src/app/api/og/route.tsx` warnings before/after, zero new findings despite
+  the broader `eslint .` surface (e2e/, root configs now linted).
+  `eslint-config-next/typescript` deliberately NOT enabled (old config never had
+  typescript-eslint rules; candidate for a separate decision).
+- Direct `@typescript-eslint/{eslint-plugin,parser}@^6` devDeps removed —
+  `eslint-config-next@16` brings its own `typescript-eslint@8.63.0` (verified
+  with `pnpm why`). Also removed unused ESLint-8-era devDeps that only appeared
+  in `package.json` (never referenced by the config, which extended only
+  `next/core-web-vitals`): `eslint-config-airbnb`, `eslint-config-prettier`,
+  `eslint-plugin-{import,jsx-a11y,prettier,react,react-hooks}`.
+- Next 16 pulls `sharp@0.34.5` for production image optimization; its install
+  script was approved via `pnpm.onlyBuiltDependencies` (prebuilt binary check
+  passed).
+- Codemod: of the five documented v16 transforms only `next-lint-to-eslint-cli`
+  applied to this repo (no `experimental.turbopack`, middleware, `unstable_`
+  APIs, or `experimental_ppr`). Its `--dry` flag is not honored — it modified
+  files anyway; changes were inspected, reset, and redone manually per the
+  ESLint API reference (the generated config had dead `__dirname` boilerplate,
+  no ignores, and left `.eslintrc.json` behind).
+- `pnpm audit --prod`: 28 → 22 (high 14 → 11, moderate 12 → 9, low 2 → 2); the
+  drop is the `@typescript-eslint@6` chain. Remainder lives in `postcss@8.4.23`,
+  `react-use`, and `js-yaml`-era chains — Task 11 clusters.
+- No new peer warnings; the pre-existing `framer-motion@10` react@18 peer
+  warning remains (Task 11).
 
 ### Task 11: Modernize remaining dependencies in cohesive clusters
 
