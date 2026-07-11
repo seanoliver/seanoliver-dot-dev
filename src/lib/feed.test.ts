@@ -89,8 +89,31 @@ describe('buildRssFeed', () => {
   it('stamps each item pubDate from the entry publishedAt', () => {
     const feed = buildRssFeed(entries)
 
-    expect(feed).toContain(
-      `<pubDate>${new Date(newerPublished.publishedAt).toUTCString()}</pubDate>`
-    )
+    expect(feed).toContain('<pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>')
+  })
+
+  it('omits lastBuildDate and items when nothing is published', () => {
+    for (const feed of [buildRssFeed([]), buildRssFeed([draft])]) {
+      expect(feed).toContain('<channel>')
+      expect(feed).toContain('<title>Sean Oliver</title>')
+      expect(feed).not.toContain('<lastBuildDate>')
+      expect(feed).not.toContain('<item>')
+    }
+  })
+
+  it('drops entries whose publishedAt cannot be parsed', () => {
+    const invalidDate: FeedEntry = {
+      title: 'Broken Date Post',
+      summary: 'This entry has an unparseable date',
+      publishedAt: 'not-a-date',
+      canonicalUrl: 'https://seanoliver.dev/blog/broken-date-post',
+      isPublished: true,
+    }
+
+    const feed = buildRssFeed([...entries, invalidDate])
+
+    expect(feed).not.toContain('Broken Date Post')
+    expect(feed).not.toContain('Invalid Date')
+    expect(feed).toContain('Newer Post')
   })
 })
