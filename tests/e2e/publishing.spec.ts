@@ -99,6 +99,46 @@ test('published /writing entry renders with highlighted code and no frontmatter 
   ).not.toContain('status: published')
 })
 
+test('article-body Tailwind utilities survive the production CSS build', async ({
+  page,
+}) => {
+  // Guards against Tailwind purging the classes emitted by the root-level
+  // mdx-components.tsx: if that file falls out of the content globs, the
+  // classNames still appear in the DOM but the stylesheet has no rules for
+  // them, so lists lose their bullets and paragraphs lose their margins.
+  // Computed styles are the only honest signal — HTML-level assertions pass
+  // either way.
+  await page.goto('/writing/nextjs-contentlayer')
+
+  const article = page.locator('article')
+  await expect(article).toHaveCount(1)
+
+  // ul gets `list-disc` from mdx-components.tsx.
+  const list = article.locator('ul').first()
+  await expect(list).toBeVisible()
+  const listStyleType = await list.evaluate(
+    (el) => getComputedStyle(el).listStyleType
+  )
+  expect(listStyleType, 'ul should render disc bullets (.list-disc)').toBe(
+    'disc'
+  )
+
+  // MDX paragraphs get `leading-7 [&:not(:first-child)]:mt-6`; the variant
+  // only fires on paragraphs that are not their parent's first child, so
+  // mirror that condition in the selector.
+  const laterParagraph = article
+    .locator('p.leading-7:not(:first-child)')
+    .first()
+  await expect(laterParagraph).toBeVisible()
+  const marginTop = await laterParagraph.evaluate((el) =>
+    parseFloat(getComputedStyle(el).marginTop)
+  )
+  expect(
+    marginTop,
+    'non-first MDX p should have a nonzero margin-top (mt-6)'
+  ).toBeGreaterThan(0)
+})
+
 test('published entry exposes canonical, OG, and JSON-LD metadata from one URL', async ({
   page,
 }) => {

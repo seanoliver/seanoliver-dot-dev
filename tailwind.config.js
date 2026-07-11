@@ -6,6 +6,9 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    // @next/mdx requires this file at the repo root, outside src/ — without
+    // this entry Tailwind purges every utility it references.
+    './mdx-components.tsx',
   ],
   theme: {
     container: {
