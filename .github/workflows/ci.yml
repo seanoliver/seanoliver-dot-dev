@@ -176,21 +176,29 @@ jobs:
       - name: Audit production dependencies
         run: |
           set +e
-          output="$(pnpm audit --prod 2>&1)"
-          pnpm audit --prod --audit-level high > /dev/null 2>&1
+          report_output="$(pnpm audit --prod 2>&1)"
+          gate_output="$(pnpm audit --prod --audit-level high 2>&1)"
           blocking_status=$?
           {
             echo '## pnpm audit --prod'
             echo ''
             echo '```'
-            echo "$output"
+            echo "$report_output"
+            echo '```'
+            echo ''
+            echo '## pnpm audit --prod --audit-level high (blocking gate)'
+            echo ''
+            echo '```'
+            echo "$gate_output"
             echo '```'
             echo ''
             if [ "$blocking_status" -ne 0 ]; then
-              echo '> FAILED: high/critical advisories found in production dependencies (blocking threshold, see workflow comment).'
+              echo '> FAILED: high/critical advisories found in production dependencies OR audit command failed — see gate output above (blocking threshold, see workflow comment).'
             else
               echo '> Passed: no high/critical advisories in production dependencies. Findings above (if any) are below the blocking threshold.'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
-          echo "$output"
+          echo "$report_output"
+          echo '--- blocking gate (pnpm audit --prod --audit-level high) ---'
+          echo "$gate_output"
           exit "$blocking_status"
