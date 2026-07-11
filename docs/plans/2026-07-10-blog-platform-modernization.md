@@ -595,6 +595,27 @@ Move both remaining files, preserving original dates, slugs, and draft status.
 
 Run the full gate, then commit only MDX configuration and content migration.
 
+**Execution note (2026-07-11):**
+
+- Content was **copied, not moved**, into `content/writing/`: the e2e suite pins
+  the legacy Contentlayer routes (`/nextjs-contentlayer`, `/scroll-links`, draft
+  `/ai-function-calling` 404) until Task 8, so `posts/` and
+  `contentlayer.config.ts` stayed completely untouched.
+- A **minimal `/writing/[slug]` tracer route was pulled forward from Task 8**
+  (`src/app/writing/[slug]/page.tsx`): Step 5 requires a Playwright-testable
+  route, and the route is what proves schema parsing (`src/content`) and native
+  MDX rendering agree on the same file. No index page, redirects, or JSON-LD
+  yet.
+- Task 8 accordingly **deletes `posts/`** along with Contentlayer and **extends
+  the existing `src/app/writing/[slug]/page.tsx`** (article chrome, metadata,
+  JSON-LD) rather than creating it.
+- Plugin compatibility: `remark-gfm@3` crashes under the MDX v3 / unified 11
+  loader (`this.setData is not a function`), so the new pipeline uses the npm
+  alias `remark-gfm-mdx3` (`npm:remark-gfm@^4.0.1`); Contentlayer keeps
+  `remark-gfm@3`. `rehype-pretty-code@0.10` works unchanged on both.
+  `tsconfig.json` needed no modification (`@types/mdx` is picked up
+  automatically).
+
 ### Task 8: Migrate every consumer and remove Contentlayer
 
 **Files:**

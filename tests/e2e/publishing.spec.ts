@@ -18,6 +18,17 @@ const PUBLISHED_POSTS = [
 // point DRAFT_POST_PATH at another draft (or drop the test if none exist).
 const DRAFT_POST_PATH = '/ai-function-calling'
 
+// Tracer bullet for the first-party MDX pipeline: the same file's frontmatter
+// is parsed by src/content and its body compiled natively by @next/mdx.
+const TRACER_POST = {
+  path: '/writing/nextjs-contentlayer',
+  title: 'My Next.js + Contentlayer Blog Setup',
+}
+
+// Mirror of DRAFT_POST_PATH for the new pipeline: content/writing has the
+// same draft, and drafts must not get a /writing route in production.
+const DRAFT_WRITING_PATH = '/writing/ai-function-calling'
+
 const STATIC_ROUTE_PATHS = new Set([
   '/',
   '/posts',
@@ -42,6 +53,31 @@ test('/posts serves both published titles in the initial HTML', async ({
 
 test('draft post returns 404 in the production build', async ({ request }) => {
   const response = await request.get(DRAFT_POST_PATH)
+  expect(response.status()).toBe(404)
+})
+
+test('tracer /writing route serves the article with highlighted code', async ({
+  request,
+}) => {
+  const response = await request.get(TRACER_POST.path)
+  expect(response.status()).toBe(200)
+
+  const html = await response.text()
+  expect(html, 'initial HTML should contain the article title').toContain(
+    TRACER_POST.title
+  )
+  // rehype-pretty-code stamps fenced blocks with their language; the tracer
+  // article contains ```bash fences, so this proves highlighting ran.
+  expect(
+    html,
+    'fenced code should be processed by rehype-pretty-code'
+  ).toContain('data-language="bash"')
+})
+
+test('draft entry gets no /writing route in the production build', async ({
+  request,
+}) => {
+  const response = await request.get(DRAFT_WRITING_PATH)
   expect(response.status()).toBe(404)
 })
 
