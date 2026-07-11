@@ -3,6 +3,8 @@ import Section from '@/components/Section'
 import List, { ListItem } from '@/components/list'
 import { UnderLink } from '@/components/under-link'
 
+import type { JSX } from 'react'
+
 export default function ExperienceContent(props?: {
   limit?: number
   href?: string

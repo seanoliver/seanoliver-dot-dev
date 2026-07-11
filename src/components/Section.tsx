@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type JSX } from 'react'
 import Link from 'next/link'
 import { Separator } from './ui/separator'
 import { cn } from '@/lib/utils'

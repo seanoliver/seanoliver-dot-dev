@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { JSX } from 'react'
 /**
  * Custom link component for use on about page
  * Extends Next.js Link component

@@ -17,6 +17,8 @@ import {
 import { NAV_ITEMS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
+import type { JSX } from 'react'
+
 export default function Nav(): JSX.Element {
   return (
     <div className='flex items-center'>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 import Section from './Section'
 import List, { ListItem } from './list'
 import { formatDateSpaced } from '@/lib/date-utils'

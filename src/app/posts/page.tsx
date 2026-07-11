@@ -2,6 +2,8 @@ import WritingIndex from '@/components/writing-index'
 import { getVisibleEntries } from '@/content'
 import { metadata as postsMetadata } from './metadata'
 
+import type { JSX } from 'react'
+
 export const metadata = postsMetadata
 
 export default async function PostsPage(): Promise<JSX.Element> {

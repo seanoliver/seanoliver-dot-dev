@@ -23,15 +23,14 @@ export async function generateStaticParams() {
   return getEntryRouteParams()
 }
 
-type PageProps = { params: { slug: string } }
+type PageProps = { params: Promise<{ slug: string }> }
 
 function ogImageUrl(title: string): string {
   return `${SITE_URL}/api/og?title=${encodeURIComponent(title)}`
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params
   const entry = await getEntryBySlug(params.slug)
   if (!entry) notFound()
 
@@ -61,7 +60,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function WritingEntryPage({ params }: PageProps) {
+export default async function WritingEntryPage(props: PageProps) {
+  const params = await props.params
   const entry = await getEntryBySlug(params.slug)
   if (!entry) notFound()
 

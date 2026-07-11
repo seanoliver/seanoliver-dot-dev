@@ -1,6 +1,8 @@
 import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link'
 
+import type { JSX } from 'react'
+
 export default function AboutContent(): JSX.Element {
   return (
     <Section title='About'>

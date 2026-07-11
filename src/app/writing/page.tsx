@@ -4,6 +4,8 @@ import WritingIndex from '@/components/writing-index'
 import { getVisibleEntries } from '@/content'
 import { RSS_ALTERNATE, SITE_URL } from '@/lib/site'
 
+import type { JSX } from 'react'
+
 export const metadata: Metadata = {
   title: 'Writing by Sean Oliver',
   description:

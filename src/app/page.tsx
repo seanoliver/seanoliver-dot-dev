@@ -7,6 +7,8 @@ import ProjectsContent from '@/components/projects-content'
 import WritingIndex from '@/components/writing-index'
 import { getVisibleEntries } from '@/content'
 
+import type { JSX } from 'react'
+
 export default async function Home(): Promise<JSX.Element> {
   const entries = await getVisibleEntries()
 

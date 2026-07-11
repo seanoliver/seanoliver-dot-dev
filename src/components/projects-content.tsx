@@ -4,6 +4,8 @@ import { UnderLink } from '@/components/under-link'
 import { PROJECTS } from '@/lib/constants'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
+import type { JSX } from 'react'
+
 export default function ProjectsContent(props?: {
   limit?: number
   href?: string

@@ -1,6 +1,11 @@
 import { getFeedEntries } from '@/content'
 import { buildRssFeed } from '@/lib/feed'
 
+// Next 15 stopped caching GET route handlers by default; the feed derives
+// entirely from build-time content, so keep the Next 14 behavior of
+// prerendering it at build.
+export const dynamic = 'force-static'
+
 export async function GET(): Promise<Response> {
   try {
     // The content API already projects published-only entries with canonical

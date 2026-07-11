@@ -2,6 +2,8 @@
 
 import Section from '@/components/Section'
 
+import type { JSX } from 'react'
+
 const myApps = [
   'VSCode',
   'Arc',

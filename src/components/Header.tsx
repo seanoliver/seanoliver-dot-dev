@@ -7,6 +7,8 @@ import Nav from './navigation'
 import Section from './Section'
 import { NAV_ITEMS } from '@/lib/constants'
 
+import type { JSX } from 'react'
+
 export default function Header({
   className,
 }: {

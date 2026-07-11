@@ -4,6 +4,8 @@ import Section from '@/components/Section'
 import { UnderLink } from '@/components/under-link'
 import { formatDateSpaced } from '@/lib/date-utils'
 
+import type { JSX } from 'react'
+
 /**
  * Server-rendered writing index. Pages fetch entries with the content API's
  * `getVisibleEntries()` (published in production, drafts previewable in

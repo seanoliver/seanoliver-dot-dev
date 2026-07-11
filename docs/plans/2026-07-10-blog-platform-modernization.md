@@ -712,6 +712,30 @@ synchronous compatibility rather than carrying it into Next 16.
 
 Run the full gate and audit, then commit the framework cluster.
 
+**Execution note (2026-07-11):**
+
+- **TypeScript 5.0.4 → 5.9.3 was pulled into this cluster as a requirement, not
+  scope creep**: current `@types/react@19` (19.2.17) requires TS ≥ 5.3
+  (DefinitelyTyped's rolling ~2-year support window pins `ts5.0` back at 19.0.12
+  and `ts5.2` at 19.2.14). 5.9.3 is the newest stable TypeScript supported by
+  the `@typescript-eslint` v8 line that `eslint-config-next@15` resolves (npm
+  `latest` is TypeScript 7, which nothing in this toolchain supports yet). Task
+  11's "TypeScript and Node types" cluster now covers only the
+  `@types/node`/`bun-types` leftovers.
+- Framework line: Next **15.5.20** (the `15.x` backport tag — npm `latest` is
+  already Next 16, which is Task 10), React/ReactDOM **19.2.7**, `@types/react`
+  **19.2.17**, `@types/react-dom` **19.2.3**.
+- `@types/react@19` removed the global `JSX` namespace; the official
+  `types-react-codemod scoped-jsx` transform added
+  `import type { JSX } from 'react'` to the 20 files annotating `JSX.Element`.
+  No other React 19 type breakage existed (no `useRef()` without argument, no
+  deprecated aliases, no `propTypes`/`defaultProps`).
+- `src/app/feed.xml/route.ts` gained `export const dynamic = 'force-static'`:
+  Next 15 stopped caching GET route handlers by default, and the feed derives
+  entirely from build-time content — this preserves the Next 14 build output
+  (`○` static) exactly. `/api/goodreads` was already dynamic (`ƒ`) under Next 14
+  per the CI build log, so its behavior is unchanged.
+
 ### Task 10: Upgrade Next 15 to Next 16 and modernize linting
 
 **Files:**

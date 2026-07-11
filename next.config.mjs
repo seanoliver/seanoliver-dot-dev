@@ -25,7 +25,6 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
-  swcMinify: true,
   async redirects() {
     // The two post URLs that were public at the site root before the
     // /writing move. Permanent (308). The draft ai-function-calling was never

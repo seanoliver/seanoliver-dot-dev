@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import { PersonJsonLd } from '@/components/json-ld'
 import AboutContent from '@/components/about-content'
 
+import type { JSX } from 'react'
+
 export const metadata: Metadata = {
   title: 'About Sean Oliver',
   description:

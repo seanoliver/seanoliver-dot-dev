@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 import Section from './Section'
 import ExternalLink from './external-link'
 import { formatDateSpaced } from '@/lib/date-utils'

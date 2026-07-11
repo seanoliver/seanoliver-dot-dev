@@ -2,6 +2,8 @@ import { SOCIAL_LINKS } from '@/lib/constants'
 import ExternalLink from './external-link'
 import Section from './Section'
 
+import type { JSX } from 'react'
+
 export default function Socials(): JSX.Element {
   return (
     <Section title='Social'>
