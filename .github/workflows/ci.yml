@@ -172,10 +172,13 @@ jobs:
         with:
           version: 10.25.0
 
+      # No `cache: pnpm` here: this job never runs `pnpm install`, so the
+      # pnpm store directory is never created and setup-node's post-run cache
+      # save fails on any lockfile change (cache-key miss -> save of a
+      # nonexistent path).
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: pnpm
 
       # No `pnpm install` here: `pnpm audit` works off package.json and the
       # lockfile and does not need node_modules.
