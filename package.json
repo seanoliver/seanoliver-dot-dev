@@ -20,9 +20,6 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.18",
-    "@makotot/ghostui": "^2.0.0",
     "@mdx-js/loader": "^3.1.1",
     "@next/mdx": "16.2.10",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -33,24 +30,16 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.1.2",
-    "@types/react-scroll": "^1.8.7",
     "@vercel/analytics": "^1.0.1",
-    "@vercel/og": "^0.5.13",
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
-    "eslint-config-next": "16.2.10",
-    "framer-motion": "^10.12.12",
     "gray-matter": "4.0.3",
     "next": "16.2.10",
     "next-themes": "^0.2.1",
     "postcss": "8.4.23",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-icons": "^4.8.0",
-    "react-scroll": "^1.8.9",
-    "react-use": "^17.4.0",
-    "rehype-highlight": "^6.0.0",
     "rehype-pretty-code": "^0.10.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
@@ -67,15 +56,13 @@
     "@types/mdx": "^2.0.14",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "bun-types": "^1.0.1",
     "eslint": "^9.39.5",
+    "eslint-config-next": "16.2.10",
     "prettier": "3.5.3",
-    "supabase": "^1.75.3",
     "vitest": "4.1.10"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
-      "supabase",
       "unrs-resolver"
     ],
     "onlyBuiltDependencies": [

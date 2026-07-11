@@ -14,6 +14,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx", // nextjs has its own optimized jsx transform
     "incremental": true,
+    // Pin automatic @types inclusion to this project's own node_modules.
+    // Without this, tsc's default typeRoots walk up ancestor directories, so
+    // a git worktree checked out inside the main clone auto-includes the main
+    // clone's (potentially stale) node_modules/@types packages.
+    "typeRoots": ["./node_modules/@types"],
     "plugins": [
       {
         "name": "next"
