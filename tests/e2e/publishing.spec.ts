@@ -90,16 +90,17 @@ test('published /writing entry renders with highlighted code and no frontmatter 
     html,
     'fenced code should be processed by rehype-pretty-code'
   ).toContain('data-language="bash"')
-  // Pin the poimandres theme. With a single-theme config rehype-pretty-code
-  // stamps data-theme="default" on <pre>/<code> — the theme name itself never
-  // appears in the HTML — and inlines the theme's editor background on the
-  // <pre>. Poimandres' background is #1b1e28; if the theme option in
-  // next.config.mjs is dropped or typo'd (it is NOT typechecked), the plugin
-  // silently falls back to its built-in default theme and this color changes.
+  // Pin the poimandres theme. Since rehype-pretty-code 0.14 a single-theme
+  // config stamps the actual theme name as data-theme on <pre>/<code>
+  // (older 0.10 stamped the literal "default"), and inlines the theme's
+  // editor background on the <pre>. Poimandres' background is #1b1e28; if
+  // the theme option in next.config.mjs is dropped or typo'd (it is NOT
+  // typechecked), the plugin silently falls back to its built-in default
+  // theme and both assertions below fail.
   expect(
     html,
-    'highlighted blocks should carry the data-theme attribute'
-  ).toContain('data-theme="default"')
+    'highlighted blocks should carry the configured theme name'
+  ).toContain('data-theme="poimandres"')
   expect(
     html,
     'code blocks should use the poimandres editor background (#1b1e28)'
