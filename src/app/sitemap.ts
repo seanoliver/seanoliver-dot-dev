@@ -1,20 +1,22 @@
 import { MetadataRoute } from 'next'
-import { allPosts } from 'contentlayer/generated'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/posts', '/experience', '/projects', '/about'].map(
-    (route) => ({
-      url: `https://seanoliver.dev${route}`,
-      lastModified: new Date().toISOString().split('T')[0],
-    })
-  )
+import { getSitemapEntries } from '@/content'
+import { SITE_URL } from '@/lib/site'
 
-  const posts = allPosts
-    .filter((post) => post.isPublished)
-    .map((post) => ({
-      url: `https://seanoliver.dev${post.url}`,
-      lastModified: post.date,
-    }))
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const routes = [
+    '',
+    '/posts',
+    '/writing',
+    '/experience',
+    '/projects',
+    '/about',
+  ].map((route) => ({
+    url: `${SITE_URL}${route}`,
+    lastModified: new Date().toISOString().split('T')[0],
+  }))
 
-  return [...routes, ...posts]
+  // Published entries with canonical /writing URLs, straight from the
+  // content API — the same URL builder that feeds metadata, RSS, and JSON-LD.
+  return [...routes, ...(await getSitemapEntries())]
 }

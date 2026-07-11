@@ -1,10 +1,7 @@
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://seanoliver.dev'
+import { SITE_AUTHOR as AUTHOR, SITE_URL } from './site'
 
-const AUTHOR = {
-  name: 'Sean Oliver',
-  email: 'sean@seanoliver.dev',
-} as const
+// Re-exported for existing consumers; the source of truth is src/lib/site.ts.
+export { SITE_URL }
 
 export type FeedEntry = {
   title: string

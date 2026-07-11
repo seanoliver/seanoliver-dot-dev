@@ -40,30 +40,11 @@ jobs:
       - name: Check formatting
         run: pnpm check:format
 
-      # TEMPORARY: `contentlayer build` intermittently crashes in its exit
-      # handler on Node 22 (clipanion race -> nonzero exit) even when content
-      # generation succeeded. Give it a single retry so a single flake cannot
-      # fail the job, without masking real generation errors (the retry step
-      # fails
-      # the job if generation is genuinely broken). Remove once Task 8 of
-      # docs/plans/2026-07-10-blog-platform-modernization.md drops Contentlayer.
-      - name: Generate content (Contentlayer)
-        id: contentlayer
-        continue-on-error: true
-        run: pnpm exec contentlayer build
-
-      - name: Generate content (retry after known Node 22 exit flake)
-        if: steps.contentlayer.outcome == 'failure'
-        run: pnpm exec contentlayer build
-
       - name: Lint
         run: pnpm lint
 
-      # Runs tsc directly (not `pnpm typecheck`) because Contentlayer
-      # generation already ran above with its flake retry. No retries or
-      # error suppression here: a tsc failure fails the job.
       - name: Typecheck
-        run: pnpm exec tsc --noEmit --incremental false
+        run: pnpm typecheck
 
       - name: Unit tests
         run: pnpm test:unit

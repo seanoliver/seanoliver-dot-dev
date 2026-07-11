@@ -10,6 +10,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Inter } from 'next/font/google'
 import JumpToTop from '@/components/jump-to-top'
 import localFont from 'next/font/local'
+import { RSS_ALTERNATE, SITE_URL } from '@/lib/site'
 
 const jetBrainsMono = localFont({
   src: [
@@ -68,20 +69,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://seanoliver.dev'),
+  metadataBase: new URL(SITE_URL),
   title: 'Sean Oliver',
   openGraph: {
     title: 'Sean Oliver',
   },
   alternates: {
-    types: {
-      'application/rss+xml': [
-        {
-          url: 'https://seanoliver.dev/feed.xml',
-          title: 'Sean Oliver RSS Feed',
-        },
-      ],
-    },
+    types: RSS_ALTERNATE,
   },
 }
 

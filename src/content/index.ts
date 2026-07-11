@@ -2,7 +2,7 @@ import 'server-only'
 
 import path from 'node:path'
 
-import { SITE_URL } from '@/lib/feed'
+import { SITE_URL } from '@/lib/site'
 
 import {
   canonicalEntryUrl,
@@ -72,6 +72,17 @@ export async function getEntryBySlug(
     includeDrafts: includeDrafts(),
   })
   return routable.find((entry) => entry.slug === slug)
+}
+
+/**
+ * Entries for index pages, newest first: published entries in production,
+ * drafts included during `next dev` so they can be previewed. Same visibility
+ * policy as route resolution — an index never links to a 404.
+ */
+export async function getVisibleEntries(): Promise<ContentEntry[]> {
+  return selectRoutable(await loadEntries(CONTENT_ROOT), {
+    includeDrafts: includeDrafts(),
+  })
 }
 
 /** Static params for `/writing/[slug]`; drafts appear only in development. */

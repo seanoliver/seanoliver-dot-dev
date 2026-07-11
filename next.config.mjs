@@ -1,15 +1,10 @@
 import createMDX from '@next/mdx'
-import { withContentlayer } from 'next-contentlayer'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkFrontmatter from 'remark-frontmatter'
-// Alias of remark-gfm@4 for the MDX v3 (unified 11) pipeline only.
-// Contentlayer keeps compiling posts/ with remark-gfm@3 (unified 10) until it
-// is removed; the two generations cannot share one plugin instance.
-import remarkGfm from 'remark-gfm-mdx3'
+import remarkGfm from 'remark-gfm'
 
 /** @type {import('rehype-pretty-code').Options} */
 const prettyCodeOptions = {
-  // Mirrors contentlayer.config.ts so both pipelines highlight identically.
   theme: 'poimandres',
 }
 
@@ -31,6 +26,23 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
+  async redirects() {
+    // The two post URLs that were public at the site root before the
+    // /writing move. Permanent (308). The draft ai-function-calling was never
+    // published, gets no redirect, and 404s naturally.
+    return [
+      {
+        source: '/nextjs-contentlayer',
+        destination: '/writing/nextjs-contentlayer',
+        permanent: true,
+      },
+      {
+        source: '/scroll-links',
+        destination: '/writing/scroll-links',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const withMDX = createMDX({
@@ -40,4 +52,4 @@ const withMDX = createMDX({
   },
 })
 
-export default withContentlayer(withMDX(nextConfig))
+export default withMDX(nextConfig)

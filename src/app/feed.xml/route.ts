@@ -1,20 +1,11 @@
-import { allPosts } from 'contentlayer/generated'
-
-import { buildRssFeed, SITE_URL, type FeedEntry } from '@/lib/feed'
+import { getFeedEntries } from '@/content'
+import { buildRssFeed } from '@/lib/feed'
 
 export async function GET(): Promise<Response> {
   try {
-    const entries: FeedEntry[] = allPosts
-      .filter((post) => post?.title && post?.date && post?.summary && post?.url)
-      .map((post) => ({
-        title: post.title,
-        summary: post.summary,
-        publishedAt: post.date,
-        canonicalUrl: `${SITE_URL}${post.url}`,
-        isPublished: Boolean(post.isPublished),
-      }))
-
-    const rssFeed = buildRssFeed(entries)
+    // The content API already projects published-only entries with canonical
+    // /writing URLs; no route-level filtering or URL building.
+    const rssFeed = buildRssFeed(await getFeedEntries())
 
     return new Response(rssFeed, {
       headers: {

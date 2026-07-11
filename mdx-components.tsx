@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from 'react'
 import type { MDXComponents } from 'mdx/types'
 
 import '@/components/mdx.css'
@@ -5,9 +6,8 @@ import CodeBlock from '@/components/code-block'
 import { UnderLink } from '@/components/under-link'
 
 /**
- * Component mapping for the first-party MDX pipeline (`@next/mdx`). Adapted
- * from `src/components/mdx.tsx`, which keeps serving the legacy Contentlayer
- * routes until that pipeline is removed; the visual output is identical.
+ * Component mapping for the MDX pipeline (`@next/mdx`), preserving the
+ * typography of the pre-migration Contentlayer renderer.
  */
 const components: MDXComponents = {
   p: (props) => (
@@ -61,14 +61,19 @@ const components: MDXComponents = {
   table: (props) => <table {...props} className='table-auto w-full' />,
   th: (props) => <th {...props} className='border border-gray-300 px-4 py-2' />,
   td: (props) => <td {...props} className='border border-gray-300 px-4 py-2' />,
-  pre: (props: any) => (
+  // rehype-pretty-code stamps fenced blocks with data-language/data-theme.
+  pre: (
+    props: ComponentPropsWithoutRef<'pre'> & { 'data-language'?: string }
+  ) => (
     <CodeBlock
       code={props.children}
-      language={props['data-language']}
+      language={props['data-language'] ?? ''}
       {...props}
     />
   ),
-  code: (props: any) => (
+  code: (
+    props: ComponentPropsWithoutRef<'code'> & { 'data-theme'?: string }
+  ) => (
     <code
       {...props}
       className={
@@ -78,7 +83,7 @@ const components: MDXComponents = {
       }
     />
   ),
-  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text -- markdown images pass their own src/alt through props; mirrors src/components/mdx.tsx
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text -- markdown images pass their own src/alt through props
   img: (props) => <img {...props} className='mx-auto' />,
 }
 
