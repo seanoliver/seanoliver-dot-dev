@@ -68,6 +68,9 @@ importers:
       framer-motion:
         specifier: ^10.12.12
         version: 10.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      gray-matter:
+        specifier: 4.0.3
+        version: 4.0.3
       next:
         specifier: 14.2.35
         version: 14.2.35(@opentelemetry/api@1.9.0)(@playwright/test@1.61.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -104,6 +107,9 @@ importers:
       remark-gfm:
         specifier: ^3.0.1
         version: 3.0.1
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
       shiki:
         specifier: ^0.14.4
         version: 0.14.7
@@ -119,6 +125,9 @@ importers:
       typescript:
         specifier: 5.0.4
         version: 5.0.4
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
     devDependencies:
       '@mdx-js/react':
         specifier: ^2.3.0
@@ -3626,6 +3635,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
     engines: {node: '>= 0.4'}
@@ -4225,6 +4237,9 @@ packages:
 
   zod@3.24.3:
     resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
+
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -8148,6 +8163,8 @@ snapshots:
 
   semver@7.7.1: {}
 
+  server-only@0.0.1: {}
+
   set-function-length@1.2.2:
     dependencies:
       define-data-property: 1.1.4
@@ -8819,5 +8836,7 @@ snapshots:
   yoga-wasm-web@0.3.3: {}
 
   zod@3.24.3: {}
+
+  zod@4.4.3: {}
 
   zwitch@2.0.4: {}
