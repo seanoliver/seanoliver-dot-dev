@@ -46,7 +46,7 @@ const validNote = {
 }
 
 /** Every failure-mode test asserts the same two error-quality invariants. */
-function expectSingleError(raw: unknown, ...fragments: string[]): void {
+function expectErrorNaming(raw: unknown, ...fragments: string[]): void {
   const result = validateEntryMetadata(raw, SOURCE_PATH)
   expect(result.ok).toBe(false)
   if (result.ok) return
@@ -99,31 +99,67 @@ describe('schema: valid metadata', () => {
 
     expect(metadata.email).toBe('selected')
   })
+
+  it('treats empty optional frontmatter keys (YAML null) as absent', () => {
+    // The authoring template writes optional keys with no value
+    // (`substackUrl:`), which YAML parses as null, not undefined.
+    const metadata = parseEntryMetadata(
+      {
+        ...validNote,
+        publishedAt: null,
+        updatedAt: null,
+        tags: null,
+        substackUrl: null,
+        emailedAt: null,
+      },
+      SOURCE_PATH
+    )
+
+    expect(metadata.publishedAt).toBeUndefined()
+    expect(metadata.updatedAt).toBeUndefined()
+    expect(metadata.substackUrl).toBeUndefined()
+    expect(metadata.emailedAt).toBeUndefined()
+    expect(metadata.tags).toEqual([])
+  })
 })
 
 describe('schema: invalid metadata', () => {
   it('rejects an unknown kind, naming the field and file', () => {
-    expectSingleError({ ...validArticle, kind: 'essay' }, 'kind')
+    expectErrorNaming({ ...validArticle, kind: 'essay' }, 'kind')
   })
 
   it('rejects an unknown status, naming the field and file', () => {
-    expectSingleError({ ...validArticle, status: 'live' }, 'status')
+    expectErrorNaming({ ...validArticle, status: 'live' }, 'status')
   })
 
   it('rejects a missing title, naming the field and file', () => {
     const { title: _title, ...withoutTitle } = validArticle
-    expectSingleError(withoutTitle, 'title')
+    expectErrorNaming(withoutTitle, 'title')
   })
 
   it('rejects an unparseable publishedAt date', () => {
-    expectSingleError(
+    expectErrorNaming(
       { ...validArticle, publishedAt: 'yesterday' },
       'publishedAt'
     )
   })
 
+  it('rejects an empty required key (YAML null) even though optional keys tolerate null', () => {
+    expectErrorNaming({ ...validArticle, title: null }, 'title')
+    expectErrorNaming({ ...validArticle, summary: null }, 'summary')
+  })
+
+  it('reports an invalid Date instance as a validation error, not a RangeError', () => {
+    // Unquoted but unparseable YAML timestamps can surface as invalid Date
+    // instances; toISOString() on those throws outside Zod's error channel.
+    expectErrorNaming(
+      { ...validArticle, publishedAt: new Date('nonsense') },
+      'publishedAt'
+    )
+  })
+
   it('rejects a malformed substackUrl', () => {
-    expectSingleError(
+    expectErrorNaming(
       { ...validArticle, substackUrl: 'not-a-url' },
       'substackUrl'
     )
@@ -131,11 +167,11 @@ describe('schema: invalid metadata', () => {
 
   it('rejects a published entry without publishedAt', () => {
     const { publishedAt: _publishedAt, ...withoutDate } = validArticle
-    expectSingleError(withoutDate, 'publishedAt')
+    expectErrorNaming(withoutDate, 'publishedAt')
   })
 
   it('rejects a substackUrl on an entry not selected for email', () => {
-    expectSingleError(
+    expectErrorNaming(
       {
         ...validNote,
         email: 'never',
@@ -146,14 +182,14 @@ describe('schema: invalid metadata', () => {
   })
 
   it('rejects an emailedAt timestamp on an entry not selected for email', () => {
-    expectSingleError(
+    expectErrorNaming(
       { ...validNote, email: 'never', emailedAt: '2026-03-11' },
       'emailedAt'
     )
   })
 
   it('rejects unrecognized frontmatter keys to catch typos', () => {
-    expectSingleError(
+    expectErrorNaming(
       { ...validArticle, publishedat: '2026-03-10' },
       'publishedat'
     )
@@ -214,6 +250,7 @@ const validRoot = path.join(fixturesRoot, 'valid')
 const draftsRoot = path.join(fixturesRoot, 'drafts')
 const duplicateSlugsRoot = path.join(fixturesRoot, 'duplicate-slugs')
 const invalidRoot = path.join(fixturesRoot, 'invalid')
+const invalidSlugRoot = path.join(fixturesRoot, 'invalid-slug')
 
 const SITE = 'https://example.com'
 
@@ -298,6 +335,7 @@ describe('files: rejection with actionable errors', () => {
     const message = (failure as ContentValidationError).message
     const expectations: Array<[file: string, field: string]> = [
       ['bad-kind.mdx', 'kind'],
+      ['broken-yaml.mdx', 'frontmatter'],
       ['missing-title.mdx', 'title'],
       ['published-without-date.mdx', 'publishedAt'],
       ['never-emailed-distribution.mdx', 'substackUrl'],
@@ -314,6 +352,18 @@ describe('files: rejection with actionable errors', () => {
         `expected an error line naming ${file} and ${field}`
       ).toBeDefined()
     }
+  })
+
+  it('rejects a file whose basename is not a URL-safe slug, naming file and slug', async () => {
+    const failure = await loadEntries(invalidSlugRoot).then(
+      () => undefined,
+      (error: unknown) => error
+    )
+
+    expect(failure).toBeInstanceOf(ContentValidationError)
+    const message = (failure as ContentValidationError).message
+    expect(message).toContain(path.join('invalid-slug', 'My Post!.mdx'))
+    expect(message).toContain('"My Post!"')
   })
 
   it('rejects a missing content root with the root path in the error', async () => {

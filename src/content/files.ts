@@ -59,6 +59,8 @@ async function findMdxFiles(directory: string): Promise<string[]> {
     } else if (dirent.isFile() && dirent.name.endsWith('.mdx')) {
       files.push(entryPath)
     }
+    // Entries that are neither regular files nor directories (e.g. symlinks)
+    // are intentionally not supported and fall through here.
   }
   return files
 }
@@ -66,6 +68,12 @@ async function findMdxFiles(directory: string): Promise<string[]> {
 function deriveSlug(filePath: string): string {
   return path.basename(filePath, '.mdx')
 }
+
+/**
+ * Slugs are interpolated verbatim into route paths, RSS links, and sitemap
+ * URLs, so only lowercase kebab-case basenames are allowed.
+ */
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 /**
  * Newest first by publication date; entries without a date (drafts) sort
@@ -107,8 +115,21 @@ export async function loadEntries(
   const slugSources = new Map<string, string>()
 
   for (const sourcePath of filePaths) {
-    const rawFile = await fs.readFile(sourcePath, 'utf8')
-    const { data } = matter(rawFile)
+    // Read + parse per file inside try/catch so an unreadable file or
+    // malformed YAML becomes one aggregated error line instead of aborting
+    // the whole load and hiding every other file's problems.
+    let data: unknown
+    try {
+      const rawFile = await fs.readFile(sourcePath, 'utf8')
+      ;({ data } = matter(rawFile))
+    } catch (error) {
+      errors.push(
+        `${sourcePath}: frontmatter: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      )
+      continue
+    }
 
     const result = validateEntryMetadata(data, sourcePath)
     if (!result.ok) {
@@ -117,6 +138,13 @@ export async function loadEntries(
     }
 
     const slug = deriveSlug(sourcePath)
+    if (!SLUG_PATTERN.test(slug)) {
+      errors.push(
+        `${sourcePath}: slug: "${slug}" is not URL-safe; rename the file to lowercase kebab-case (${SLUG_PATTERN.source})`
+      )
+      continue
+    }
+
     const existingSource = slugSources.get(slug)
     if (existingSource !== undefined) {
       errors.push(

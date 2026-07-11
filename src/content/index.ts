@@ -38,6 +38,9 @@ export type {
 }
 export type { EntryMetadata, PublishedEntryMetadata } from './schema'
 
+// Deliberately no module-level cache: every call re-reads the content tree,
+// which keeps drafts fresh in `next dev` and is cheap at this content volume.
+// Revisit with React `cache()` only if build profiling ever warrants it.
 const CONTENT_ROOT = path.join(process.cwd(), 'content', 'writing')
 
 /**

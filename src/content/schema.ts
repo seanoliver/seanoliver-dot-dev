@@ -12,23 +12,41 @@ import { z } from 'zod'
  * YAML parsers hand unquoted dates (`publishedAt: 2026-03-10`) to us as
  * JavaScript Date instances; quoted dates arrive as strings. Normalize both
  * to a plain ISO `YYYY-MM-DD` string so every consumer sees one shape.
+ * Invalid Date instances (where toISOString() would throw a RangeError) pass
+ * through untouched so Zod reports them as ordinary validation errors.
  */
 const isoDate = z.preprocess(
-  (value) => (value instanceof Date ? value.toISOString().slice(0, 10) : value),
+  (value) =>
+    value instanceof Date && !Number.isNaN(value.getTime())
+      ? value.toISOString().slice(0, 10)
+      : value,
   z.iso.date()
 )
+
+/**
+ * OPTIONAL fields only: the authoring template writes optional keys with no
+ * value (`substackUrl:`), which YAML parses as null. Treat that null as the
+ * key being absent. Required fields must still reject null.
+ */
+function emptyKeyAsAbsent<T extends z.ZodType>(schema: T) {
+  return z.preprocess((value) => value ?? undefined, schema.optional())
+}
 
 const sharedFields = {
   status: z.enum(['draft', 'published']),
   title: z.string().min(1),
   summary: z.string().min(1),
-  publishedAt: isoDate.optional(),
-  updatedAt: isoDate.optional(),
-  tags: z.array(z.string()).default([]),
+  publishedAt: emptyKeyAsAbsent(isoDate),
+  updatedAt: emptyKeyAsAbsent(isoDate),
+  // An empty `tags:` key (YAML null) also yields the default [].
+  tags: z.preprocess(
+    (value) => value ?? undefined,
+    z.array(z.string()).default([])
+  ),
   // Substack is an explicit distribution channel, never a source of truth.
   email: z.enum(['never', 'selected']).default('never'),
-  substackUrl: z.url().optional(),
-  emailedAt: isoDate.optional(),
+  substackUrl: emptyKeyAsAbsent(z.url()),
+  emailedAt: emptyKeyAsAbsent(isoDate),
 }
 
 // strictObject rejects unrecognized keys so frontmatter typos
