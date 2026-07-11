@@ -5,12 +5,19 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "packageManager": "pnpm@10.25.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build --debug",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "typecheck": "contentlayer build && tsc --noEmit --incremental false",
+    "check:format": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "pnpm test:unit",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "overrides": {
     "@opentelemetry/api": "1.4.1",
@@ -64,6 +71,7 @@
   },
   "devDependencies": {
     "@mdx-js/react": "^2.3.0",
+    "@playwright/test": "1.61.1",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "bun-types": "^1.0.1",
@@ -75,6 +83,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "supabase": "^1.75.3"
+    "supabase": "^1.75.3",
+    "vitest": "4.1.10"
   }
 }
