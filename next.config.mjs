@@ -36,6 +36,16 @@ const nextConfig = {
   },
 }
 
+// Typed via JSDoc so editors surface the option shape even though the plugin
+// itself is referenced by string (types resolve without a runtime import).
+// Note: `pnpm typecheck` does NOT cover this file (tsconfig include is
+// *.ts/*.tsx only, checkJs off) — the e2e theme assertion in
+// tests/e2e/publishing.spec.ts is the real guard against option typos.
+/** @type {import('rehype-pretty-code').Options} */
+const rehypePrettyCodeOptions = {
+  theme: 'poimandres',
+}
+
 // Plugins are specified as strings (with JSON-serializable options) so the
 // MDX pipeline works under Turbopack, the default bundler for `next dev` and
 // `next build` since Next.js 16. Plugin functions cannot be passed to
@@ -44,7 +54,7 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: ['remark-frontmatter', 'remark-gfm'],
-    rehypePlugins: [['rehype-pretty-code', { theme: 'poimandres' }]],
+    rehypePlugins: [['rehype-pretty-code', rehypePrettyCodeOptions]],
   },
 })
 

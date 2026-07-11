@@ -90,6 +90,20 @@ test('published /writing entry renders with highlighted code and no frontmatter 
     html,
     'fenced code should be processed by rehype-pretty-code'
   ).toContain('data-language="bash"')
+  // Pin the poimandres theme. With a single-theme config rehype-pretty-code
+  // stamps data-theme="default" on <pre>/<code> — the theme name itself never
+  // appears in the HTML — and inlines the theme's editor background on the
+  // <pre>. Poimandres' background is #1b1e28; if the theme option in
+  // next.config.mjs is dropped or typo'd (it is NOT typechecked), the plugin
+  // silently falls back to its built-in default theme and this color changes.
+  expect(
+    html,
+    'highlighted blocks should carry the data-theme attribute'
+  ).toContain('data-theme="default"')
+  expect(
+    html,
+    'code blocks should use the poimandres editor background (#1b1e28)'
+  ).toContain('background-color:#1b1e28')
   // If remark-frontmatter is ever dropped from next.config.mjs, @next/mdx
   // renders the YAML block as visible text while every assertion above still
   // passes — so prove the raw frontmatter never reaches the HTML.

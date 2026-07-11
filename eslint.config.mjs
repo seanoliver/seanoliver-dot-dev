@@ -7,18 +7,25 @@ import nextVitals from 'eslint-config-next/core-web-vitals'
 // longer needed.
 const eslintConfig = defineConfig([
   ...nextVitals,
-  // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
+    // eslint-config-next already ignores these via its own preset; restated
+    // here for visibility (not an override):
     '.next/**',
     'out/**',
     'build/**',
     'next-env.d.ts',
-    // Generated output not covered by the defaults (node_modules and
-    // dot-directories are ignored by ESLint itself):
+    // Generated output not covered by any default. ESLint 9 flat config only
+    // default-ignores `**/node_modules/` and `.git/` — other dot-directories
+    // are NOT default-ignored, so list them explicitly:
     'playwright-report/**',
     'test-results/**',
     'coverage/**',
+    // Local worktrees nested under the main checkout: without this, `pnpm
+    // lint` from the main repo descends into each worktree's `.next/` output,
+    // because the `.next/**` pattern above anchors at the config directory.
+    '.worktrees/**',
+    // Untracked local tool state at the main repo root.
+    '.codex/**',
   ]),
 ])
 
