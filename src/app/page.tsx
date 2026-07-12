@@ -16,7 +16,12 @@ export default async function Home(): Promise<JSX.Element> {
     <>
       <About />
       <Socials />
-      <WritingIndex entries={entries} title='Posts' limit={3} href='/posts' />
+      <WritingIndex
+        entries={entries}
+        title='Writing'
+        limit={3}
+        href='/writing'
+      />
       <ProjectsContent limit={3} href='/projects' />
       <ExperienceContent limit={3} href='/experience' />
       <CurrentlyReading />

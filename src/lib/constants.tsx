@@ -9,8 +9,8 @@ import { Project, Experience } from '@/lib/types'
 
 export const NAV_ITEMS = [
   {
-    name: 'Posts',
-    pageLink: '/posts',
+    name: 'Writing',
+    pageLink: '/writing',
   },
   {
     name: 'About',

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BlogPostingJsonLd } from '@/components/json-ld'
+import { entryJsonLdType } from '@/components/writing-presentation'
 import ReadingProgress from '@/components/reading-progress'
 import { ReadingProgressFallback } from '@/components/reading-progress-fallback'
 import { getCanonicalUrl, getEntryBySlug, getEntryRouteParams } from '@/content'
@@ -65,7 +66,8 @@ export default async function WritingEntryPage(props: PageProps) {
   const entry = await getEntryBySlug(params.slug)
   if (!entry) notFound()
 
-  const { title, summary, publishedAt, updatedAt, status } = entry.metadata
+  const { kind, title, summary, publishedAt, updatedAt, status } =
+    entry.metadata
   const canonicalUrl = getCanonicalUrl(entry.slug)
 
   // Native MDX import of the exact file the schema validated; the bundler
@@ -92,6 +94,7 @@ export default async function WritingEntryPage(props: PageProps) {
       <ReadingProgressFallback />
       {publishedAt && (
         <BlogPostingJsonLd
+          type={entryJsonLdType(kind)}
           post={{
             headline: title,
             datePublished: publishedAt,

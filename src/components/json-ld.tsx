@@ -45,10 +45,18 @@ export interface BlogPostingSchema {
   url: string
 }
 
-export function BlogPostingJsonLd({ post }: { post: BlogPostingSchema }) {
+export function BlogPostingJsonLd({
+  post,
+  // Articles are BlogPosting; short-form notes use SocialMediaPosting
+  // (schema.org's Article subtype for microblog-style posts).
+  type = 'BlogPosting',
+}: {
+  post: BlogPostingSchema
+  type?: 'BlogPosting' | 'SocialMediaPosting'
+}) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': type,
     headline: post.headline,
     datePublished: post.datePublished,
     dateModified: post.dateModified || post.datePublished,

@@ -1,0 +1,13 @@
+---
+kind: note
+status: draft
+title: Notes on leaving Contentlayer
+---
+
+This site no longer runs on Contentlayer. The project was archived upstream and
+its peer range pinned the site to an old Next.js, so the blog now uses a small
+owned content module instead: plain filesystem reads, gray-matter for
+frontmatter, a Zod schema for validation, and `@next/mdx` for rendering.
+
+Fewer moving parts, and when something breaks the stack trace ends in code that
+lives in this repo.

@@ -18,23 +18,26 @@ const PUBLISHED_ENTRIES = [
 // draft (or drop the draft tests if none exist).
 const DRAFT_SLUG = 'ai-function-calling'
 
-// The two pre-/writing public post URLs. They must 308 to their canonical
-// /writing homes forever; the draft's old URL gets no redirect and 404s.
-const LEGACY_REDIRECTS = PUBLISHED_ENTRIES.map((entry) => ({
-  from: `/${entry.slug}`,
-  to: `/writing/${entry.slug}`,
-}))
+// The pre-/writing public URLs. They must 308 to their canonical /writing
+// homes forever; the draft's old URL gets no redirect and 404s. /writing is
+// the single canonical index, so the old /posts index redirects too.
+const LEGACY_REDIRECTS = [
+  ...PUBLISHED_ENTRIES.map((entry) => ({
+    from: `/${entry.slug}`,
+    to: `/writing/${entry.slug}`,
+  })),
+  { from: '/posts', to: '/writing' },
+]
 
 const STATIC_ROUTE_PATHS = new Set([
   '/',
-  '/posts',
   '/writing',
   '/experience',
   '/projects',
   '/about',
 ])
 
-for (const path of ['/', '/posts', '/writing']) {
+for (const path of ['/', '/writing']) {
   test(`${path} serves both published titles in the initial HTML`, async ({
     request,
   }) => {

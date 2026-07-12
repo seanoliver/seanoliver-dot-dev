@@ -23,6 +23,13 @@ const nextConfig = {
     // published, gets no redirect, and 404s naturally.
     return [
       {
+        // /writing is the single canonical index; the old /posts duplicate
+        // stream redirects permanently rather than serving a second copy.
+        source: '/posts',
+        destination: '/writing',
+        permanent: true,
+      },
+      {
         source: '/nextjs-contentlayer',
         destination: '/writing/nextjs-contentlayer',
         permanent: true,

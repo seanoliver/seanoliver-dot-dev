@@ -17,12 +17,15 @@ import {
  * domain treats as production: drafts must be invisible everywhere.
  *
  * These tests deliberately pin the real content inventory: two published
- * articles and one draft. If that inventory changes, update PUBLISHED_SLUGS /
- * DRAFT_SLUG rather than loosening the assertions.
+ * articles and two drafts (an article and a summaryless note). If that
+ * inventory changes, update PUBLISHED_SLUGS / DRAFT_SLUGS rather than
+ * loosening the assertions.
  */
 
 const PUBLISHED_SLUGS = ['scroll-links', 'nextjs-contentlayer'] as const
-const DRAFT_SLUG = 'ai-function-calling'
+const DRAFT_SLUGS = ['ai-function-calling', 'leaving-contentlayer'] as const
+const DRAFT_SLUG = DRAFT_SLUGS[0]
+const NOTE_DRAFT_SLUG = DRAFT_SLUGS[1]
 const SITE_URL = 'https://seanoliver.dev'
 
 afterEach(() => {
@@ -131,9 +134,7 @@ describe('content API: one URL across every projection', () => {
     expect(indexEntry!.metadata.title).toBe(metadataEntry!.metadata.title)
   })
 
-  it('the draft appears in no projection outside development', async () => {
-    expect(await getEntryBySlug(DRAFT_SLUG)).toBeUndefined()
-
+  it('no draft appears in any projection outside development', async () => {
     const projections = [
       await getPublishedEntries(),
       await getVisibleEntries(),
@@ -141,8 +142,11 @@ describe('content API: one URL across every projection', () => {
       await getFeedEntries(),
       await getSitemapEntries(),
     ]
-    for (const projection of projections) {
-      expect(JSON.stringify(projection)).not.toContain(DRAFT_SLUG)
+    for (const draftSlug of DRAFT_SLUGS) {
+      expect(await getEntryBySlug(draftSlug)).toBeUndefined()
+      for (const projection of projections) {
+        expect(JSON.stringify(projection)).not.toContain(draftSlug)
+      }
     }
   })
 })
@@ -154,10 +158,18 @@ describe('content API: development draft preview', () => {
     const entry = await getEntryBySlug(DRAFT_SLUG)
     expect(entry?.metadata.status).toBe('draft')
 
+    // The draft note exercises the notes-only optional summary against the
+    // real content tree: it must be routable without one.
+    const noteDraft = await getEntryBySlug(NOTE_DRAFT_SLUG)
+    expect(noteDraft?.metadata.kind).toBe('note')
+    expect(noteDraft?.metadata.summary).toBeUndefined()
+
     expect(await getEntryRouteParams()).toContainEqual({ slug: DRAFT_SLUG })
-    expect(
-      (await getVisibleEntries()).map((visible) => visible.slug)
-    ).toContain(DRAFT_SLUG)
+    const visibleSlugs = (await getVisibleEntries()).map(
+      (visible) => visible.slug
+    )
+    expect(visibleSlugs).toContain(DRAFT_SLUG)
+    expect(visibleSlugs).toContain(NOTE_DRAFT_SLUG)
 
     // Publication projections stay draft-free even in development.
     expect(JSON.stringify(await getPublishedEntries())).not.toContain(

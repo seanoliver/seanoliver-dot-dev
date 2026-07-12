@@ -921,6 +921,50 @@ CMS unless actual content volume demonstrates the need.
 
 Run the full gate and manually review mobile/desktop article and note examples.
 
+**Execution note (2026-07-11):**
+
+- **Summary is optional for notes, required for articles.** Notes are
+  short-form: a mandatory summary duplicates the body and adds authoring
+  friction (the schema decision the design doc reserved). Implemented on the
+  note branch of the discriminated union only. Fallbacks where a note has no
+  summary: page metadata simply omits the description; the feed keeps its
+  `FeedEntry.summary: string` surface and receives `''` (an empty
+  `<description>` — the item still carries a `<title>`, so the RSS stays valid).
+- **JSON-LD type per kind:** articles stay `BlogPosting`; notes emit
+  `SocialMediaPosting` — schema.org's Article subtype for short informal
+  microblog-style posts, so it fits notes without inventing a custom type.
+  Implemented by parameterizing the existing `BlogPostingJsonLd` `@type`
+  (default `BlogPosting`), not by rebuilding the component; the pure
+  `entryJsonLdType` policy lives in `src/components/writing-presentation.ts`
+  with unit coverage (a published-note page has no e2e surface yet).
+- **`/posts` now 308-redirects to `/writing`** — the design makes `/writing` the
+  single canonical index, so the duplicate `/posts` stream was removed:
+  `src/app/posts/` deleted, nav label/link and the home section heading are now
+  "Writing" → `/writing`, `/posts` dropped from the sitemap, and the e2e
+  contracts rewritten deliberately (index-titles now covers `/` + `/writing`;
+  `/posts` joined the exact-308 legacy-redirect contracts). e2e count stayed
+  at 14.
+- **One real draft note added** (`content/writing/leaving-contentlayer.mdx`,
+  `kind: note`, `status: draft`, no summary) so dev preview and the manual
+  review exercised a real note end to end without publishing content on Sean's
+  behalf; production params exclude drafts, verified by curl (404) and the
+  existing e2e draft contracts. Sean can publish, edit, or delete it.
+- **Absorbed review minors:** (a) `formatDate`/`formatDateSpaced` now parse and
+  render in UTC (frontmatter `YYYY-MM-DD` parses as UTC midnight; anywhere west
+  of UTC previously rendered the prior day — proven by running Vitest under
+  `TZ=America/Los_Angeles`). (b) `loadEntries` now rejects nested `.mdx` files
+  with an aggregated, actionable error — the content domain enforces the flat
+  root the route's by-slug MDX import assumes; fixtures/tests reworked
+  (recursive-discovery test replaced by flat discovery + nested rejection). The
+  duplicate-slug check stays as documented defense in depth, though a flat root
+  with slug-=-basename makes duplicates structurally impossible, so its
+  fixture-based test was removed. (c) The dev index always shows the `Draft`
+  marker for drafts, with the date alongside when one exists (previously a dated
+  draft looked published).
+- The index projection (`toWritingListItem`) renders notes with a small muted
+  "NOTE" tag next to the title; articles remain the default treatment. One
+  reverse-chronological stream; no pagination, search, tag pages, or CMS.
+
 ### Task 13: Add Substack distribution affordances
 
 **Files:**
