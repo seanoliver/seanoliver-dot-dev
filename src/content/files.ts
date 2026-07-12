@@ -49,24 +49,59 @@ function describeError(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
 }
 
-async function findMdxFiles(directory: string): Promise<string[]> {
+/** Every `.mdx` path under `directory`, recursively, in stable order. */
+async function collectMdxPaths(directory: string): Promise<string[]> {
   const dirents = await fs.readdir(directory, { withFileTypes: true })
   const files: string[] = []
-  // Sort directory listings so discovery order never depends on the
-  // filesystem; final ordering is by date, but error output stays stable too.
   for (const dirent of [...dirents].sort((a, b) =>
     a.name.localeCompare(b.name)
   )) {
     const entryPath = path.join(directory, dirent.name)
     if (dirent.isDirectory()) {
-      files.push(...(await findMdxFiles(entryPath)))
+      files.push(...(await collectMdxPaths(entryPath)))
+    } else if (dirent.isFile() && dirent.name.endsWith('.mdx')) {
+      files.push(entryPath)
+    }
+  }
+  return files
+}
+
+type MdxDiscovery = {
+  /** Flat `.mdx` files directly inside the content root. */
+  files: string[]
+  /** One actionable error per `.mdx` file buried in a subdirectory. */
+  nestedErrors: string[]
+}
+
+/**
+ * The content root must stay FLAT: the route resolves entry bodies with a
+ * `content/writing/<slug>.mdx` dynamic import, so a nested entry would
+ * validate here but fail the build later with an unfriendly bundler error.
+ * Enforce what the route assumes and reject nested files up front.
+ */
+async function findMdxFiles(contentRoot: string): Promise<MdxDiscovery> {
+  const dirents = await fs.readdir(contentRoot, { withFileTypes: true })
+  const files: string[] = []
+  const nestedErrors: string[] = []
+  // Sort directory listings so discovery order never depends on the
+  // filesystem; final ordering is by date, but error output stays stable too.
+  for (const dirent of [...dirents].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )) {
+    const entryPath = path.join(contentRoot, dirent.name)
+    if (dirent.isDirectory()) {
+      for (const nestedPath of await collectMdxPaths(entryPath)) {
+        nestedErrors.push(
+          `${nestedPath}: location: entries must live directly in ${contentRoot} — routes import bodies by slug (<content root>/<slug>.mdx), so a nested file can never be routed; move it up to the content root`
+        )
+      }
     } else if (dirent.isFile() && dirent.name.endsWith('.mdx')) {
       files.push(entryPath)
     }
     // Entries that are neither regular files nor directories (e.g. symlinks)
     // are intentionally not supported and fall through here.
   }
-  return files
+  return { files, nestedErrors }
 }
 
 function deriveSlug(filePath: string): string {
@@ -95,17 +130,18 @@ function compareEntries(a: ContentEntry, b: ContentEntry): number {
 }
 
 /**
- * Discover, parse, and validate every `.mdx` file under `contentRoot`
- * (recursively). Validation problems are aggregated across files so authors
- * can fix more than one file per run; every error line carries the source
- * path and failing field.
+ * Discover, parse, and validate every `.mdx` file directly inside
+ * `contentRoot` (nested files are rejected — see {@link findMdxFiles}).
+ * Validation problems are aggregated across files so authors can fix more
+ * than one file per run; every error line carries the source path and
+ * failing field.
  */
 export async function loadEntries(
   contentRoot: string
 ): Promise<ContentEntry[]> {
-  let filePaths: string[]
+  let discovery: MdxDiscovery
   try {
-    filePaths = await findMdxFiles(contentRoot)
+    discovery = await findMdxFiles(contentRoot)
   } catch (error) {
     throw new ContentValidationError([
       `${contentRoot}: content root cannot be read (${describeError(error)})`,
@@ -113,10 +149,13 @@ export async function loadEntries(
   }
 
   const entries: ContentEntry[] = []
-  const errors: string[] = []
+  const errors: string[] = [...discovery.nestedErrors]
+  // With a flat root and slug = basename the filesystem already guarantees
+  // slug uniqueness; this check stays as cheap defense in depth in case slug
+  // derivation or the flatness rule ever changes.
   const slugSources = new Map<string, string>()
 
-  for (const sourcePath of filePaths) {
+  for (const sourcePath of discovery.files) {
     // Read + parse per file inside try/catch so an unreadable file or
     // malformed YAML becomes one aggregated error entry instead of aborting
     // the whole load and hiding every other file's problems. The two failure
@@ -211,7 +250,9 @@ export function toFeedEntries(
 ): FeedEntryProjection[] {
   return selectPublished(entries).map((entry) => ({
     title: entry.metadata.title,
-    summary: entry.metadata.summary,
+    // Notes may omit their summary; the feed's public surface keeps
+    // `summary: string`, so fall back to an empty item description.
+    summary: entry.metadata.summary ?? '',
     publishedAt: entry.metadata.publishedAt,
     canonicalUrl: canonicalEntryUrl(siteUrl, entry.slug),
     isPublished: true,

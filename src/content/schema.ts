@@ -35,7 +35,6 @@ function emptyKeyAsAbsent<T extends z.ZodType>(schema: T) {
 const sharedFields = {
   status: z.enum(['draft', 'published']),
   title: z.string().min(1),
-  summary: z.string().min(1),
   publishedAt: emptyKeyAsAbsent(isoDate),
   updatedAt: emptyKeyAsAbsent(isoDate),
   // An empty `tags:` key (YAML null) also yields the default [].
@@ -53,11 +52,19 @@ const sharedFields = {
 // (e.g. `publishedat:`) fail loudly instead of silently dropping data.
 const articleSchema = z.strictObject({
   kind: z.literal('article'),
+  // Articles require a summary: it feeds the meta description, Open Graph,
+  // and the RSS item description.
+  summary: z.string().min(1),
   ...sharedFields,
 })
 
 const noteSchema = z.strictObject({
   kind: z.literal('note'),
+  // Notes are short-form; a mandatory summary would just duplicate the body
+  // and add authoring friction, so it is optional (the schema decision the
+  // design doc reserved). Consumers fall back gracefully: metadata omits the
+  // description and the feed uses an empty one.
+  summary: emptyKeyAsAbsent(z.string().min(1)),
   ...sharedFields,
 })
 

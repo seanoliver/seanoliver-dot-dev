@@ -91,6 +91,23 @@ describe('schema: valid metadata', () => {
     expect(metadata.emailedAt).toBe('2026-03-11')
   })
 
+  it('parses a note without a summary — notes are short-form, a summary is optional', () => {
+    const { summary: _summary, ...noteWithoutSummary } = validNote
+    const metadata = parseEntryMetadata(noteWithoutSummary, SOURCE_PATH)
+
+    expect(metadata.kind).toBe('note')
+    expect(metadata.summary).toBeUndefined()
+  })
+
+  it('treats an empty summary key (YAML null) on a note as absent', () => {
+    const metadata = parseEntryMetadata(
+      { ...validNote, summary: null },
+      SOURCE_PATH
+    )
+
+    expect(metadata.summary).toBeUndefined()
+  })
+
   it('allows email: selected without a substackUrl yet', () => {
     const metadata = parseEntryMetadata(
       { ...validNote, email: 'selected' },
@@ -135,6 +152,11 @@ describe('schema: invalid metadata', () => {
   it('rejects a missing title, naming the field and file', () => {
     const { title: _title, ...withoutTitle } = validArticle
     expectErrorNaming(withoutTitle, 'title')
+  })
+
+  it('rejects an article without a summary — the optional-summary decision is notes-only', () => {
+    const { summary: _summary, ...withoutSummary } = validArticle
+    expectErrorNaming(withoutSummary, 'summary')
   })
 
   it('rejects an unparseable publishedAt date', () => {
@@ -259,18 +281,18 @@ describe('schema: publication narrowing', () => {
 const fixturesRoot = fileURLToPath(new URL('./__fixtures__', import.meta.url))
 const validRoot = path.join(fixturesRoot, 'valid')
 const draftsRoot = path.join(fixturesRoot, 'drafts')
-const duplicateSlugsRoot = path.join(fixturesRoot, 'duplicate-slugs')
+const nestedEntryRoot = path.join(fixturesRoot, 'nested-entry')
 const invalidRoot = path.join(fixturesRoot, 'invalid')
 const invalidSlugRoot = path.join(fixturesRoot, 'invalid-slug')
 
 const SITE = 'https://example.com'
 
 describe('files: discovery and ordering', () => {
-  it('discovers .mdx files recursively and sorts newest first with a slug tie-break', async () => {
+  it('discovers flat .mdx files and sorts newest first with a slug tie-break', async () => {
     const entries = await loadEntries(validRoot)
 
-    // note.mdx and nested/second-note.mdx share 2026-06-01; the tie breaks
-    // on slug ascending. article.mdx (2026-03-10) comes last.
+    // note.mdx and second-note.mdx share 2026-06-01; the tie breaks on slug
+    // ascending. article.mdx (2026-03-10) comes last.
     expect(entries.map((entry) => entry.slug)).toEqual([
       'note',
       'second-note',
@@ -284,7 +306,7 @@ describe('files: discovery and ordering', () => {
 
     expect(secondNote).toBeDefined()
     expect(secondNote?.sourcePath).toContain(
-      path.join('valid', 'nested', 'second-note.mdx')
+      path.join('valid', 'second-note.mdx')
     )
   })
 
@@ -321,19 +343,22 @@ describe('files: discovery and ordering', () => {
 })
 
 describe('files: rejection with actionable errors', () => {
-  it('rejects duplicate slugs, naming the slug and both files', async () => {
-    const failure = await loadEntries(duplicateSlugsRoot).then(
+  it('rejects a nested .mdx entry with its path and a move-it-up explanation', async () => {
+    // The route resolves bodies with a flat `content/writing/<slug>.mdx`
+    // import, so the content domain must reject nesting up front instead of
+    // letting the build fail later with an unfriendly module error.
+    const failure = await loadEntries(nestedEntryRoot).then(
       () => undefined,
       (error: unknown) => error
     )
 
     expect(failure).toBeInstanceOf(ContentValidationError)
     const message = (failure as ContentValidationError).message
-    expect(message).toContain('hello-world')
-    expect(message).toContain(path.join('duplicate-slugs', 'hello-world.mdx'))
     expect(message).toContain(
-      path.join('duplicate-slugs', 'nested', 'hello-world.mdx')
+      path.join('nested-entry', 'nested', 'buried-note.mdx')
     )
+    expect(message).toContain('directly in')
+    expect(message).toContain(nestedEntryRoot)
   })
 
   it('aggregates validation errors across files with path and field', async () => {
@@ -423,6 +448,30 @@ describe('files: publication projections', () => {
     for (const entry of feedEntries) {
       expect(entry.isPublished).toBe(true)
     }
+  })
+
+  it('projects an empty feed description for a published note without a summary', () => {
+    // Notes may omit `summary`; the RSS surface (`FeedEntry.summary: string`)
+    // stays unchanged and receives '' so the item renders an empty
+    // <description> instead of the string "undefined".
+    const summarylessNote = {
+      slug: 'tiny-note',
+      sourcePath: 'content/writing/tiny-note.mdx',
+      metadata: parseEntryMetadata(
+        {
+          kind: 'note',
+          status: 'published',
+          title: 'A Tiny Note',
+          publishedAt: '2026-02-01',
+        },
+        'content/writing/tiny-note.mdx'
+      ),
+    }
+
+    const feedEntries: FeedEntry[] = toFeedEntries([summarylessNote], SITE)
+
+    expect(feedEntries).toHaveLength(1)
+    expect(feedEntries[0].summary).toBe('')
   })
 
   it('excludes drafts from the sitemap projection and prefers updatedAt', async () => {

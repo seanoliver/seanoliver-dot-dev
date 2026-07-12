@@ -72,9 +72,10 @@ export default async function WritingEntryPage(props: PageProps) {
   // (Turbopack since Next 16) bundles every `content/writing/*.mdx` candidate
   // and compiles it with @next/mdx.
   // Two constraints follow from that template string:
-  // - content/writing/ must stay FLAT: an entry in a nested subdirectory
-  //   would validate in the content domain but fail here at build time with
-  //   a "Cannot find module" error.
+  // - content/writing/ must stay FLAT. The content domain enforces this:
+  //   `loadEntries` rejects nested .mdx files with an actionable error, so a
+  //   nested entry fails validation long before this import could fail with
+  //   an unfriendly "Cannot find module" build error.
   // - the bundler's module context includes every .mdx candidate, drafts included:
   //   drafts are unroutable in production, but their compiled bodies still
   //   exist in the server bundle.
