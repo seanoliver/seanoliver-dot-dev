@@ -42,7 +42,8 @@ deleted it (commit `3ebdfe0`), and the classes vanished from the compiled CSS.
 1. Check out `da0436b` (pre-fix HEAD of the branch).
 2. `pnpm build`
 3. `grep -c "list-disc" .next/static/css/*.css` → 0 matches in every emitted
-   file.
+   file. (Path as of the original webpack build; Turbopack builds now emit CSS
+   to `.next/static/chunks/*.css`.)
 4. Serve the build and open `/writing/nextjs-contentlayer`: `getComputedStyle`
    on an article `ul` reports `list-style-type: none` (Tailwind preflight reset,
    with no `.list-disc` rule to override it).
@@ -66,8 +67,9 @@ content: [
   utilities survive the production CSS build") failed against the unfixed build
   for the right reason (`list-style-type` computed as `none`, non-first MDX `p`
   margin-top `0`), and passes after the fix.
-- Belt-and-braces: `grep -c "list-disc" .next/static/css/*.css` goes 0 → 1 after
-  the fix.
+- Belt-and-braces: `grep -l "list-disc" .next/static/chunks/*.css | wc -l` goes
+  0 → 1 after the fix (Turbopack emits CSS to `.next/static/chunks/`, not
+  `.next/static/css/`).
 - Full gate:
   `pnpm check:format && pnpm lint && pnpm typecheck && pnpm test:unit && pnpm build && pnpm test:e2e`
   green.

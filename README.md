@@ -30,7 +30,8 @@ pnpm dev   # http://localhost:3000 — draft entries are visible in dev only
 | `pnpm start`        | Serve the production build.                                                                           |
 | `pnpm check:format` | Prettier check (`pnpm format` to write).                                                              |
 | `pnpm lint`         | ESLint 9 flat config (2 known warnings in `src/app/api/og/route.tsx`).                                |
-| `pnpm typecheck`    | `tsc --noEmit`.                                                                                       |
+| `pnpm typecheck`    | `tsc --noEmit --incremental false`.                                                                   |
+| `pnpm test`         | Alias for `pnpm test:unit`.                                                                           |
 | `pnpm test:unit`    | Vitest — 72 tests (`test:unit:watch` for watch mode).                                                 |
 | `pnpm test:e2e`     | Playwright — 16 production contracts. Starts `pnpm start --port 3100` itself; run `pnpm build` first. |
 

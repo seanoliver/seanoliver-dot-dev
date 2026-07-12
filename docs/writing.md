@@ -227,7 +227,7 @@ pnpm dev                    # drafts visible, content re-read per request
 pnpm build                  # full content validation + production build
 pnpm test:unit              # 72 unit tests incl. schema/files/presentation
 pnpm build && pnpm test:e2e # 16 production contracts against a real server on port 3100
-grep -c "list-disc" .next/static/css/*.css   # 1 after a healthy build; 0 = Tailwind purged the MDX classes
+grep -l "list-disc" .next/static/chunks/*.css | wc -l   # 1 after a healthy build; 0 = Tailwind purged the MDX classes
 ```
 
 Known traps:
