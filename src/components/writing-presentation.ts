@@ -8,9 +8,13 @@ import { NEWSLETTER_URL } from '@/lib/site'
 
 /**
  * Pure presentation policy for the writing surfaces: how the unified index
- * distinguishes articles from notes, and which schema.org type an entry page
- * emits. Kept free of JSX so the article/note treatments stay unit-testable
- * (published-note treatments have no e2e surface until a note is published).
+ * distinguishes articles from notes, which schema.org type an entry page
+ * emits, and the distribution-link policy — the newsletter CTA
+ * (`NEWSLETTER_CTA`) and the per-entry email-edition link
+ * (`emailEditionLink`), both as plain {href, label} values rendered by
+ * `DistributionLinkAnchor`. Kept free of JSX so the article/note treatments
+ * stay unit-testable (published-note treatments have no e2e surface until a
+ * note is published).
  */
 
 export type WritingListItem = {

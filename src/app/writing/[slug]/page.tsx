@@ -2,7 +2,10 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BlogPostingJsonLd } from '@/components/json-ld'
-import { NewsletterSignup } from '@/components/newsletter-signup'
+import {
+  DistributionLinkAnchor,
+  NewsletterSignup,
+} from '@/components/newsletter-signup'
 import {
   emailEditionLink,
   entryJsonLdType,
@@ -140,12 +143,7 @@ export default async function WritingEntryPage(props: PageProps) {
         <footer className='mt-12 border-t border-border pt-6'>
           {emailEdition && (
             <p className='text-xs text-muted-foreground mb-2'>
-              <a
-                href={emailEdition.href}
-                className='underline underline-offset-4 hover:text-foreground transition-colors'
-              >
-                {emailEdition.label}
-              </a>
+              <DistributionLinkAnchor link={emailEdition} />
             </p>
           )}
           <NewsletterSignup />

@@ -1,6 +1,32 @@
-import { NEWSLETTER_CTA } from '@/components/writing-presentation'
+import {
+  NEWSLETTER_CTA,
+  type DistributionLink,
+} from '@/components/writing-presentation'
 
 import type { JSX } from 'react'
+
+/**
+ * Anchor for a `DistributionLink` (see `writing-presentation.ts`): a quiet
+ * underlined link that opens the external distribution surface in a new tab.
+ * Shared by the newsletter signup line and the per-entry email-edition link
+ * so both distribution affordances render identically.
+ */
+export function DistributionLinkAnchor({
+  link,
+}: {
+  link: DistributionLink
+}): JSX.Element {
+  return (
+    <a
+      href={link.href}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='underline underline-offset-4 hover:text-foreground transition-colors'
+    >
+      {link.label}
+    </a>
+  )
+}
 
 /**
  * Newsletter signup affordance: one muted line with a plain labeled link to
@@ -13,14 +39,7 @@ export function NewsletterSignup(): JSX.Element {
   return (
     <p className='text-xs text-muted-foreground'>
       Selected posts also go out by email.{' '}
-      <a
-        href={NEWSLETTER_CTA.href}
-        target='_blank'
-        rel='noopener noreferrer'
-        className='underline underline-offset-4 hover:text-foreground transition-colors'
-      >
-        {NEWSLETTER_CTA.label}
-      </a>
+      <DistributionLinkAnchor link={NEWSLETTER_CTA} />
     </p>
   )
 }
