@@ -1057,14 +1057,14 @@ git commit -m "docs: add writing and maintenance runbook"
 
 ## Completion checklist
 
-- [ ] Quality, Production build, and Browser contracts are required on `main`.
-- [ ] Vercel owns Preview and Production deployment.
-- [ ] Contentlayer is absent from source, manifest, and lockfile.
-- [ ] Drafts are excluded from every public surface and direct routing.
-- [ ] Content failures identify the file and invalid field.
-- [ ] `/writing` is server-rendered and supports articles and notes.
-- [ ] Legacy public URLs redirect permanently.
-- [ ] Feed, sitemap, metadata, JSON-LD, and routes share canonical URLs.
-- [ ] Next/React and retained dependencies are deliberately current.
-- [ ] The chosen audit threshold blocks new regressions.
-- [ ] The authoring workflow is executable from the documentation.
+- [x] Quality, Production build, and Browser contracts are required on `main`.
+- [x] Vercel owns Preview and Production deployment.
+- [x] Contentlayer is absent from source, manifest, and lockfile.
+- [x] Drafts are excluded from every public surface and direct routing.
+- [x] Content failures identify the file and invalid field.
+- [x] `/writing` is server-rendered and supports articles and notes.
+- [x] Legacy public URLs redirect permanently.
+- [x] Feed, sitemap, metadata, JSON-LD, and routes share canonical URLs.
+- [x] Next/React and retained dependencies are deliberately current.
+- [x] The chosen audit threshold blocks new regressions.
+- [x] The authoring workflow is executable from the documentation.
