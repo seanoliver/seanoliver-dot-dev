@@ -9,11 +9,16 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve", // nextjs has its own optimized jsx transform
+    "jsx": "react-jsx", // nextjs has its own optimized jsx transform
     "incremental": true,
+    // Pin automatic @types inclusion to this project's own node_modules.
+    // Without this, tsc's default typeRoots walk up ancestor directories, so
+    // a git worktree checked out inside the main clone auto-includes the main
+    // clone's (potentially stale) node_modules/@types packages.
+    "typeRoots": ["./node_modules/@types"],
     "plugins": [
       {
         "name": "next"
@@ -21,8 +26,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -30,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

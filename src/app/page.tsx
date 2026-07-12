@@ -3,15 +3,25 @@ import Goodreads from '@/components/goodreads'
 import Socials from '@/components/socials'
 import About from './about/page'
 import ExperienceContent from '@/components/experience-content'
-import PostsContent from '@/components/posts-content'
 import ProjectsContent from '@/components/projects-content'
+import WritingIndex from '@/components/writing-index'
+import { getVisibleEntries } from '@/content'
 
-export default function Home(): JSX.Element {
+import type { JSX } from 'react'
+
+export default async function Home(): Promise<JSX.Element> {
+  const entries = await getVisibleEntries()
+
   return (
     <>
       <About />
       <Socials />
-      <PostsContent limit={3} href='/posts' />
+      <WritingIndex
+        entries={entries}
+        title='Writing'
+        limit={3}
+        href='/writing'
+      />
       <ProjectsContent limit={3} href='/projects' />
       <ExperienceContent limit={3} href='/experience' />
       <CurrentlyReading />

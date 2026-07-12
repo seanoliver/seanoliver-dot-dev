@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
@@ -37,11 +39,11 @@ next-env.d.ts
 # package json
 package-lock.json
 
-# contentlayer
-.contentlayer
-
 # Claude Code settings
 .claude/settings.local.json
 
 # Serena MCP data
 .serena/
+
+# Local git worktrees
+.worktrees/

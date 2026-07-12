@@ -108,10 +108,14 @@ export async function GET(): Promise<Response> {
     // Parse currently reading book
     const itemRegex = /<item>[\s\S]*?<\/item>/g
     const currentlyReadingItems = currentlyReadingXml.match(itemRegex) || []
-    const currentlyReading =
-      currentlyReadingItems.length > 0
-        ? parseCurrentlyReadingBook(currentlyReadingItems[0])
-        : null
+    // Destructure instead of indexing: `match() || []` is typed
+    // `RegExpMatchArray | []`, so [0] is `string | undefined` and matched
+    // items are always non-empty strings, making truthiness equivalent to
+    // the old `.length > 0` check.
+    const [firstCurrentlyReadingItem] = currentlyReadingItems
+    const currentlyReading = firstCurrentlyReadingItem
+      ? parseCurrentlyReadingBook(firstCurrentlyReadingItem)
+      : null
 
     // Parse read books
     const books: Book[] = []

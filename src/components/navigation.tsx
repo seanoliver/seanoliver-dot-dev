@@ -17,7 +17,7 @@ import {
 import { NAV_ITEMS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-export default function Nav(): JSX.Element {
+export default function Nav(): React.JSX.Element {
   return (
     <div className='flex items-center'>
       <Link href='/'>
@@ -55,7 +55,7 @@ function CommonElements({
   name: string
   icon?: React.ReactNode
   url: string
-}): JSX.Element {
+}): React.JSX.Element {
   const pathname = usePathname()
   const isActive = pathname === url
 
@@ -83,7 +83,7 @@ export function NavLink({
   url: string
   icon?: React.ReactNode
   dropdown?: boolean
-}): JSX.Element {
+}): React.JSX.Element {
   return dropdown ? (
     <DropdownMenuItem>
       <CommonElements name={name} icon={icon} url={url} />

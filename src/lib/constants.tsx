@@ -6,11 +6,12 @@ import {
   ArrowTopRightIcon,
 } from '@radix-ui/react-icons'
 import { Project, Experience } from '@/lib/types'
+import { NEWSLETTER_URL } from '@/lib/site'
 
 export const NAV_ITEMS = [
   {
-    name: 'Posts',
-    pageLink: '/posts',
+    name: 'Writing',
+    pageLink: '/writing',
   },
   {
     name: 'About',
@@ -30,7 +31,7 @@ export const NAV_ITEMS = [
   },
   {
     name: 'Newsletter',
-    pageLink: 'https://newsletter.seanoliver.dev/',
+    pageLink: NEWSLETTER_URL,
     icon: <ArrowTopRightIcon className='ml-1 mt-1 inline w-4 h-4' />,
   },
 ]

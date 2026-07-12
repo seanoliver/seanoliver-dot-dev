@@ -1,0 +1,204 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Never cancel in-flight runs on main so rapid merges don't leave gaps in
+  # main's CI history; PR branches cancel superseded runs as usual.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  quality:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
+    name: Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.25.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm check:format
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test:unit
+
+  build:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
+    name: Production build
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.25.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      # Tar before upload: artifact upload/download does not preserve file
+      # permissions or symlinks, and `next start` needs a faithful .next dir.
+      # `.next/cache` is excluded -- it is only useful for incremental builds.
+      - name: Pack build output
+        run: tar --exclude='./.next/cache' -cf next-build.tar ./.next
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: next-build
+          path: next-build.tar
+          if-no-files-found: error
+          retention-days: 7
+
+  browser-contracts:
+    # Name is a required branch-protection context on main — do not rename
+    # without updating protection.
+    name: Browser contracts
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.25.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: next-build
+
+      - name: Unpack build output
+        run: tar -xf next-build.tar
+
+      # Playwright starts the production server itself on port 3100
+      # (playwright.config.ts webServer: `pnpm start --port 3100`).
+      - name: Browser contract tests
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
+
+  dependency-report:
+    name: Dependency report
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.25.0
+
+      # No `cache: pnpm` here: this job never runs `pnpm install`, so the
+      # pnpm store directory is never created and setup-node's post-run cache
+      # save fails on any lockfile change (cache-key miss -> save of a
+      # nonexistent path).
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      # No `pnpm install` here: `pnpm audit` works off package.json and the
+      # lockfile and does not need node_modules.
+
+      # BLOCKING at high+critical in production dependencies since 2026-07-11
+      # (Task 11 of docs/plans/2026-07-10-blog-platform-modernization.md).
+      # Rationale: after the Task 11 modernization the prod tree carries zero
+      # high/critical advisories (single known moderate: next>postcss,
+      # CVE-2026-41305, build-time only, waiting on an upstream next bump), so
+      # any new high/critical prod advisory is a regression worth stopping.
+      # Moderate/low prod findings and dev-only chains stay report-only in the
+      # job summary. Threshold review owner: Sean Oliver. Raising or muting
+      # this threshold requires a dated rationale in the plan doc.
+      - name: Audit production dependencies
+        run: |
+          set +e
+          report_output="$(pnpm audit --prod 2>&1)"
+          gate_output="$(pnpm audit --prod --audit-level high 2>&1)"
+          blocking_status=$?
+          {
+            echo '## pnpm audit --prod'
+            echo ''
+            echo '```'
+            echo "$report_output"
+            echo '```'
+            echo ''
+            echo '## pnpm audit --prod --audit-level high (blocking gate)'
+            echo ''
+            echo '```'
+            echo "$gate_output"
+            echo '```'
+            echo ''
+            if [ "$blocking_status" -ne 0 ]; then
+              echo '> FAILED: high/critical advisories found in production dependencies OR audit command failed — see gate output above (blocking threshold, see workflow comment).'
+            else
+              echo '> Passed: no high/critical advisories in production dependencies. Findings above (if any) are below the blocking threshold.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "$report_output"
+          echo '--- blocking gate (pnpm audit --prod --audit-level high) ---'
+          echo "$gate_output"
+          exit "$blocking_status"
