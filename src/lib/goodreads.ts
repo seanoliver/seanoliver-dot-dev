@@ -48,35 +48,35 @@ const cleanTitle = (title: string): string => {
 const ITEM_REGEX = /<item>[\s\S]*?<\/item>/g
 const MAX_READ_ITEMS = 30
 
-export function parseReadShelf(xml: string): Book[] {
-  const items = xml.match(ITEM_REGEX) || []
+export function parseReadShelf(...xmlPages: string[]): Book[] {
+  const items = xmlPages.flatMap((xml) => xml.match(ITEM_REGEX) || [])
   const books: Book[] = []
 
-  for (const item of items.slice(0, MAX_READ_ITEMS)) {
+  for (const item of items) {
     const title = extractTag(item, 'title')
     const author = extractTag(item, 'author_name')
-    if (!title || !author) continue
+    // A missing read date means the entry is shelf noise (bulk imports
+    // land without dates or ratings), not a finished book — skip it.
+    const dateRead = extractTag(item, 'user_read_at')
+    if (!title || !author || !dateRead) continue
 
     const rating = parseInt(extractTag(item, 'user_rating'), 10)
     books.push({
       title: cleanTitle(title),
       author: author.trim(),
-      dateRead: extractTag(item, 'user_read_at'),
+      dateRead,
       link: extractTag(item, 'link'),
       rating: Number.isNaN(rating) ? 0 : rating,
     })
   }
 
-  // Newest first; books without a read date sink to the bottom. The
-  // comparator must stay consistent (no early `return 0` for missing
-  // dates) or undated books float unpredictably to the top.
-  books.sort((a, b) => {
-    const aTime = a.dateRead ? new Date(a.dateRead).getTime() : 0
-    const bTime = b.dateRead ? new Date(b.dateRead).getTime() : 0
-    return bTime - aTime
-  })
+  books.sort(
+    (a, b) => new Date(b.dateRead).getTime() - new Date(a.dateRead).getTime()
+  )
 
-  return books
+  // Cap after filtering and sorting so shelf noise doesn't eat into the
+  // display budget.
+  return books.slice(0, MAX_READ_ITEMS)
 }
 
 export function parseCurrentlyReadingShelf(

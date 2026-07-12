@@ -21,7 +21,7 @@ const readItem = (opts: {
     title,
     cdataTitle = false,
     author = 'Some Author',
-    readAt = '',
+    readAt = 'Mon, 02 Mar 2026 00:00:00 +0000',
     rating = 0,
     link = 'https://www.goodreads.com/review/show/1',
   } = opts
@@ -79,9 +79,8 @@ describe('parseReadShelf', () => {
     )
   })
 
-  it('sorts newest read date first and sinks undated books to the bottom', () => {
+  it('sorts by read date, newest first', () => {
     const xml =
-      readItem({ title: 'Undated Book' }) +
       readItem({
         title: 'Older Book',
         readAt: 'Fri, 5 Jun 2026 00:00:00 +0000',
@@ -93,15 +92,32 @@ describe('parseReadShelf', () => {
     expect(parseReadShelf(xml).map((b) => b.title)).toEqual([
       'Newest Book',
       'Older Book',
-      'Undated Book',
     ])
   })
 
-  it('treats an empty user_read_at as no date instead of dropping the book', () => {
-    const books = parseReadShelf(readItem({ title: 'No Date Book' }))
-    expect(books).toHaveLength(1)
-    expect(books[0].dateRead).toBe('')
-    expect(books[0].rating).toBe(0)
+  it('merges multiple RSS pages and sorts across them', () => {
+    const page1 = readItem({
+      title: 'Page One Book',
+      readAt: 'Fri, 5 Jun 2026 00:00:00 +0000',
+    })
+    const page2 = readItem({
+      title: 'Page Two Newer Book',
+      readAt: 'Sat, 13 Jun 2026 00:00:00 +0000',
+    })
+    expect(parseReadShelf(page1, page2).map((b) => b.title)).toEqual([
+      'Page Two Newer Book',
+      'Page One Book',
+    ])
+  })
+
+  it('excludes shelf entries without a read date (bulk-import noise)', () => {
+    const xml =
+      readItem({ title: 'Undated Import', readAt: '' }) +
+      readItem({
+        title: 'Real Read',
+        readAt: 'Sat, 13 Jun 2026 00:00:00 +0000',
+      })
+    expect(parseReadShelf(xml).map((b) => b.title)).toEqual(['Real Read'])
   })
 })
 

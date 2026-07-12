@@ -45,22 +45,33 @@ near the top in feed order instead of sinking below dated books.
 Extracted parsing into `src/lib/goodreads.ts` (`parseReadShelf`,
 `parseCurrentlyReadingShelf`) with an `extractTag` helper whose regex accepts
 both CDATA and plain-text tag content (decoding XML entities for the plain
-form), and a consistent sort comparator that treats a missing `dateRead` as
-epoch 0 so undated books sort last. The route now just fetches and delegates.
-Extraction (vs. patching regexes in the route) makes the parser unit-testable
-without mocking `fetch`.
+form). The route now just fetches and delegates. Extraction (vs. patching
+regexes in the route) makes the parser unit-testable without mocking `fetch`.
+
+Two follow-on decisions after Sean reviewed:
+
+- Shelf entries without a `user_read_at` are excluded from display entirely
+  (rather than sorted last) — the 2026-03-02 bulk import put ~96 undated,
+  unrated entries on the read shelf that he doesn't consider read, and the
+  parser can't otherwise distinguish them from finished books. Tradeoff: a
+  future finished book with no read date set won't appear.
+- The route fetches read-shelf RSS pages 1 and 2 (Goodreads caps each page at
+  100 items, sorted by date added). The bulk import fills nearly all of page 1,
+  so only 4 dated reads were visible there; the rest of the real reading history
+  lives on page 2. Books are merged across pages, sorted by read date, and
+  capped at 30 after filtering.
 
 ## Verification
 
-- `pnpm test:unit` — 80 passed, including 8 new tests in
+- `pnpm test:unit` — 81 passed, including 9 new tests in
   `src/lib/goodreads.test.ts` covering plain titles, CDATA titles, mixed feeds,
-  entity decoding, empty `user_read_at`, and sort order.
+  entity decoding, undated-entry exclusion, multi-page merge, and sort order.
 - `pnpm typecheck` clean (after clearing stale `.next` type stubs left from the
   posts→writing rename).
-- Live check: `pnpm dev` + `curl /api/goodreads` returned 30 books, ordered
-  Flowers for Algernon (5★, 06/13) → Hard-Boiled Wonderland (4★, 06/05) → The
-  Ministry for the Future (2★, 05/08), with undated bulk-import books below all
-  dated ones.
+- Live check: `pnpm dev` + `curl /api/goodreads` returned 30 dated, rated books
+  ordered Flowers for Algernon (5★, 06/13) → Hard-Boiled Wonderland (4★, 06/05)
+  → The Ministry for the Future (2★, 05/08) → …, with no undated bulk-import
+  entries in the list.
 
 ## Recurrence guardrail
 

@@ -17,21 +17,30 @@ export async function GET(): Promise<Response> {
       )
     }
 
-    // Fetch both read and currently-reading shelves
-    const [readResponse, currentlyReadingResponse] = await Promise.all([
-      fetch(`https://www.goodreads.com/review/list_rss/${userId}?shelf=read`, {
-        headers: { 'User-Agent': 'Mozilla/5.0' },
-      }),
-      fetch(
-        `https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading`,
-        {
-          headers: { 'User-Agent': 'Mozilla/5.0' },
-        }
-      ),
-    ])
+    // Fetch the read shelf and the currently-reading shelf. The read
+    // shelf spans two RSS pages (100 items each) because a 2026-03-02
+    // bulk import of undated entries fills most of page 1 — dated reads
+    // live mostly on page 2.
+    const [readPage1Response, readPage2Response, currentlyReadingResponse] =
+      await Promise.all([
+        fetch(
+          `https://www.goodreads.com/review/list_rss/${userId}?shelf=read&page=1`,
+          { headers: { 'User-Agent': 'Mozilla/5.0' } }
+        ),
+        fetch(
+          `https://www.goodreads.com/review/list_rss/${userId}?shelf=read&page=2`,
+          { headers: { 'User-Agent': 'Mozilla/5.0' } }
+        ),
+        fetch(
+          `https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading`,
+          { headers: { 'User-Agent': 'Mozilla/5.0' } }
+        ),
+      ])
 
-    if (!readResponse.ok) {
-      throw new Error(`Goodreads read shelf returned ${readResponse.status}`)
+    for (const response of [readPage1Response, readPage2Response]) {
+      if (!response.ok) {
+        throw new Error(`Goodreads read shelf returned ${response.status}`)
+      }
     }
 
     if (!currentlyReadingResponse.ok) {
@@ -40,10 +49,15 @@ export async function GET(): Promise<Response> {
       )
     }
 
-    const readXml = await readResponse.text()
-    const currentlyReadingXml = await currentlyReadingResponse.text()
+    const [readPage1Xml, readPage2Xml, currentlyReadingXml] = await Promise.all(
+      [
+        readPage1Response.text(),
+        readPage2Response.text(),
+        currentlyReadingResponse.text(),
+      ]
+    )
 
-    const books = parseReadShelf(readXml)
+    const books = parseReadShelf(readPage1Xml, readPage2Xml)
     const currentlyReading = parseCurrentlyReadingShelf(currentlyReadingXml)
 
     return NextResponse.json({ books, currentlyReading })
