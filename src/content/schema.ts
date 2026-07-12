@@ -33,6 +33,9 @@ function emptyKeyAsAbsent<T extends z.ZodType>(schema: T) {
 }
 
 const sharedFields = {
+  // `summary` is deliberately per-branch (article requires it, note leaves it
+  // optional) — never re-add it here: spread order would silently clobber the
+  // branch definitions.
   status: z.enum(['draft', 'published']),
   title: z.string().min(1),
   publishedAt: emptyKeyAsAbsent(isoDate),

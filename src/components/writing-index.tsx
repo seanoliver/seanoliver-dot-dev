@@ -25,11 +25,18 @@ export default function WritingIndex({
   title,
   limit,
   href,
+  footer,
 }: {
   entries: ContentEntry[]
   title: string
   limit?: number
   href?: string
+  /**
+   * Optional footer rendered below the list, inside the section's content
+   * column (the full /writing index passes the newsletter signup here; the
+   * home-page teaser passes nothing).
+   */
+  footer?: React.ReactNode
 }): JSX.Element {
   const displayEntries = limit ? entries.slice(0, limit) : entries
   const hasMore = limit != null && entries.length > limit
@@ -54,6 +61,7 @@ export default function WritingIndex({
   return (
     <Section title={title} href={href} hasMore={hasMore}>
       {items.length > 0 && <List items={items} />}
+      {footer && <div className='mt-8'>{footer}</div>}
     </Section>
   )
 }

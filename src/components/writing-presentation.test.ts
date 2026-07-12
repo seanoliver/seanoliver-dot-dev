@@ -2,7 +2,12 @@ import { describe, expect, it } from 'vitest'
 
 import type { ContentEntry } from '@/content'
 
-import { entryJsonLdType, toWritingListItem } from './writing-presentation'
+import {
+  NEWSLETTER_CTA,
+  emailEditionLink,
+  entryJsonLdType,
+  toWritingListItem,
+} from './writing-presentation'
 
 /**
  * The article/note index distinction is presentation policy, so it lives in a
@@ -86,6 +91,66 @@ describe('writing index projection: article/note treatments', () => {
 
     expect(item.meta).toBe('Draft')
     expect(item.kindLabel).toBe('Note')
+  })
+})
+
+describe('newsletter signup affordance', () => {
+  it('pins the Substack URL and label of the signup link', () => {
+    // The affordance is a plain labeled link (no iframe embed): rendering
+    // must never depend on a live Substack response. The URL is the public
+    // newsletter home that the nav already links.
+    expect(NEWSLETTER_CTA).toEqual({
+      href: 'https://newsletter.seanoliver.dev/',
+      label: 'Subscribe to the newsletter',
+    })
+  })
+})
+
+describe('email edition link projection', () => {
+  it('exposes an email-edition link for a selected entry with a substackUrl', () => {
+    // No published entry carries distribution fields yet, so this projection
+    // contract is the guard until one does (there is no e2e surface).
+    const entry = makeEntry({
+      kind: 'article',
+      status: 'published',
+      title: 'A Distributed Article',
+      summary: 'Sent by email too.',
+      publishedAt: '2026-05-01',
+      email: 'selected',
+      substackUrl: 'https://newsletter.seanoliver.dev/p/a-distributed-article',
+      emailedAt: '2026-05-02',
+    })
+
+    expect(emailEditionLink(entry.metadata)).toEqual({
+      href: 'https://newsletter.seanoliver.dev/p/a-distributed-article',
+      label: 'Also sent as an email edition',
+    })
+  })
+
+  it('returns nothing for entries never distributed by email', () => {
+    const entry = makeEntry({
+      kind: 'article',
+      status: 'published',
+      title: 'A Site-Only Article',
+      summary: 'Canonical here only.',
+      publishedAt: '2026-04-01',
+    })
+
+    expect(emailEditionLink(entry.metadata)).toBeUndefined()
+  })
+
+  it('returns nothing for a selected entry whose email edition has no URL yet', () => {
+    // `email: selected` marks intent; the link only exists once the edition
+    // has actually been sent and its URL recorded.
+    const entry = makeEntry({
+      kind: 'note',
+      status: 'published',
+      title: 'A Selected Note',
+      publishedAt: '2026-06-15',
+      email: 'selected',
+    })
+
+    expect(emailEditionLink(entry.metadata)).toBeUndefined()
   })
 })
 

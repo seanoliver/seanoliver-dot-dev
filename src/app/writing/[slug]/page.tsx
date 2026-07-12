@@ -2,7 +2,11 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { BlogPostingJsonLd } from '@/components/json-ld'
-import { entryJsonLdType } from '@/components/writing-presentation'
+import { NewsletterSignup } from '@/components/newsletter-signup'
+import {
+  emailEditionLink,
+  entryJsonLdType,
+} from '@/components/writing-presentation'
 import ReadingProgress from '@/components/reading-progress'
 import { ReadingProgressFallback } from '@/components/reading-progress-fallback'
 import { getCanonicalUrl, getEntryBySlug, getEntryRouteParams } from '@/content'
@@ -88,6 +92,11 @@ export default async function WritingEntryPage(props: PageProps) {
   // Drafts are only routable in development; label them like the old route.
   const showUnpublished = status === 'draft'
 
+  // Present only when this entry was manually distributed through Substack
+  // (email: selected + a recorded substackUrl) — pure frontmatter projection,
+  // never a live Substack lookup.
+  const emailEdition = emailEditionLink(entry.metadata)
+
   return (
     <>
       <ReadingProgress />
@@ -128,6 +137,19 @@ export default async function WritingEntryPage(props: PageProps) {
         <div className='mx-auto'>
           <Body />
         </div>
+        <footer className='mt-12 border-t border-border pt-6'>
+          {emailEdition && (
+            <p className='text-xs text-muted-foreground mb-2'>
+              <a
+                href={emailEdition.href}
+                className='underline underline-offset-4 hover:text-foreground transition-colors'
+              >
+                {emailEdition.label}
+              </a>
+            </p>
+          )}
+          <NewsletterSignup />
+        </footer>
       </article>
     </>
   )

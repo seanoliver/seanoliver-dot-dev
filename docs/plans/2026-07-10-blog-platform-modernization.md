@@ -989,6 +989,26 @@ make rendering depend on a live Substack API.
 Run the full gate. Confirm no Substack credentials or undocumented endpoints
 exist in the repository.
 
+**Execution note (2026-07-11):**
+
+- Affordance choice: a **plain labeled link, not the iframe embed**. The embed
+  loads live remote Substack content on every page view, which conflicts with
+  the deterministic/no-live-fetch decision; a muted one-line signup
+  (`NewsletterSignup`) matches the site styling. It renders in the /writing
+  index footer (via a new optional `footer` prop on `WritingIndex`; the
+  home-page teaser passes none) and in a new article `<footer>`.
+- The Substack URL was hoisted to `NEWSLETTER_URL` in `src/lib/site.ts` (single
+  source; the nav's Newsletter item now imports it). Link href/label live in the
+  `NEWSLETTER_CTA` projection in `writing-presentation.ts`.
+- `emailEditionLink(metadata)` projects the "Also sent as an email edition" link
+  (only for `email: selected` entries with a recorded `substackUrl`);
+  unit-tested — no published entry carries the fields yet, so there is no e2e
+  surface. Two e2e tests pin the signup link's href + accessible name on
+  /writing and an article page (14 → 16).
+- Distribution invariants did not evolve, so `schema.ts` tests are unchanged; a
+  review-minor comment was folded into `sharedFields` (why `summary` is
+  per-branch).
+
 ### Task 14: Write the authoring and maintenance runbook
 
 **Files:**

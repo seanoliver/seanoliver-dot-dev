@@ -4,6 +4,7 @@ import {
   type EntryMetadata,
 } from '@/content'
 import { formatDateSpaced } from '@/lib/date-utils'
+import { NEWSLETTER_URL } from '@/lib/site'
 
 /**
  * Pure presentation policy for the writing surfaces: how the unified index
@@ -41,6 +42,42 @@ export function toWritingListItem(entry: ContentEntry): WritingListItem {
     title,
     kindLabel: kind === 'note' ? 'Note' : undefined,
     meta,
+  }
+}
+
+export type DistributionLink = {
+  href: string
+  label: string
+}
+
+/**
+ * The newsletter signup affordance: a plain labeled link to the public
+ * Substack home. Deliberately not the Substack iframe embed — the affordance
+ * must stay static and deterministic (no live Substack fetch, nothing remote
+ * on the page), and a muted text link matches the site's styling.
+ */
+export const NEWSLETTER_CTA: DistributionLink = {
+  href: NEWSLETTER_URL,
+  label: 'Subscribe to the newsletter',
+}
+
+/**
+ * "Email edition" link for entries manually distributed through Substack.
+ * Present only when the entry is marked `email: selected` AND the sent
+ * edition's URL was recorded in frontmatter — derived purely from validated
+ * metadata, never from a live Substack API. (The schema already rejects
+ * `substackUrl` on non-selected entries; the `email` check here keeps the
+ * projection honest on its own.)
+ */
+export function emailEditionLink(
+  metadata: EntryMetadata
+): DistributionLink | undefined {
+  if (metadata.email !== 'selected' || metadata.substackUrl === undefined) {
+    return undefined
+  }
+  return {
+    href: metadata.substackUrl,
+    label: 'Also sent as an email edition',
   }
 }
 

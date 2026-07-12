@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { NewsletterSignup } from '@/components/newsletter-signup'
 import WritingIndex from '@/components/writing-index'
 import { getVisibleEntries } from '@/content'
 import { RSS_ALTERNATE, SITE_URL } from '@/lib/site'
@@ -28,5 +29,11 @@ export const metadata: Metadata = {
 
 export default async function WritingPage(): Promise<JSX.Element> {
   const entries = await getVisibleEntries()
-  return <WritingIndex entries={entries} title='Writing' />
+  return (
+    <WritingIndex
+      entries={entries}
+      title='Writing'
+      footer={<NewsletterSignup />}
+    />
+  )
 }

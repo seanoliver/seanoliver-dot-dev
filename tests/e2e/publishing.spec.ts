@@ -243,6 +243,23 @@ test('feed.xml links and GUIDs are canonical /writing URLs', async ({
   expect(xml, 'feed must not list the draft').not.toContain(DRAFT_SLUG)
 })
 
+// The newsletter signup affordance is a plain labeled link (deterministic —
+// no Substack iframe, no live fetch). Assert only href + accessible name.
+for (const path of ['/writing', '/writing/nextjs-contentlayer']) {
+  test(`${path} renders the newsletter signup link`, async ({ page }) => {
+    await page.goto(path)
+
+    const signup = page.getByRole('link', {
+      name: 'Subscribe to the newsletter',
+    })
+    await expect(signup).toHaveCount(1)
+    await expect(signup).toHaveAttribute(
+      'href',
+      'https://newsletter.seanoliver.dev/'
+    )
+  })
+}
+
 test('/writing exposes a discoverable RSS feed link in <head>', async ({
   page,
 }) => {
