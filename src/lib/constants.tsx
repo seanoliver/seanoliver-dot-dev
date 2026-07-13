@@ -82,7 +82,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'Audioflare',
-    url: 'https://audioflare.seanoliver/dev/',
+    url: 'https://audioflare.seanoliver.dev/',
     github: 'https://github.com/seanoliver/audioflare',
     description:
       'An all-in-one AI audio playground using Cloudflare AI Workers to transcribe, analyze, summarize, and translate any audio file.',
