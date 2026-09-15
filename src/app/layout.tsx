@@ -64,6 +64,7 @@ const monolisa = localFont({
 })
 
 const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 })
@@ -95,7 +96,8 @@ export default function RootLayout({
         'text-slate-800 bg-slate-300 dark:text-slate-200 dark:bg-slate-700 bg-gradient-to-b bg-no-repeat dark:from-slate-900 dark:to-slate-700 from-slate-100 to-slate-300',
         monolisa.variable,
         jetBrainsMono.variable,
-        inter.className
+        inter.className,
+        inter.variable
       )}
     >
       <body className={`font-sans flex flex-col min-h-screen`}>

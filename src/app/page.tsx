@@ -1,7 +1,7 @@
 import CurrentlyReading from '@/components/currently-reading'
 import Goodreads from '@/components/goodreads'
-import Socials from '@/components/socials'
-import About from './about/page'
+import PortfolioIntro from '@/components/portfolio-intro'
+import FeaturedProject from '@/components/featured-project'
 import ExperienceContent from '@/components/experience-content'
 import ProjectsContent from '@/components/projects-content'
 import WritingIndex from '@/components/writing-index'
@@ -14,8 +14,8 @@ export default async function Home(): Promise<JSX.Element> {
 
   return (
     <>
-      <About />
-      <Socials />
+      <PortfolioIntro />
+      <FeaturedProject />
       <WritingIndex
         entries={entries}
         title='Writing'
