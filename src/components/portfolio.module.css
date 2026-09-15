@@ -1,0 +1,158 @@
+.intro {
+  margin: 4.5rem 0 4rem;
+}
+
+.name {
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.headline {
+  max-width: 700px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 650px;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.9;
+}
+
+.current {
+  margin-top: 1.5rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+}
+
+.link {
+  color: #315bd6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+:global(.dark) .link {
+  color: #a5b4fc;
+}
+
+.project + .project {
+  margin-top: 3.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.projectHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.projectTitle {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.projectMeta {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.6875rem;
+}
+
+.summary {
+  margin-bottom: 1.25rem;
+  line-height: 1.85;
+}
+
+.preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+}
+
+.disclosure {
+  margin-top: 1.5rem;
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.disclosure summary {
+  cursor: pointer;
+  padding: 1rem 0;
+  font-size: 0.75rem;
+  color: #315bd6;
+}
+
+:global(.dark) .disclosure summary {
+  color: #a5b4fc;
+}
+
+.disclosure summary:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 4px;
+}
+
+.study {
+  padding: 0.5rem 0 1.5rem;
+  line-height: 1.9;
+}
+
+.study h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.study h4:first-child {
+  margin-top: 0;
+}
+
+.study p + p {
+  margin-top: 1rem;
+}
+
+.stack {
+  margin-top: 1.25rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.6875rem;
+  line-height: 1.9;
+}
+
+@media (max-width: 767px) {
+  .workSection > div:first-child {
+    width: auto;
+  }
+
+  .intro {
+    margin: 3rem 0;
+  }
+
+  .project + .project {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+  }
+}
