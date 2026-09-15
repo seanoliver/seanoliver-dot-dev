@@ -31,7 +31,7 @@ export default function Header({
           </div>
         </div>
       </div>
-      {notBlogPost && (
+      {notBlogPost && path !== '/' && (
         <Section title='Home'>
           <h4 className='font-medium'>Sean Oliver</h4>
           <p className='text-muted-foreground'>Software Engineer</p>
