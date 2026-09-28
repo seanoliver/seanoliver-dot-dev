@@ -1,28 +1,26 @@
 import CurrentlyReading from '@/components/currently-reading'
-import Goodreads from '@/components/goodreads'
-import Socials from '@/components/socials'
-import About from './about/page'
 import ExperienceContent from '@/components/experience-content'
+import FeaturedProject from '@/components/featured-project'
+import Goodreads from '@/components/goodreads'
 import ProjectsContent from '@/components/projects-content'
-import WritingIndex from '@/components/writing-index'
-import { getVisibleEntries } from '@/content'
+import Section from '@/components/Section'
+import { PROJECTS } from '@/lib/constants'
 
 import type { JSX } from 'react'
 
-export default async function Home(): Promise<JSX.Element> {
-  const entries = await getVisibleEntries()
+export default function Home(): JSX.Element {
+  const featured = PROJECTS.find((project) => project.featured)
 
   return (
     <>
-      <About />
-      <Socials />
-      <WritingIndex
-        entries={entries}
-        title='Writing'
-        limit={3}
-        href='/writing'
-      />
-      <ProjectsContent limit={3} href='/projects' />
+      <Section title='Home'>
+        <h1 className='font-medium'>Sean Oliver</h1>
+        <p className='text-muted-foreground'>
+          Growth engineer at Supabase. After hours I build small apps.
+        </p>
+      </Section>
+      {featured && <FeaturedProject project={featured} />}
+      <ProjectsContent limit={4} href='/projects' excludeFeatured />
       <ExperienceContent limit={3} href='/experience' />
       <CurrentlyReading />
       <Goodreads limit={3} href='/read' />

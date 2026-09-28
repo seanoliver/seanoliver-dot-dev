@@ -3,38 +3,25 @@ import {
   LinkedInLogoIcon,
   TwitterLogoIcon,
   InstagramLogoIcon,
-  ArrowTopRightIcon,
 } from '@radix-ui/react-icons'
 import { Project, Experience } from '@/lib/types'
-import { NEWSLETTER_URL } from '@/lib/site'
+import type { ReactNode } from 'react'
 
-export const NAV_ITEMS = [
-  {
-    name: 'Writing',
-    pageLink: '/writing',
-  },
-  {
-    name: 'About',
-    pageLink: '/about',
-  },
-  {
-    name: 'Projects',
-    pageLink: '/projects',
-  },
-  {
-    name: 'Experience',
-    pageLink: '/experience',
-  },
-  {
-    name: 'Read',
-    pageLink: '/read',
-  },
-  {
-    name: 'Newsletter',
-    pageLink: NEWSLETTER_URL,
-    icon: <ArrowTopRightIcon className='ml-1 mt-1 inline w-4 h-4' />,
-  },
-]
+export const NAV_ITEMS: { name: string; pageLink: string; icon?: ReactNode }[] =
+  [
+    {
+      name: 'Projects',
+      pageLink: '/projects',
+    },
+    {
+      name: 'About',
+      pageLink: '/about',
+    },
+    {
+      name: 'Read',
+      pageLink: '/read',
+    },
+  ]
 
 export const SOCIAL_LINKS = [
   {

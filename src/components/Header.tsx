@@ -5,9 +5,18 @@ import { HamburgerMenu } from './hamburger-menu'
 import { ModeToggle } from './mode-toggle'
 import Nav from './navigation'
 import Section from './Section'
-import { NAV_ITEMS } from '@/lib/constants'
 
 import type { JSX } from 'react'
+
+// Pages that show the name block under the nav. The homepage renders its own
+// intro; individual posts have their own header.
+const IDENTITY_PATHS = [
+  '/writing',
+  '/about',
+  '/projects',
+  '/experience',
+  '/read',
+]
 
 export default function Header({
   className,
@@ -15,10 +24,7 @@ export default function Header({
   className: string
 }): JSX.Element {
   const path = usePathname()
-  const navPaths = NAV_ITEMS.map((item) => item.pageLink)
-  navPaths.push('/')
-
-  const notBlogPost = navPaths.includes(path)
+  const showIdentity = IDENTITY_PATHS.includes(path)
 
   return (
     <>
@@ -31,7 +37,7 @@ export default function Header({
           </div>
         </div>
       </div>
-      {notBlogPost && (
+      {showIdentity && (
         <Section title='Home'>
           <h4 className='font-medium'>Sean Oliver</h4>
           <p className='text-muted-foreground'>Software Engineer</p>
