@@ -5,23 +5,21 @@ import {
   InstagramLogoIcon,
 } from '@radix-ui/react-icons'
 import { Project, Experience } from '@/lib/types'
-import type { ReactNode } from 'react'
 
-export const NAV_ITEMS: { name: string; pageLink: string; icon?: ReactNode }[] =
-  [
-    {
-      name: 'Projects',
-      pageLink: '/projects',
-    },
-    {
-      name: 'About',
-      pageLink: '/about',
-    },
-    {
-      name: 'Read',
-      pageLink: '/read',
-    },
-  ]
+export const NAV_ITEMS = [
+  {
+    name: 'Projects',
+    pageLink: '/projects',
+  },
+  {
+    name: 'About',
+    pageLink: '/about',
+  },
+  {
+    name: 'Read',
+    pageLink: '/read',
+  },
+]
 
 export const SOCIAL_LINKS = [
   {

@@ -38,7 +38,6 @@ export default function Nav(): React.JSX.Element {
               key={`${item.name}-${idx}`}
               name={item.name}
               url={item.pageLink}
-              icon={item.icon}
             />
           ))}
         </NavigationMenuList>
@@ -49,11 +48,9 @@ export default function Nav(): React.JSX.Element {
 
 function CommonElements({
   name,
-  icon,
   url,
 }: {
   name: string
-  icon?: React.ReactNode
   url: string
 }): React.JSX.Element {
   const pathname = usePathname()
@@ -68,7 +65,6 @@ function CommonElements({
       )}
     >
       {name}
-      {icon && icon}
     </Link>
   )
 }
@@ -76,21 +72,19 @@ function CommonElements({
 export function NavLink({
   name,
   url,
-  icon,
   dropdown,
 }: {
   name: string
   url: string
-  icon?: React.ReactNode
   dropdown?: boolean
 }): React.JSX.Element {
   return dropdown ? (
     <DropdownMenuItem>
-      <CommonElements name={name} icon={icon} url={url} />
+      <CommonElements name={name} url={url} />
     </DropdownMenuItem>
   ) : (
     <NavigationMenuItem>
-      <CommonElements name={name} icon={icon} url={url} />
+      <CommonElements name={name} url={url} />
     </NavigationMenuItem>
   )
 }

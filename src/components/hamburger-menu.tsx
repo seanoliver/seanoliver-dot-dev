@@ -23,12 +23,7 @@ export function HamburgerMenu() {
       <DropdownMenuContent align='end'>
         {NAV_ITEMS.map((item, idx) => (
           <DropdownMenuItem key={`${item.name}-${idx}`}>
-            <NavLink
-              name={item.name}
-              url={item.pageLink}
-              icon={item.icon}
-              dropdown
-            />
+            <NavLink name={item.name} url={item.pageLink} dropdown />
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
