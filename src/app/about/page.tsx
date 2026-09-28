@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { PersonJsonLd } from '@/components/json-ld'
+import { PersonJsonLd, SITE_OWNER } from '@/components/json-ld'
 import AboutContent from '@/components/about-content'
 
 import type { JSX } from 'react'
@@ -32,21 +32,7 @@ export const metadata: Metadata = {
 export default function AboutPage(): JSX.Element {
   return (
     <>
-      <PersonJsonLd
-        person={{
-          name: 'Sean Oliver',
-          jobTitle: 'Growth Engineer',
-          url: 'https://seanoliver.dev',
-          sameAs: [
-            'https://x.com/SeanOliver',
-            'https://github.com/SeanOliver',
-            'https://www.linkedin.com/in/theseanoliver/',
-          ],
-          image: 'https://seanoliver.dev/profile.jpeg',
-          description:
-            'Growth Engineer at Supabase blending technical expertise with user insights.',
-        }}
-      />
+      <PersonJsonLd person={SITE_OWNER} />
       <AboutContent />
     </>
   )
