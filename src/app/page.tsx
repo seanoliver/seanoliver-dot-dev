@@ -18,7 +18,7 @@ export default function Home(): JSX.Element {
       <Section title='Home'>
         <h1 className='font-medium'>Sean Oliver</h1>
         <p className='text-muted-foreground'>
-          Growth engineer at Supabase. After hours I build small apps.
+          Growth Engineer at Supabase. After hours I build small apps.
         </p>
       </Section>
       {featured && <FeaturedProject project={featured} />}

@@ -40,7 +40,7 @@ export default function Header({
       {showIdentity && (
         <Section title='Home'>
           <h4 className='font-medium'>Sean Oliver</h4>
-          <p className='text-muted-foreground'>Software Engineer</p>
+          <p className='text-muted-foreground'>Growth Engineer</p>
         </Section>
       )}
     </>
