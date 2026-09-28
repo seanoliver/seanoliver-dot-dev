@@ -12,6 +12,21 @@ export interface PersonSchema {
   description?: string
 }
 
+/** Site owner's Person data, shared by every page that emits PersonJsonLd. */
+export const SITE_OWNER: PersonSchema = {
+  name: 'Sean Oliver',
+  jobTitle: 'Growth Engineer',
+  url: 'https://seanoliver.dev',
+  sameAs: [
+    'https://x.com/SeanOliver',
+    'https://github.com/SeanOliver',
+    'https://www.linkedin.com/in/theseanoliver/',
+  ],
+  image: 'https://seanoliver.dev/profile.jpeg',
+  description:
+    'Growth Engineer at Supabase blending technical expertise with user insights.',
+}
+
 export function PersonJsonLd({ person }: { person: PersonSchema }) {
   const schema = {
     '@context': 'https://schema.org',

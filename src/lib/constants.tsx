@@ -3,36 +3,21 @@ import {
   LinkedInLogoIcon,
   TwitterLogoIcon,
   InstagramLogoIcon,
-  ArrowTopRightIcon,
 } from '@radix-ui/react-icons'
 import { Project, Experience } from '@/lib/types'
-import { NEWSLETTER_URL } from '@/lib/site'
 
 export const NAV_ITEMS = [
   {
-    name: 'Writing',
-    pageLink: '/writing',
+    name: 'Projects',
+    pageLink: '/projects',
   },
   {
     name: 'About',
     pageLink: '/about',
   },
   {
-    name: 'Projects',
-    pageLink: '/projects',
-  },
-  {
-    name: 'Experience',
-    pageLink: '/experience',
-  },
-  {
     name: 'Read',
     pageLink: '/read',
-  },
-  {
-    name: 'Newsletter',
-    pageLink: NEWSLETTER_URL,
-    icon: <ArrowTopRightIcon className='ml-1 mt-1 inline w-4 h-4' />,
   },
 ]
 
@@ -61,6 +46,18 @@ export const SOCIAL_LINKS = [
 
 export const PROJECTS: Project[] = [
   {
+    name: 'Sudoku',
+    url: 'https://sudoku.seanoliver.dev',
+    github: 'https://github.com/seanoliver/sudoku',
+    description:
+      'A calm, free Sudoku that teaches every technique one move at a time. Hints explain themselves step by step, and it installs to your home screen and works offline. No account, ads, or analytics.',
+    summary: 'Calm Sudoku that teaches every technique',
+    image: '/projects/sudoku.png',
+    tags: ['Next.js', 'React', 'TypeScript', 'PWA'],
+    status: 'live',
+    featured: true,
+  },
+  {
     name: 'TheraGPT',
     url: 'https://theragpt.ai',
     github: 'https://github.com/seanoliver/theragpt-app',
@@ -79,10 +76,11 @@ export const PROJECTS: Project[] = [
       'Supabase',
       'Shadcn',
     ],
+    status: 'live',
   },
   {
     name: 'Audioflare',
-    url: 'https://audioflare.seanoliver/dev/',
+    url: 'https://audioflare.seanoliver.dev',
     github: 'https://github.com/seanoliver/audioflare',
     description:
       'An all-in-one AI audio playground using Cloudflare AI Workers to transcribe, analyze, summarize, and translate any audio file.',
@@ -96,6 +94,7 @@ export const PROJECTS: Project[] = [
       'Tailwind CSS',
       'Cloudflare AI Workers',
     ],
+    status: 'parked',
   },
   {
     name: 'Smol Menubar',
@@ -116,6 +115,7 @@ export const PROJECTS: Project[] = [
       'Bing Chat',
       'Claude',
     ],
+    status: 'contributor',
   },
   {
     name: 'SeanOliver.dev',
@@ -134,6 +134,7 @@ export const PROJECTS: Project[] = [
       'Contentlayer',
       'Radix UI',
     ],
+    status: 'live',
   },
   {
     name: 'TheraGPT (v1)',
@@ -144,6 +145,7 @@ export const PROJECTS: Project[] = [
     summary: 'Web app to reframe negative thoughts',
     image: '/projects/theragpt.png',
     tags: ['Flask', 'OpenAI', 'JavaScript', 'Python'],
+    status: 'parked',
   },
 ]
 

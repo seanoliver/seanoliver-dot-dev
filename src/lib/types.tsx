@@ -1,5 +1,7 @@
 import React from 'react'
 
+export type ProjectStatus = 'live' | 'building' | 'parked' | 'contributor'
+
 export type Project = {
   name: string
   url: string
@@ -8,6 +10,8 @@ export type Project = {
   image: string
   tags: string[]
   github: string
+  status: ProjectStatus
+  featured?: boolean
 }
 
 export type Experience = {

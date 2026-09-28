@@ -37,25 +37,23 @@ const STATIC_ROUTE_PATHS = new Set([
   '/about',
 ])
 
-for (const path of ['/', '/writing']) {
-  test(`${path} serves both published titles in the initial HTML`, async ({
-    request,
-  }) => {
-    const response = await request.get(path)
-    expect(response.status()).toBe(200)
+test('/writing serves both published titles in the initial HTML', async ({
+  request,
+}) => {
+  const response = await request.get('/writing')
+  expect(response.status()).toBe(200)
 
-    const html = await response.text()
-    for (const entry of PUBLISHED_ENTRIES) {
-      expect(html, `initial HTML should contain "${entry.title}"`).toContain(
-        entry.title
-      )
-      expect(
-        html,
-        `initial HTML should link to /writing/${entry.slug}`
-      ).toContain(`/writing/${entry.slug}`)
-    }
-  })
-}
+  const html = await response.text()
+  for (const entry of PUBLISHED_ENTRIES) {
+    expect(html, `initial HTML should contain "${entry.title}"`).toContain(
+      entry.title
+    )
+    expect(
+      html,
+      `initial HTML should link to /writing/${entry.slug}`
+    ).toContain(`/writing/${entry.slug}`)
+  }
+})
 
 for (const { from, to } of LEGACY_REDIRECTS) {
   test(`legacy ${from} permanently redirects to ${to}`, async ({ request }) => {
