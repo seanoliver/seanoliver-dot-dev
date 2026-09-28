@@ -68,8 +68,8 @@ Existing projects get a `status`.
   - parse a GitHub commits API response
   - keep commits whose first line matches `feat:` or `feat(scope):`
   - strip the `feat(scope):` prefix and the trailing `(#NN)`
-  - return `{ date, text, prUrl }`, where `prUrl` points to the PR number when
-    one is present, otherwise to the commit
+  - return `{ date, text, url }`, where `url` points to the PR number when one
+    is present, otherwise to the commit
   - take the latest 3
 - The fetch calls `GET /repos/{owner}/{repo}/commits?per_page=50` with
   `next: { revalidate: 86400 }`. Unauthenticated requests are fine at one
