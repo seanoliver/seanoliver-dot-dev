@@ -18,8 +18,8 @@ export default async function FeaturedProject({
   const domain = new URL(project.url).host
 
   return (
-    <Section title='Now building'>
-      <article className='grid overflow-hidden rounded-xl border sm:grid-cols-[1fr_220px]'>
+    <Section title='Now building' fullWidth>
+      <article className='grid overflow-hidden rounded-xl border sm:grid-cols-[1fr_260px]'>
         <div className='flex flex-col gap-4 p-6'>
           <div className='flex items-center gap-3'>
             <StatusLabel status={project.status} />
@@ -69,7 +69,7 @@ export default async function FeaturedProject({
           )}
         </div>
         <div className='hidden items-center justify-center border-l bg-muted/50 p-6 sm:flex'>
-          <SudokuBoard className='w-44 -rotate-3 shadow-lg' />
+          <SudokuBoard className='w-52 -rotate-3 shadow-lg' />
         </div>
       </article>
     </Section>
