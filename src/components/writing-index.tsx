@@ -23,43 +23,33 @@ import type { JSX } from 'react'
 export default function WritingIndex({
   entries,
   title,
-  limit,
-  href,
   footer,
 }: {
   entries: ContentEntry[]
   title: string
-  limit?: number
-  href?: string
   /**
    * Optional footer rendered below the list, inside the section's content
-   * column (the full /writing index passes the newsletter signup here; the
-   * home-page teaser passes nothing).
+   * column (the /writing index passes the newsletter signup here).
    */
   footer?: React.ReactNode
 }): JSX.Element {
-  const displayEntries = limit ? entries.slice(0, limit) : entries
-  const hasMore = limit != null && entries.length > limit
-
-  const items: ListItem[] = displayEntries
-    .map(toWritingListItem)
-    .map((item) => ({
-      key: item.slug,
-      left: (
-        <>
-          <UnderLink href={item.href}>{item.title}</UnderLink>
-          {item.kindLabel && (
-            <span className='ml-2 align-middle rounded border border-border px-1.5 py-0.5 text-[0.65rem] uppercase tracking-wide text-muted-foreground'>
-              {item.kindLabel}
-            </span>
-          )}
-        </>
-      ),
-      right: item.meta,
-    }))
+  const items: ListItem[] = entries.map(toWritingListItem).map((item) => ({
+    key: item.slug,
+    left: (
+      <>
+        <UnderLink href={item.href}>{item.title}</UnderLink>
+        {item.kindLabel && (
+          <span className='ml-2 align-middle rounded border border-border px-1.5 py-0.5 text-[0.65rem] uppercase tracking-wide text-muted-foreground'>
+            {item.kindLabel}
+          </span>
+        )}
+      </>
+    ),
+    right: item.meta,
+  }))
 
   return (
-    <Section title={title} href={href} hasMore={hasMore}>
+    <Section title={title}>
       {items.length > 0 && <List items={items} />}
       {footer && <div className='mt-8'>{footer}</div>}
     </Section>
