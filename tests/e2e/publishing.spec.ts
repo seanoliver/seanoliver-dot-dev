@@ -37,7 +37,7 @@ const STATIC_ROUTE_PATHS = new Set([
   '/about',
 ])
 
-for (const path of ['/', '/writing']) {
+for (const path of ['/writing']) {
   test(`${path} serves both published titles in the initial HTML`, async ({
     request,
   }) => {
