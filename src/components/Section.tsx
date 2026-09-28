@@ -30,7 +30,7 @@ export default function Section({
       )}
     >
       {!isHome ? (
-        <div className='text-muted-foreground w-1/4 md:mb-0 mb-4'>
+        <div className='text-muted-foreground w-full md:w-1/4 md:mb-0 mb-4'>
           {showPermalink ? (
             <Link
               href={href}
