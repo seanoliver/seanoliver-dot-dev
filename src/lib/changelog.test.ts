@@ -78,6 +78,14 @@ describe('parseFeatCommits', () => {
     ).toEqual(['a'])
   })
 
+  it('skips subjects that are only a PR number', () => {
+    const entries = parseFeatCommits(
+      [commit('feat: (#5)'), commit('feat: real change (#6)')],
+      { repo: REPO }
+    )
+    expect(entries.map((e) => e.text)).toEqual(['real change'])
+  })
+
   it('returns [] for non-array or malformed input', () => {
     expect(
       parseFeatCommits({ message: 'rate limited' }, { repo: REPO })

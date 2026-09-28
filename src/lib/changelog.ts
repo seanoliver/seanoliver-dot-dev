@@ -44,10 +44,13 @@ export function parseFeatCommits(
     const match = FEAT_SUBJECT.exec(subject)
     if (!match) continue
 
+    const text = match[1].replace(PR_SUFFIX, '')
+    if (!text) continue
+
     const pr = PR_SUFFIX.exec(match[1])
     entries.push({
       date: item.commit.committer.date,
-      text: match[1].replace(PR_SUFFIX, ''),
+      text,
       url: pr ? `https://github.com/${repo}/pull/${pr[1]}` : item.html_url,
     })
     if (entries.length === limit) break
