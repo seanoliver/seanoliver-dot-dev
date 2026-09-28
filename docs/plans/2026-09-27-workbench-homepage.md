@@ -88,24 +88,29 @@ Insert this entry first in `PROJECTS`:
     url: 'https://sudoku.seanoliver.dev',
     github: 'https://github.com/seanoliver/sudoku',
     description:
-      'A calm, ad-free Sudoku. Four difficulties, 14 solving techniques taught in the app, and it installs to your home screen and works offline.',
-    summary: 'Calm, ad-free Sudoku that teaches solving techniques',
+      'A calm, free Sudoku that teaches every technique one move at a time. Hints explain themselves step by step, and it installs to your home screen and works offline. No account, ads, or analytics.',
+    summary: 'Calm Sudoku that teaches every technique',
     image: '/projects/sudoku.png',
-    tags: ['TypeScript', 'React', 'PWA'],
+    tags: ['Next.js', 'React', 'TypeScript', 'PWA'],
     status: 'live',
     featured: true,
   },
 ```
 
-Check the `tags` against the sudoku repo's `package.json` before committing:
-`gh api repos/seanoliver/sudoku/contents/package.json --jq .content | base64 -d | head -40`.
-Replace them with what the repo actually uses.
+Copy and tags come from the sudoku repo's README and `package.json` (checked
+2026-09-27).
 
 **Step 4: Add the project image**
 
-Take a 1280×900 screenshot of `https://sudoku.seanoliver.dev` with Playwright
-and save it as `public/projects/sudoku.png`. The field is required by the type.
-The featured card does not render it.
+Download the sudoku repo's Open Graph image to `public/projects/sudoku.png`:
+
+```bash
+curl -sL https://raw.githubusercontent.com/seanoliver/sudoku/main/src/app/opengraph-image.png -o public/projects/sudoku.png
+file public/projects/sudoku.png
+```
+
+Expected: `PNG image data`. The field is required by the type. The featured card
+does not render it.
 
 **Step 5: Verify**
 
