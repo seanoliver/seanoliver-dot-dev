@@ -8,7 +8,7 @@ const STATUS_STYLES: Record<
   { label: string; className: string }
 > = {
   live: {
-    label: '● Live',
+    label: 'Live',
     className:
       'bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300',
   },
@@ -34,10 +34,11 @@ export function StatusLabel({
   return (
     <span
       className={cn(
-        'rounded-full px-2 py-0.5 text-[11px] font-medium',
+        'rounded-full px-2 py-0.5 text-[11px] font-medium leading-5',
         className
       )}
     >
+      {status === 'live' && <span aria-hidden='true'>● </span>}
       {label}
     </span>
   )

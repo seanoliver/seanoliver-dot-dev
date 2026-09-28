@@ -34,7 +34,7 @@ export default async function FeaturedProject({
               rel='noopener noreferrer'
               className='rounded-md bg-primary px-3 py-2 text-xs text-primary-foreground hover:opacity-90'
             >
-              Play {project.name} →
+              Play {project.name} <span aria-hidden='true'>→</span>
             </Link>
             <Link
               href={project.github}
