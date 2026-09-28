@@ -58,6 +58,17 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    name: 'Solstice',
+    url: 'https://chromewebstore.google.com/detail/solstice/boegcpnmpagdbebakchpambpfggghjhe',
+    github: 'https://github.com/seanoliver/solstice',
+    description:
+      'A free Chrome extension that replaces the new tab with a calm world clock. Each timezone card and the 24-hour timeline are shaded by real sunrise and sunset, so you can see who is awake before you message them.',
+    summary: 'Chrome new-tab world clock across time zones',
+    image: '/projects/solstice.png',
+    tags: ['JavaScript', 'Chrome Extension'],
+    status: 'live',
+  },
+  {
     name: 'TheraGPT',
     url: 'https://theragpt.ai',
     github: 'https://github.com/seanoliver/theragpt-app',
