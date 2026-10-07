@@ -5,7 +5,7 @@
  */
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://seanoliver.dev'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.seanoliver.dev'
 
 /**
  * Public home of the Substack newsletter. The site is canonical; Substack is

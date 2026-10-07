@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const SITE_URL = 'https://seanoliver.dev'
+const SITE_URL = 'https://www.seanoliver.dev'
 
 const PUBLISHED_ENTRIES = [
   {
@@ -189,6 +189,15 @@ test('entry OG image URL carries a non-empty title parameter', async ({
   const title = new URL(content as string).searchParams.get('title')
   expect(title?.trim()).toBeTruthy()
   expect(title).toBe(PUBLISHED_ENTRIES[0].title)
+})
+
+test('/api/og renders a PNG, with and without a title', async ({ request }) => {
+  for (const path of ['/api/og', '/api/og?title=Smoke%20Test']) {
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(200)
+    expect(response.headers()['content-type'], path).toBe('image/png')
+    expect((await response.body()).byteLength, path).toBeGreaterThan(0)
+  }
 })
 
 test('sitemap lists canonical /writing paths and every URL resolves', async ({

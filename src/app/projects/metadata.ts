@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description:
       'Software engineering projects including AI-powered apps, web platforms, and developer tools built with React, Next.js, and TypeScript.',
     type: 'website',
-    url: 'https://seanoliver.dev/projects',
+    url: 'https://www.seanoliver.dev/projects',
   },
   twitter: {
     card: 'summary_large_image',

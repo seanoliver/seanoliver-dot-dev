@@ -1,27 +1,19 @@
 import { ImageResponse } from 'next/og'
 
-export const runtime = 'edge'
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const title = searchParams.get('title') || 'sean oliver [ dot ] dev'
 
-  const response = await fetch('http://localhost:3000/profile.jpeg')
-  const buffer = await response.arrayBuffer()
-  const base64 = Buffer.from(buffer).toString('base64')
-  const imageSrc = `data:image/jpeg;base64,${base64}`
+  const asset = (path: string) => new URL(path, request.url)
 
-  const font =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf'
-      : 'https://seanoliver.dev/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf'
-
-  const bgImage =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/patterns/shattered-island.gif'
-      : 'https://seanoliver.dev/patterns/shattered-island.gif'
-
-  const fontData = await fetch(font).then((res) => res.arrayBuffer())
+  const [avatarData, fontData] = await Promise.all([
+    fetch(asset('/profile.jpeg')).then((res) => res.arrayBuffer()),
+    fetch(asset('/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf')).then(
+      (res) => res.arrayBuffer()
+    ),
+  ])
+  const imageSrc = `data:image/jpeg;base64,${Buffer.from(avatarData).toString('base64')}`
+  const bgImage = asset('/patterns/shattered-island.png').toString()
 
   return new ImageResponse(
     (
@@ -32,7 +24,7 @@ export async function GET(request: Request) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          backgroundColor: '#f5f6f7',
+          backgroundColor: '#2a2b33',
           color: '#1A202C',
           width: '100%',
           height: '100%',
@@ -66,7 +58,9 @@ export async function GET(request: Request) {
             // boxShadow: '0 0 20px rgba(0,0,0,0.1)',
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> */}
           <img
+            alt=''
             src={imageSrc}
             style={{
               width: '40px',
