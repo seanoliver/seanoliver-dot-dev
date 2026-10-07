@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description:
       'Growth Engineer at Supabase with engineering experience at Gamma and product leadership at Microsoft, LinkedIn, Lyft, and Block.',
     type: 'profile',
-    url: 'https://seanoliver.dev/experience',
+    url: 'https://www.seanoliver.dev/experience',
   },
   twitter: {
     card: 'summary_large_image',

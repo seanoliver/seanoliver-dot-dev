@@ -130,7 +130,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'SeanOliver.dev',
-    url: 'https://seanoliver.dev',
+    url: 'https://www.seanoliver.dev',
     github: 'https://github.com/seanoliver/seanoliver-dot-dev',
     description: 'My personal website built with Next.js and Tailwind CSS.',
     summary: 'Personal portfolio and blog website',

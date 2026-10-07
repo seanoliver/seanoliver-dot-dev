@@ -26,7 +26,7 @@ const PUBLISHED_SLUGS = ['scroll-links', 'nextjs-contentlayer'] as const
 const DRAFT_SLUGS = ['ai-function-calling', 'leaving-contentlayer'] as const
 const DRAFT_SLUG = DRAFT_SLUGS[0]
 const NOTE_DRAFT_SLUG = DRAFT_SLUGS[1]
-const SITE_URL = 'https://seanoliver.dev'
+const SITE_URL = 'https://www.seanoliver.dev'
 
 afterEach(() => {
   vi.unstubAllEnvs()

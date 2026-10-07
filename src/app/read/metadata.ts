@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description:
       "Books I've been reading. Mostly tech, business, and science fiction.",
     type: 'website',
-    url: 'https://seanoliver.dev/read',
+    url: 'https://www.seanoliver.dev/read',
   },
   twitter: {
     card: 'summary_large_image',

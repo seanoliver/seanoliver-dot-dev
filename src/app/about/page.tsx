@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     description:
       'Growth Engineer at Supabase blending technical expertise with user insights. Former product leader at Microsoft, LinkedIn, Lyft, and Block.',
     type: 'profile',
-    url: 'https://seanoliver.dev/about',
+    url: 'https://www.seanoliver.dev/about',
     images: [
       {
-        url: 'https://seanoliver.dev/profile.jpeg',
+        url: 'https://www.seanoliver.dev/profile.jpeg',
       },
     ],
   },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: 'About Sean Oliver',
     description:
       'Growth Engineer at Supabase blending technical expertise with user insights.',
-    images: ['https://seanoliver.dev/profile.jpeg'],
+    images: ['https://www.seanoliver.dev/profile.jpeg'],
   },
 }
 

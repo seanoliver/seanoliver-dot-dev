@@ -16,13 +16,13 @@ export interface PersonSchema {
 export const SITE_OWNER: PersonSchema = {
   name: 'Sean Oliver',
   jobTitle: 'Growth Engineer',
-  url: 'https://seanoliver.dev',
+  url: 'https://www.seanoliver.dev',
   sameAs: [
     'https://x.com/SeanOliver',
     'https://github.com/SeanOliver',
     'https://www.linkedin.com/in/theseanoliver/',
   ],
-  image: 'https://seanoliver.dev/profile.jpeg',
+  image: 'https://www.seanoliver.dev/profile.jpeg',
   description:
     'Growth Engineer at Supabase blending technical expertise with user insights.',
 }

@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     title: 'About',
     description: 'About Sean Oliver',
     type: 'article',
-    url: 'https://seanoliver.dev/about',
+    url: 'https://www.seanoliver.dev/about',
     images: [
       {
-        url: 'https://seanoliver.dev/images/about.png',
+        url: 'https://www.seanoliver.dev/images/about.png',
       },
     ],
   },
@@ -50,6 +50,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'About',
     description: 'About Sean Oliver',
-    images: ['https://seanoliver.dev/images/about.png'],
+    images: ['https://www.seanoliver.dev/images/about.png'],
   },
 }
