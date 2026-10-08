@@ -4,6 +4,7 @@ import {
   TwitterLogoIcon,
   InstagramLogoIcon,
 } from '@radix-ui/react-icons'
+import { SITE_URL } from '@/lib/site'
 import { Project, Experience } from '@/lib/types'
 
 export const NAV_ITEMS = [
@@ -130,7 +131,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'SeanOliver.dev',
-    url: 'https://www.seanoliver.dev',
+    url: SITE_URL,
     github: 'https://github.com/seanoliver/seanoliver-dot-dev',
     description: 'My personal website built with Next.js and Tailwind CSS.',
     summary: 'Personal portfolio and blog website',

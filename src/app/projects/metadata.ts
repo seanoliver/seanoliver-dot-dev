@@ -1,31 +1,31 @@
 import { Metadata } from 'next'
 
-import { ogImageUrl } from '@/lib/site'
+import { ogImageUrl, SITE_URL } from '@/lib/site'
 
 const OG_IMAGE = ogImageUrl({
   title: 'Projects',
   description:
-    'Software engineering projects including AI-powered apps, web platforms, and developer tools built with React, Next.js, and TypeScript.',
+    'Side projects including a Sudoku app that teaches every technique, a world clock for Chrome, and an AI journal.',
   path: '/projects',
 })
 
 export const metadata: Metadata = {
   title: 'Projects by Sean Oliver',
   description:
-    'Software engineering projects by Sean Oliver including TheraGPT (AI-powered CBT journal), Audioflare (AI audio playground), and Smol Menubar (desktop AI assistant).',
+    "Side projects by Sean Oliver, including Sudoku (a calm Sudoku app that teaches every technique), Solstice (a world clock for Chrome's new tab), and TheraGPT (an AI-powered CBT journal).",
   openGraph: {
     title: 'Projects by Sean Oliver',
     description:
-      'Software engineering projects including AI-powered apps, web platforms, and developer tools built with React, Next.js, and TypeScript.',
+      'Side projects including a Sudoku app that teaches every technique, a world clock for Chrome, and an AI journal.',
     type: 'website',
-    url: 'https://www.seanoliver.dev/projects',
+    url: `${SITE_URL}/projects`,
     images: [{ url: OG_IMAGE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Projects by Sean Oliver',
     description:
-      'Software engineering projects including AI-powered apps and developer tools.',
+      'Side projects including a Sudoku app, a world clock for Chrome, and an AI journal.',
     images: [OG_IMAGE],
   },
 }

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { PersonJsonLd, SITE_OWNER } from '@/components/json-ld'
+import { SITE_URL } from '@/lib/site'
 import AboutContent from '@/components/about-content'
 
 import type { JSX } from 'react'
@@ -13,10 +14,10 @@ export const metadata: Metadata = {
     description:
       'Growth Engineer at Supabase blending technical expertise with user insights. Former product leader at Microsoft, LinkedIn, Lyft, and Block.',
     type: 'profile',
-    url: 'https://www.seanoliver.dev/about',
+    url: `${SITE_URL}/about`,
     images: [
       {
-        url: 'https://www.seanoliver.dev/profile.jpeg',
+        url: `${SITE_URL}/profile.jpeg`,
       },
     ],
   },
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     title: 'About Sean Oliver',
     description:
       'Growth Engineer at Supabase blending technical expertise with user insights.',
-    images: ['https://www.seanoliver.dev/profile.jpeg'],
+    images: [`${SITE_URL}/profile.jpeg`],
   },
 }
 
