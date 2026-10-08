@@ -40,7 +40,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   const { title, summary, publishedAt } = entry.metadata
   const canonicalUrl = getCanonicalUrl(entry.slug)
-  const imageUrl = ogImageUrl(title)
+  const imageUrl = ogImageUrl({ title, path: '/writing' })
 
   return {
     title,
@@ -111,7 +111,7 @@ export default async function WritingEntryPage(props: PageProps) {
               name: SITE_AUTHOR.name,
               url: SITE_URL,
             },
-            image: ogImageUrl(title),
+            image: ogImageUrl({ title, path: '/writing' }),
             description: summary,
             url: canonicalUrl,
           }}

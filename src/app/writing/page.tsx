@@ -7,6 +7,13 @@ import { ogImageUrl, RSS_ALTERNATE, SITE_URL } from '@/lib/site'
 
 import type { JSX } from 'react'
 
+const OG_IMAGE = ogImageUrl({
+  title: 'Writing',
+  description:
+    'Articles and notes about software engineering, React, TypeScript, and building products.',
+  path: '/writing',
+})
+
 export const metadata: Metadata = {
   title: 'Writing by Sean Oliver',
   description:
@@ -18,14 +25,14 @@ export const metadata: Metadata = {
       'Articles and notes about software engineering, React, TypeScript, and building products.',
     type: 'website',
     url: `${SITE_URL}/writing`,
-    images: [{ url: ogImageUrl('Writing') }],
+    images: [{ url: OG_IMAGE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Writing by Sean Oliver',
     description:
       'Articles and notes about software engineering and building products.',
-    images: [ogImageUrl('Writing')],
+    images: [OG_IMAGE],
   },
 }
 

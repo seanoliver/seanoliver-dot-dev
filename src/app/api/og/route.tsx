@@ -1,82 +1,95 @@
 import { ImageResponse } from 'next/og'
 
+const INK = '#0f172a'
+const MUTED = '#64748b'
+
+const ASSETS = [
+  '/profile.jpeg',
+  '/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf',
+  '/fonts/jetbrains-mono/JetBrainsMono-Medium.ttf',
+  '/fonts/jetbrains-mono/JetBrainsMono-SemiBold.ttf',
+]
+
+function titleSize(title: string): number {
+  if (title.length > 60) return 52
+  if (title.length > 28) return 60
+  return 84
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const title = searchParams.get('title') || 'sean oliver [ dot ] dev'
+  const title = searchParams.get('title') || 'Sean Oliver'
+  const description = searchParams.get('description')
+  const path = searchParams.get('path') ?? ''
 
-  const asset = (path: string) => new URL(path, request.url)
-
-  const [avatarData, fontData] = await Promise.all([
-    fetch(asset('/profile.jpeg')).then((res) => res.arrayBuffer()),
-    fetch(asset('/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf')).then(
-      (res) => res.arrayBuffer()
-    ),
-  ])
-  const imageSrc = `data:image/jpeg;base64,${Buffer.from(avatarData).toString('base64')}`
-  const bgImage = asset('/patterns/shattered-island.png').toString()
+  const [avatar, regular, medium, semibold] = await Promise.all(
+    ASSETS.map(async (path) => {
+      const res = await fetch(new URL(path, request.url))
+      if (!res.ok) throw new Error(`OG asset ${path} returned ${res.status}`)
+      return res.arrayBuffer()
+    })
+  )
+  const avatarSrc = `data:image/jpeg;base64,${Buffer.from(avatar).toString('base64')}`
 
   return new ImageResponse(
     (
       <div
         style={{
-          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          backgroundColor: '#2a2b33',
-          color: '#1A202C',
+          justifyContent: 'space-between',
           width: '100%',
           height: '100%',
-          paddingLeft: '50px',
-          backgroundImage: `url(${bgImage})`,
-          backgroundRepeat: 'repeat',
+          background: '#ffffff',
+          padding: '88px 96px 80px',
+          borderTop: `14px solid ${INK}`,
         }}
       >
-        <h1
-          style={{
-            fontSize: '48px',
-            fontWeight: '600',
-            // backgroundColor: '#334155',
-            color: '#F5F6F7',
-            // borderRadius: '30px',
-            // padding: '10px 20px',
-            // boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
-          }}
-        >
-          {title}
-        </h1>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginTop: '20px',
-            color: '#F5F6F7',
-            // backgroundColor: '#94A3B8',
-            // borderRadius: '15px',
-            // padding: '10px 20px',
-            // boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-          }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              fontSize: titleSize(title),
+              fontWeight: 600,
+              color: INK,
+              lineHeight: 1.12,
+              letterSpacing: -1.5,
+            }}
+          >
+            {title}
+          </div>
+          {description && (
+            <div
+              style={{
+                fontSize: 32,
+                color: MUTED,
+                marginTop: 28,
+                lineHeight: 1.4,
+                maxWidth: 900,
+              }}
+            >
+              {description}
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> */}
           <img
             alt=''
-            src={imageSrc}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              marginRight: '20px',
-            }}
+            src={avatarSrc}
+            width={64}
+            height={64}
+            style={{ borderRadius: 64 }}
           />
-          <span
-            style={{
-              fontSize: '1.2em',
-              fontWeight: '400',
-            }}
+          <div
+            style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}
           >
-            seanoliver.dev
-          </span>
+            <span style={{ fontSize: 26, fontWeight: 500, color: INK }}>
+              Sean Oliver
+            </span>
+            <span style={{ fontSize: 24, color: MUTED, marginTop: 4 }}>
+              {`seanoliver.dev${path}`}
+            </span>
+          </div>
         </div>
       </div>
     ),
@@ -84,9 +97,12 @@ export async function GET(request: Request) {
       width: 1200,
       height: 630,
       fonts: [
+        { name: 'JetBrains Mono', data: regular, weight: 400, style: 'normal' },
+        { name: 'JetBrains Mono', data: medium, weight: 500, style: 'normal' },
         {
           name: 'JetBrains Mono',
-          data: fontData,
+          data: semibold,
+          weight: 600,
           style: 'normal',
         },
       ],

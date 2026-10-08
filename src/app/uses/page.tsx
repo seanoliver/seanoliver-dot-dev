@@ -5,6 +5,12 @@ import { ogImageUrl, SITE_URL } from '@/lib/site'
 
 import type { JSX } from 'react'
 
+const OG_IMAGE = ogImageUrl({
+  title: 'Uses',
+  description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
+  path: '/uses',
+})
+
 export const metadata: Metadata = {
   title: 'Uses - Sean Oliver',
   description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
@@ -13,13 +19,13 @@ export const metadata: Metadata = {
     description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
     type: 'website',
     url: `${SITE_URL}/uses`,
-    images: [{ url: ogImageUrl('Uses') }],
+    images: [{ url: OG_IMAGE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Uses - Sean Oliver',
     description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
-    images: [ogImageUrl('Uses')],
+    images: [OG_IMAGE],
   },
 }
 
