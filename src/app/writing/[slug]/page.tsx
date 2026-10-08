@@ -14,7 +14,7 @@ import ReadingProgress from '@/components/reading-progress'
 import { ReadingProgressFallback } from '@/components/reading-progress-fallback'
 import { getCanonicalUrl, getEntryBySlug, getEntryRouteParams } from '@/content'
 import { formatDate } from '@/lib/date-utils'
-import { RSS_ALTERNATE, SITE_AUTHOR, SITE_URL } from '@/lib/site'
+import { ogImageUrl, RSS_ALTERNATE, SITE_AUTHOR, SITE_URL } from '@/lib/site'
 
 /**
  * Canonical route for the owned content pipeline: metadata, JSON-LD, and the
@@ -32,10 +32,6 @@ export async function generateStaticParams() {
 }
 
 type PageProps = { params: Promise<{ slug: string }> }
-
-function ogImageUrl(title: string): string {
-  return `${SITE_URL}/api/og?title=${encodeURIComponent(title)}`
-}
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params

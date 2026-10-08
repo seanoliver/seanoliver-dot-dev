@@ -1,8 +1,27 @@
-'use client'
+import { Metadata } from 'next'
 
 import Section from '@/components/Section'
+import { ogImageUrl, SITE_URL } from '@/lib/site'
 
 import type { JSX } from 'react'
+
+export const metadata: Metadata = {
+  title: 'Uses - Sean Oliver',
+  description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
+  openGraph: {
+    title: 'Uses - Sean Oliver',
+    description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
+    type: 'website',
+    url: `${SITE_URL}/uses`,
+    images: [{ url: ogImageUrl('Uses') }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Uses - Sean Oliver',
+    description: 'The apps, gear, AI tools, and dev tools Sean Oliver uses.',
+    images: [ogImageUrl('Uses')],
+  },
+}
 
 const myApps = [
   'VSCode',

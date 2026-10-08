@@ -10,7 +10,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Inter } from 'next/font/google'
 import JumpToTop from '@/components/jump-to-top'
 import localFont from 'next/font/local'
-import { RSS_ALTERNATE, SITE_URL } from '@/lib/site'
+import { ogImageUrl, RSS_ALTERNATE, SITE_URL } from '@/lib/site'
 
 const jetBrainsMono = localFont({
   src: [
@@ -68,11 +68,25 @@ const inter = Inter({
   display: 'swap',
 })
 
+const SITE_DESCRIPTION =
+  'Growth Engineer at Supabase. After hours I build small apps.'
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'Sean Oliver',
+  description: SITE_DESCRIPTION,
   openGraph: {
     title: 'Sean Oliver',
+    description: SITE_DESCRIPTION,
+    type: 'website',
+    url: SITE_URL,
+    images: [{ url: ogImageUrl() }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sean Oliver',
+    description: SITE_DESCRIPTION,
+    images: [ogImageUrl()],
   },
   alternates: {
     types: RSS_ALTERNATE,

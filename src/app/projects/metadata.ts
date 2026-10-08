@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 
+import { ogImageUrl } from '@/lib/site'
+
 export const metadata: Metadata = {
   title: 'Projects by Sean Oliver',
   description:
@@ -10,11 +12,13 @@ export const metadata: Metadata = {
       'Software engineering projects including AI-powered apps, web platforms, and developer tools built with React, Next.js, and TypeScript.',
     type: 'website',
     url: 'https://www.seanoliver.dev/projects',
+    images: [{ url: ogImageUrl('Projects') }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Projects by Sean Oliver',
     description:
       'Software engineering projects including AI-powered apps and developer tools.',
+    images: [ogImageUrl('Projects')],
   },
 }
