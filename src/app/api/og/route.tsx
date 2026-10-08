@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 
 import { parseOgParams } from '@/lib/og'
@@ -5,12 +7,22 @@ import { parseOgParams } from '@/lib/og'
 const INK = '#0f172a'
 const MUTED = '#64748b'
 
-const ASSETS = [
-  '/profile.jpeg',
-  '/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf',
-  '/fonts/jetbrains-mono/JetBrainsMono-Medium.ttf',
-  '/fonts/jetbrains-mono/JetBrainsMono-SemiBold.ttf',
-]
+// Literal paths, so Next's file tracing bundles these files with the function.
+const assets = Promise.all([
+  readFile(join(process.cwd(), 'public/profile.jpeg'), 'base64'),
+  readFile(
+    join(process.cwd(), 'public/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf')
+  ),
+  readFile(
+    join(process.cwd(), 'public/fonts/jetbrains-mono/JetBrainsMono-Medium.ttf')
+  ),
+  readFile(
+    join(
+      process.cwd(),
+      'public/fonts/jetbrains-mono/JetBrainsMono-SemiBold.ttf'
+    )
+  ),
+])
 
 function titleSize(title: string): number {
   if (title.length > 60) return 52
@@ -22,14 +34,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const { title, description, path } = parseOgParams(searchParams)
 
-  const [avatar, regular, medium, semibold] = await Promise.all(
-    ASSETS.map(async (path) => {
-      const res = await fetch(new URL(path, request.url))
-      if (!res.ok) throw new Error(`OG asset ${path} returned ${res.status}`)
-      return res.arrayBuffer()
-    })
-  )
-  const avatarSrc = `data:image/jpeg;base64,${Buffer.from(avatar).toString('base64')}`
+  const [avatar, regular, medium, semibold] = await assets
+  const avatarSrc = `data:image/jpeg;base64,${avatar}`
 
   return new ImageResponse(
     (
@@ -53,6 +59,7 @@ export async function GET(request: Request) {
               color: INK,
               lineHeight: 1.12,
               letterSpacing: -1.5,
+              wordBreak: 'break-word',
             }}
           >
             {title}
@@ -65,6 +72,9 @@ export async function GET(request: Request) {
                 marginTop: 28,
                 lineHeight: 1.4,
                 maxWidth: 900,
+                wordBreak: 'break-word',
+                display: 'block',
+                lineClamp: title.length > 28 ? 2 : 4,
               }}
             >
               {description}

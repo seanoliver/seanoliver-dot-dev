@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { OG_DESCRIPTION_MAX, OG_TITLE_MAX, parseOgParams } from './og'
+import {
+  OG_DESCRIPTION_MAX,
+  OG_PATH_MAX,
+  OG_TITLE_MAX,
+  parseOgParams,
+} from './og'
 
 const parse = (query: string) => parseOgParams(new URLSearchParams(query))
 
@@ -40,6 +45,22 @@ describe('parseOgParams', () => {
     expect(title).toHaveLength(OG_TITLE_MAX)
     expect(title.endsWith('…')).toBe(true)
     expect(description).toHaveLength(OG_DESCRIPTION_MAX)
+  })
+
+  it('drops a site path longer than the cap', () => {
+    const long = '/x'.repeat(OG_PATH_MAX)
+    expect(parse(`path=${long}`).path).toBe('')
+    expect(parse(`path=/${'a'.repeat(OG_PATH_MAX - 1)}`).path).toHaveLength(
+      OG_PATH_MAX
+    )
+  })
+
+  it('never splits an emoji when shortening', () => {
+    const title = `${'a'.repeat(OG_TITLE_MAX - 2)}😀😀😀`
+    const result = parse(`title=${encodeURIComponent(title)}`).title
+    expect(Array.from(result)).toHaveLength(OG_TITLE_MAX)
+    expect(result).toBe(`${'a'.repeat(OG_TITLE_MAX - 2)}😀…`)
+    expect(result.isWellFormed()).toBe(true)
   })
 
   it('treats a blank title as missing', () => {
