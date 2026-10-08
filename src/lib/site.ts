@@ -7,10 +7,18 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.seanoliver.dev'
 
-/** Absolute URL of the generated OG card. With no title, the card shows the site name. */
-export function ogImageUrl(title?: string): string {
-  const url = `${SITE_URL}/api/og`
-  return title ? `${url}?title=${encodeURIComponent(title)}` : url
+/** `path` is a site path such as `/writing`, not a full URL. */
+export function ogImageUrl({
+  title,
+  description,
+  path,
+}: { title?: string; description?: string; path?: string } = {}): string {
+  const params = new URLSearchParams()
+  if (title) params.set('title', title)
+  if (description) params.set('description', description)
+  if (path) params.set('path', path)
+  const query = params.toString()
+  return `${SITE_URL}/api/og${query ? `?${query}` : ''}`
 }
 
 /**

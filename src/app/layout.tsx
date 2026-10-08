@@ -80,13 +80,13 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     type: 'website',
     url: SITE_URL,
-    images: [{ url: ogImageUrl() }],
+    images: [{ url: ogImageUrl({ description: SITE_DESCRIPTION }) }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sean Oliver',
     description: SITE_DESCRIPTION,
-    images: [ogImageUrl()],
+    images: [ogImageUrl({ description: SITE_DESCRIPTION })],
   },
   alternates: {
     types: RSS_ALTERNATE,
