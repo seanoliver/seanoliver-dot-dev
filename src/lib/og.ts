@@ -15,7 +15,6 @@ function truncate(text: string, max: number): string {
   return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text
 }
 
-/** Reads the OG route's query parameters, dropping or shortening unsafe input. */
 export function parseOgParams(searchParams: URLSearchParams): OgCardParams {
   const title = searchParams.get('title')?.trim()
   const description = searchParams.get('description')?.trim()
