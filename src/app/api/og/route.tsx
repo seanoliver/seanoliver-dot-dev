@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og'
 
+import { parseOgParams } from '@/lib/og'
+
 const INK = '#0f172a'
 const MUTED = '#64748b'
 
@@ -18,9 +20,7 @@ function titleSize(title: string): number {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const title = searchParams.get('title') || 'Sean Oliver'
-  const description = searchParams.get('description')
-  const path = searchParams.get('path') ?? ''
+  const { title, description, path } = parseOgParams(searchParams)
 
   const [avatar, regular, medium, semibold] = await Promise.all(
     ASSETS.map(async (path) => {
