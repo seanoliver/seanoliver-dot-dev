@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { ogImageUrl } from '@/lib/site'
+import { ogImageUrl, SITE_URL } from '@/lib/site'
 
 const OG_IMAGE = ogImageUrl({
   title: 'Reading List',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description:
       "Books I've been reading. Mostly tech, business, and science fiction.",
     type: 'website',
-    url: 'https://www.seanoliver.dev/read',
+    url: `${SITE_URL}/read`,
     images: [{ url: OG_IMAGE }],
   },
   twitter: {

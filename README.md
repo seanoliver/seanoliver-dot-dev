@@ -2,7 +2,7 @@
 
 My personal site — portfolio, and a writing section (articles + notes) built on
 an owned MDX content pipeline. Live at
-[seanoliver.dev](https://seanoliver.dev/).
+[seanoliver.dev](https://www.seanoliver.dev/).
 
 **Stack:** Next.js 16 (App Router, Turbopack for dev and build), React 19,
 TypeScript 5.9, Tailwind CSS + shadcn/ui, MDX via `@next/mdx` with a Zod

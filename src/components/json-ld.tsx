@@ -3,6 +3,8 @@
  * Provides rich semantic information for search engines
  */
 
+import { SITE_URL } from '@/lib/site'
+
 export interface PersonSchema {
   name: string
   jobTitle: string
@@ -16,13 +18,13 @@ export interface PersonSchema {
 export const SITE_OWNER: PersonSchema = {
   name: 'Sean Oliver',
   jobTitle: 'Growth Engineer',
-  url: 'https://www.seanoliver.dev',
+  url: SITE_URL,
   sameAs: [
     'https://x.com/SeanOliver',
     'https://github.com/SeanOliver',
     'https://www.linkedin.com/in/theseanoliver/',
   ],
-  image: 'https://www.seanoliver.dev/profile.jpeg',
+  image: `${SITE_URL}/profile.jpeg`,
   description:
     'Growth Engineer at Supabase blending technical expertise with user insights.',
 }

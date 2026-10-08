@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { ogImageUrl } from '@/lib/site'
+import { ogImageUrl, SITE_URL } from '@/lib/site'
 
 const OG_IMAGE = ogImageUrl({
   title: 'Experience',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description:
       'Growth Engineer at Supabase with engineering experience at Gamma and product leadership at Microsoft, LinkedIn, Lyft, and Block.',
     type: 'profile',
-    url: 'https://www.seanoliver.dev/experience',
+    url: `${SITE_URL}/experience`,
     images: [{ url: OG_IMAGE }],
   },
   twitter: {
