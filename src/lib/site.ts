@@ -7,10 +7,7 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.seanoliver.dev'
 
-/**
- * Absolute URL of the generated OG card. `path` is the site path shown in the
- * card's footer. With no title, the card shows the site name.
- */
+/** `path` is a site path such as `/writing`, not a full URL. */
 export function ogImageUrl({
   title,
   description,
