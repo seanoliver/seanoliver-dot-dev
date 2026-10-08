@@ -2,6 +2,9 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: 'tests/e2e',
+  // OG cards render with embedded fonts, so one baseline works on macOS and
+  // the Linux CI runner. Leave the platform out of the snapshot path.
+  snapshotPathTemplate: '{testDir}/__snapshots__/{testFileName}/{arg}{ext}',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
