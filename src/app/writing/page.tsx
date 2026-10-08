@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { NewsletterSignup } from '@/components/newsletter-signup'
 import WritingIndex from '@/components/writing-index'
 import { getVisibleEntries } from '@/content'
-import { RSS_ALTERNATE, SITE_URL } from '@/lib/site'
+import { ogImageUrl, RSS_ALTERNATE, SITE_URL } from '@/lib/site'
 
 import type { JSX } from 'react'
 
@@ -18,12 +18,14 @@ export const metadata: Metadata = {
       'Articles and notes about software engineering, React, TypeScript, and building products.',
     type: 'website',
     url: `${SITE_URL}/writing`,
+    images: [{ url: ogImageUrl('Writing') }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Writing by Sean Oliver',
     description:
       'Articles and notes about software engineering and building products.',
+    images: [ogImageUrl('Writing')],
   },
 }
 

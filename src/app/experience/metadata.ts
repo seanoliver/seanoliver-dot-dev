@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 
+import { ogImageUrl } from '@/lib/site'
+
 export const metadata: Metadata = {
   title: 'Experience - Sean Oliver',
   description:
@@ -10,11 +12,13 @@ export const metadata: Metadata = {
       'Growth Engineer at Supabase with engineering experience at Gamma and product leadership at Microsoft, LinkedIn, Lyft, and Block.',
     type: 'profile',
     url: 'https://www.seanoliver.dev/experience',
+    images: [{ url: ogImageUrl('Experience') }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Experience - Sean Oliver',
     description:
       'Growth Engineer at Supabase with product and engineering experience at top tech companies.',
+    images: [ogImageUrl('Experience')],
   },
 }

@@ -7,6 +7,12 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.seanoliver.dev'
 
+/** Absolute URL of the generated OG card. With no title, the card shows the site name. */
+export function ogImageUrl(title?: string): string {
+  const url = `${SITE_URL}/api/og`
+  return title ? `${url}?title=${encodeURIComponent(title)}` : url
+}
+
 /**
  * Public home of the Substack newsletter. The site is canonical; Substack is
  * a manual distribution channel for selected pieces — this URL (and per-entry
