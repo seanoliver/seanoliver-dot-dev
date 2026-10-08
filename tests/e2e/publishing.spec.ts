@@ -200,6 +200,29 @@ test('/api/og renders a PNG, with and without a title', async ({ request }) => {
   }
 })
 
+// Pixel comparison against committed baselines. A card that renders but is
+// unreadable (e.g. light text on a light background) fails here. To accept an
+// intentional redesign, run `pnpm test:e2e --update-snapshots`.
+const OG_BASELINES = {
+  'og-home.png':
+    '/api/og?description=Growth%20Engineer%20at%20Supabase.%20After%20hours%20I%20build%20small%20apps.',
+  'og-page.png':
+    '/api/og?title=Writing&description=Articles%20and%20notes%20about%20software%20engineering.&path=%2Fwriting',
+  'og-post.png':
+    '/api/og?title=Scrolling%20Anchor%20Links%20in%20React&path=%2Fwriting',
+}
+
+for (const [name, path] of Object.entries(OG_BASELINES)) {
+  test(`${name} matches its baseline`, async ({ request }) => {
+    const response = await request.get(path)
+    expect(response.status()).toBe(200)
+    const png = await response.body()
+    expect(png.readUInt32BE(16), 'width').toBe(1200)
+    expect(png.readUInt32BE(20), 'height').toBe(630)
+    expect(png).toMatchSnapshot(name, { maxDiffPixelRatio: 0.01 })
+  })
+}
+
 test('sitemap lists canonical /writing paths and every URL resolves', async ({
   request,
 }) => {
