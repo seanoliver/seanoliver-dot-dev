@@ -68,7 +68,10 @@ export function repoFromGitHubUrl(url: string): string | null {
  * unauthenticated GitHub API usage far under its 60 requests/hour limit.
  * Returns [] on any failure so the caller can hide the changelog.
  */
-export async function getChangelog(repo: string): Promise<ChangelogEntry[]> {
+export async function getChangelog(
+  repo: string,
+  { limit }: { limit?: number } = {}
+): Promise<ChangelogEntry[]> {
   try {
     const response = await fetch(
       `https://api.github.com/repos/${repo}/commits?per_page=50`,
@@ -78,7 +81,7 @@ export async function getChangelog(repo: string): Promise<ChangelogEntry[]> {
       }
     )
     if (!response.ok) return []
-    return parseFeatCommits(await response.json(), { repo })
+    return parseFeatCommits(await response.json(), { repo, limit })
   } catch {
     return []
   }
