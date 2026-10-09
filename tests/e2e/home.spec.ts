@@ -1,14 +1,30 @@
 import { test, expect } from '@playwright/test'
 
-test('homepage leads with the featured Sudoku card', async ({ page }) => {
+test('homepage lists every featured project under Now building', async ({
+  page,
+}) => {
   await page.goto('/')
 
-  const card = page.locator('article').filter({ hasText: 'Sudoku' })
+  const card = page.locator('article').filter({ hasText: 'Bay Ballot' })
   await expect(card).toBeVisible()
-  await expect(card.getByRole('link', { name: 'Play Sudoku' })).toHaveAttribute(
-    'href',
-    'https://sudoku.seanoliver.dev'
-  )
+  for (const [name, href] of [
+    ['Bay Ballot', 'https://bayballot.com'],
+    ['Sudoku', 'https://sudoku.seanoliver.dev'],
+    ['Solstice', /chromewebstore\.google\.com/],
+  ] as const) {
+    await expect(
+      card.getByRole('link', { name: `Open ${name}` })
+    ).toHaveAttribute('href', href)
+  }
+  for (const [name, repo] of [
+    ['Bay Ballot', 'bay-ballot'],
+    ['Sudoku', 'sudoku'],
+    ['Solstice', 'solstice'],
+  ] as const) {
+    await expect(
+      card.getByRole('link', { name: `View ${name} on GitHub` })
+    ).toHaveAttribute('href', `https://github.com/seanoliver/${repo}`)
+  }
 })
 
 test('footer links to the writing index', async ({ page }) => {
