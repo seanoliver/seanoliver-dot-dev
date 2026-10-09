@@ -98,7 +98,7 @@ export default async function FeaturedProjects({
                       target='_blank'
                       rel='noopener noreferrer'
                       title={entry.text}
-                      className='truncate hover:underline underline-offset-4'
+                      className='truncate hover:underline underline-offset-4 sm:whitespace-normal'
                     >
                       {entry.text}
                     </a>
