@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { getChangelog, parseFeatCommits, repoFromGitHubUrl } from './changelog'
+import {
+  getChangelog,
+  mergeChangelogs,
+  parseFeatCommits,
+  repoFromGitHubUrl,
+} from './changelog'
 
 const REPO = 'seanoliver/sudoku'
 
@@ -139,5 +144,58 @@ describe('getChangelog', () => {
   it('returns [] when fetch throws', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')))
     expect(await getChangelog(REPO)).toEqual([])
+  })
+})
+
+describe('mergeChangelogs', () => {
+  const entry = (date: string, text: string) => ({
+    date,
+    text,
+    url: `https://github.com/${REPO}/pull/${text}`,
+  })
+
+  it('tags each entry with its project and sorts newest first', () => {
+    expect(
+      mergeChangelogs(
+        [
+          { project: 'Sudoku', entries: [entry('2026-10-01T00:00:00Z', 'a')] },
+          {
+            project: 'Solstice',
+            entries: [entry('2026-10-03T00:00:00Z', 'b')],
+          },
+        ],
+        5
+      ).map((e) => [e.project, e.text])
+    ).toEqual([
+      ['Solstice', 'b'],
+      ['Sudoku', 'a'],
+    ])
+  })
+
+  it('keeps at most `limit` entries across all projects', () => {
+    const merged = mergeChangelogs(
+      [
+        {
+          project: 'Sudoku',
+          entries: [
+            entry('2026-10-05T00:00:00Z', 'a'),
+            entry('2026-10-01T00:00:00Z', 'b'),
+          ],
+        },
+        {
+          project: 'Bay Ballot',
+          entries: [
+            entry('2026-10-04T00:00:00Z', 'c'),
+            entry('2026-10-02T00:00:00Z', 'd'),
+          ],
+        },
+      ],
+      3
+    )
+    expect(merged.map((e) => e.text)).toEqual(['a', 'c', 'd'])
+  })
+
+  it('returns [] when no project has entries', () => {
+    expect(mergeChangelogs([{ project: 'Sudoku', entries: [] }], 5)).toEqual([])
   })
 })

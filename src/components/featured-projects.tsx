@@ -2,7 +2,11 @@ import Link from 'next/link'
 import ProjectThumbnail from '@/components/project-thumbnails'
 import Section from '@/components/Section'
 import { StatusLabel } from '@/components/status-label'
-import { getChangelog, repoFromGitHubUrl } from '@/lib/changelog'
+import {
+  getChangelog,
+  mergeChangelogs,
+  repoFromGitHubUrl,
+} from '@/lib/changelog'
 import { formatDateSpaced } from '@/lib/date-utils'
 import type { Project } from '@/lib/types'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
@@ -12,17 +16,16 @@ import type { JSX } from 'react'
 const CHANGELOG_LIMIT = 5
 
 async function getMergedChangelog(projects: Project[]) {
-  const perProject = await Promise.all(
+  const groups = await Promise.all(
     projects.map(async (project) => {
       const repo = repoFromGitHubUrl(project.github)
-      const entries = repo ? await getChangelog(repo) : []
-      return entries.map((entry) => ({ ...entry, project: project.name }))
+      return {
+        project: project.name,
+        entries: repo ? await getChangelog(repo) : [],
+      }
     })
   )
-  return perProject
-    .flat()
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, CHANGELOG_LIMIT)
+  return mergeChangelogs(groups, CHANGELOG_LIMIT)
 }
 
 export default async function FeaturedProjects({
@@ -95,7 +98,7 @@ export default async function FeaturedProjects({
                       target='_blank'
                       rel='noopener noreferrer'
                       title={entry.text}
-                      className='truncate hover:underline underline-offset-4'
+                      className='truncate hover:underline underline-offset-4 sm:whitespace-normal'
                     >
                       {entry.text}
                     </a>

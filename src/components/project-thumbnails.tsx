@@ -76,9 +76,11 @@ function SolsticeThumbnail(): JSX.Element {
 }
 
 const THUMBNAILS: Record<string, () => JSX.Element> = {
-  'Bay Ballot': BallotThumbnail,
-  Sudoku: () => <SudokuBoard compact className='w-full' />,
-  Solstice: SolsticeThumbnail,
+  'https://github.com/seanoliver/bay-ballot': BallotThumbnail,
+  'https://github.com/seanoliver/sudoku': () => (
+    <SudokuBoard compact className='w-full' />
+  ),
+  'https://github.com/seanoliver/solstice': SolsticeThumbnail,
 }
 
 export default function ProjectThumbnail({
@@ -86,7 +88,7 @@ export default function ProjectThumbnail({
 }: {
   project: Project
 }): JSX.Element {
-  const Thumbnail = THUMBNAILS[project.name]
+  const Thumbnail = THUMBNAILS[project.github]
   if (Thumbnail) return <Thumbnail />
   return (
     <Image
