@@ -49,19 +49,23 @@ export default function Nav(): React.JSX.Element {
 function CommonElements({
   name,
   url,
+  className,
+  ...props
 }: {
   name: string
   url: string
-}): React.JSX.Element {
+} & Omit<React.ComponentProps<typeof Link>, 'href'>): React.JSX.Element {
   const pathname = usePathname()
   const isActive = pathname === url
 
   return (
     <Link
+      {...props}
       href={url}
       className={cn(
         'flex md:py-2 md:px-3 rounded-lg hover:bg-accent hover:text-accent-foreground cursor-pointer',
-        isActive && 'bg-accent text-accent-foreground'
+        isActive && 'bg-accent text-accent-foreground',
+        className
       )}
     >
       {name}
@@ -79,7 +83,7 @@ export function NavLink({
   dropdown?: boolean
 }): React.JSX.Element {
   return dropdown ? (
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <CommonElements name={name} url={url} />
     </DropdownMenuItem>
   ) : (

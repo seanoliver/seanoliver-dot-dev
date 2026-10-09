@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { NAV_ITEMS } from '@/lib/constants'
@@ -22,9 +21,12 @@ export function HamburgerMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         {NAV_ITEMS.map((item, idx) => (
-          <DropdownMenuItem key={`${item.name}-${idx}`}>
-            <NavLink name={item.name} url={item.pageLink} dropdown />
-          </DropdownMenuItem>
+          <NavLink
+            key={`${item.name}-${idx}`}
+            name={item.name}
+            url={item.pageLink}
+            dropdown
+          />
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
