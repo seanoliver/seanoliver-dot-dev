@@ -101,6 +101,14 @@ describe('buildRssFeed', () => {
     }
   })
 
+  it('omits the item description when an entry has no summary', () => {
+    const { summary: _summary, ...summaryless } = newerPublished
+    const feed = buildRssFeed([summaryless])
+
+    expect(feed).toContain('<title>Newer Post</title>')
+    expect(feed.split('<item>')[1]).not.toContain('<description>')
+  })
+
   it('drops entries whose publishedAt cannot be parsed', () => {
     const invalidDate: FeedEntry = {
       title: 'Broken Date Post',

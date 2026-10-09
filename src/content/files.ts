@@ -34,7 +34,7 @@ export type EntryRouteParams = { slug: string }
 /** Structurally compatible with `FeedEntry` in `src/lib/feed.ts`. */
 export type FeedEntryProjection = {
   title: string
-  summary: string
+  summary?: string
   publishedAt: string
   canonicalUrl: string
   isPublished: true
@@ -250,9 +250,7 @@ export function toFeedEntries(
 ): FeedEntryProjection[] {
   return selectPublished(entries).map((entry) => ({
     title: entry.metadata.title,
-    // Notes may omit their summary; the feed's public surface keeps
-    // `summary: string`, so fall back to an empty item description.
-    summary: entry.metadata.summary ?? '',
+    summary: entry.metadata.summary,
     publishedAt: entry.metadata.publishedAt,
     canonicalUrl: canonicalEntryUrl(siteUrl, entry.slug),
     isPublished: true,

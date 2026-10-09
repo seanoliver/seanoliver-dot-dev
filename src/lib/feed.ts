@@ -2,7 +2,7 @@ import { SITE_AUTHOR as AUTHOR, SITE_URL } from './site'
 
 export type FeedEntry = {
   title: string
-  summary: string
+  summary?: string
   publishedAt: string
   canonicalUrl: string
   isPublished: boolean
@@ -64,8 +64,11 @@ export function buildRssFeed(entries: FeedEntry[]): string {
     <item>
       <title>${escapeXml(entry.title)}</title>
       <link>${escapeXml(entry.canonicalUrl)}</link>
-      <guid isPermaLink="true">${escapeXml(entry.canonicalUrl)}</guid>
-      <description>${escapeXml(entry.summary)}</description>
+      <guid isPermaLink="true">${escapeXml(entry.canonicalUrl)}</guid>${
+        entry.summary === undefined
+          ? ''
+          : `\n      <description>${escapeXml(entry.summary)}</description>`
+      }
       <pubDate>${new Date(entry.publishedAt).toUTCString()}</pubDate>
       <author>${AUTHOR.email} (${AUTHOR.name})</author>
     </item>`
