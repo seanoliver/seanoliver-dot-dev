@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import SudokuBoard from '@/components/sudoku-board'
+import { repoFromGitHubUrl } from '@/lib/changelog'
 import type { Project } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -76,9 +77,9 @@ function SolsticeThumbnail(): JSX.Element {
 }
 
 const THUMBNAILS: Record<string, () => JSX.Element> = {
-  'Bay Ballot': BallotThumbnail,
-  Sudoku: () => <SudokuBoard compact className='w-full' />,
-  Solstice: SolsticeThumbnail,
+  'seanoliver/bay-ballot': BallotThumbnail,
+  'seanoliver/sudoku': () => <SudokuBoard compact className='w-full' />,
+  'seanoliver/solstice': SolsticeThumbnail,
 }
 
 export default function ProjectThumbnail({
@@ -86,7 +87,7 @@ export default function ProjectThumbnail({
 }: {
   project: Project
 }): JSX.Element {
-  const Thumbnail = THUMBNAILS[project.name]
+  const Thumbnail = THUMBNAILS[repoFromGitHubUrl(project.github) ?? '']
   if (Thumbnail) return <Thumbnail />
   return (
     <Image

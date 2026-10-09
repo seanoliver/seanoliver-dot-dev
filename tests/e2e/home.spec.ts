@@ -7,6 +7,8 @@ test('homepage lists every featured project under Now building', async ({
 
   const card = page.locator('article').filter({ hasText: 'Bay Ballot' })
   await expect(card).toBeVisible()
+  // Every featured project has a drawn thumbnail, so none falls back to <img>.
+  await expect(card.locator('img')).toHaveCount(0)
   for (const [name, href] of [
     ['Bay Ballot', 'https://bayballot.com'],
     ['Sudoku', 'https://sudoku.seanoliver.dev'],
