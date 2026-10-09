@@ -9,8 +9,11 @@ const SELECTED = 40
 
 export default function SudokuBoard({
   className,
+  compact = false,
 }: {
   className?: string
+  /** Thumbnail size: hides the digits, which are unreadable that small. */
+  compact?: boolean
 }): JSX.Element {
   const selectedRow = Math.floor(SELECTED / 9)
   const selectedCol = SELECTED % 9
@@ -19,7 +22,8 @@ export default function SudokuBoard({
     <div
       aria-hidden
       className={cn(
-        'grid grid-cols-9 aspect-square overflow-hidden rounded-md border-2 border-foreground bg-background font-sans',
+        'grid grid-cols-9 aspect-square overflow-hidden border-foreground bg-background font-sans',
+        compact ? 'rounded-sm border-[1.5px]' : 'rounded-md border-2',
         className
       )}
     >
@@ -30,17 +34,21 @@ export default function SudokuBoard({
           <span
             key={i}
             className={cn(
-              'flex items-center justify-center text-[11px] border-border',
+              'flex items-center justify-center text-[11px] border-border dark:border-foreground/25',
               col < 8 &&
-                (col % 3 === 2 ? 'border-r-2 border-r-foreground' : 'border-r'),
+                (col % 3 === 2
+                  ? 'border-r-2 border-r-foreground dark:border-r-foreground'
+                  : 'border-r'),
               row < 8 &&
-                (row % 3 === 2 ? 'border-b-2 border-b-foreground' : 'border-b'),
+                (row % 3 === 2
+                  ? 'border-b-2 border-b-foreground dark:border-b-foreground'
+                  : 'border-b'),
               i === SELECTED
                 ? 'bg-blue-100 dark:bg-blue-950'
                 : (row === selectedRow || col === selectedCol) && 'bg-muted'
             )}
           >
-            {cell === '.' ? '' : cell}
+            {compact || cell === '.' ? '' : cell}
           </span>
         )
       })}

@@ -47,6 +47,18 @@ export const SOCIAL_LINKS = [
 
 export const PROJECTS: Project[] = [
   {
+    name: 'Bay Ballot',
+    url: 'https://bayballot.com',
+    github: 'https://github.com/seanoliver/bay-ballot',
+    description:
+      'Every Bay Area voter guide in one place. Newspapers, parties, clubs, unions, and advocacy groups, with their endorsements side by side for every contest on the ballot.',
+    summary: 'Every Bay Area voter guide side by side',
+    image: '/projects/bayballot.png',
+    tags: ['Next.js', 'React', 'TypeScript'],
+    status: 'live',
+    featured: true,
+  },
+  {
     name: 'Sudoku',
     url: 'https://sudoku.seanoliver.dev',
     github: 'https://github.com/seanoliver/sudoku',
@@ -68,6 +80,7 @@ export const PROJECTS: Project[] = [
     image: '/projects/solstice.png',
     tags: ['JavaScript', 'Chrome Extension'],
     status: 'live',
+    featured: true,
   },
   {
     name: 'TheraGPT',

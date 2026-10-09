@@ -1,6 +1,6 @@
 import CurrentlyReading from '@/components/currently-reading'
 import ExperienceContent from '@/components/experience-content'
-import FeaturedProject from '@/components/featured-project'
+import FeaturedProjects from '@/components/featured-projects'
 import Goodreads from '@/components/goodreads'
 import { PersonJsonLd, SITE_OWNER } from '@/components/json-ld'
 import ProjectsContent from '@/components/projects-content'
@@ -10,7 +10,7 @@ import { PROJECTS } from '@/lib/constants'
 import type { JSX } from 'react'
 
 export default function Home(): JSX.Element {
-  const featured = PROJECTS.find((project) => project.featured)
+  const featured = PROJECTS.filter((project) => project.featured)
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Home(): JSX.Element {
           Growth Engineer at Supabase. After hours I build small apps.
         </p>
       </Section>
-      {featured && <FeaturedProject project={featured} />}
+      {featured.length > 0 && <FeaturedProjects projects={featured} />}
       <ProjectsContent limit={4} href='/projects' excludeFeatured />
       <ExperienceContent limit={3} href='/experience' />
       <CurrentlyReading />
