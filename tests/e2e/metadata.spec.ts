@@ -8,7 +8,6 @@ const ROUTES = [
   '/experience',
   '/about',
   '/read',
-  '/uses',
 ]
 
 const REQUIRED_TAGS = [
