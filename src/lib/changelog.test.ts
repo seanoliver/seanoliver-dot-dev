@@ -133,6 +133,15 @@ describe('getChangelog', () => {
     expect(entries.map((e) => e.text)).toEqual(['shipped'])
   })
 
+  it('passes limit through, so one repo can fill the merged list', async () => {
+    const commits = ['a', 'b', 'c', 'd', 'e'].map((t) => commit(`feat: ${t}`))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify(commits)))
+    )
+    expect(await getChangelog(REPO, { limit: 5 })).toHaveLength(5)
+  })
+
   it('returns [] on a non-OK response', async () => {
     vi.stubGlobal(
       'fetch',

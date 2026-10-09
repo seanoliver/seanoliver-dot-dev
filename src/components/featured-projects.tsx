@@ -21,7 +21,9 @@ async function getMergedChangelog(projects: Project[]) {
       const repo = repoFromGitHubUrl(project.github)
       return {
         project: project.name,
-        entries: repo ? await getChangelog(repo) : [],
+        entries: repo
+          ? await getChangelog(repo, { limit: CHANGELOG_LIMIT })
+          : [],
       }
     })
   )
