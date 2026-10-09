@@ -40,11 +40,6 @@ const sharedFields = {
   title: z.string().min(1),
   publishedAt: emptyKeyAsAbsent(isoDate),
   updatedAt: emptyKeyAsAbsent(isoDate),
-  // An empty `tags:` key (YAML null) also yields the default [].
-  tags: z.preprocess(
-    (value) => value ?? undefined,
-    z.array(z.string()).default([])
-  ),
   // Substack is an explicit distribution channel, never a source of truth.
   email: z.enum(['never', 'selected']).default('never'),
   substackUrl: emptyKeyAsAbsent(z.url()),
@@ -65,8 +60,7 @@ const noteSchema = z.strictObject({
   kind: z.literal('note'),
   // Notes are short-form; a mandatory summary would just duplicate the body
   // and add authoring friction, so it is optional (the schema decision the
-  // design doc reserved). Consumers fall back gracefully: metadata omits the
-  // description and the feed uses an empty one.
+  // design doc reserved).
   summary: emptyKeyAsAbsent(z.string().min(1)),
   ...sharedFields,
 })

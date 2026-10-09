@@ -32,7 +32,6 @@ const validArticle = {
   summary: 'Why this site now owns its content domain end to end.',
   publishedAt: '2026-03-10',
   updatedAt: '2026-04-01',
-  tags: ['engineering', 'meta'],
   email: 'selected',
   substackUrl: 'https://seanoliver.substack.com/p/owning-the-content-pipeline',
   emailedAt: '2026-03-11',
@@ -69,7 +68,6 @@ describe('schema: valid metadata', () => {
     expect(metadata.kind).toBe('note')
     expect(metadata.status).toBe('draft')
     expect(metadata.publishedAt).toBeUndefined()
-    expect(metadata.tags).toEqual([])
     expect(metadata.email).toBe('never')
   })
 
@@ -125,7 +123,6 @@ describe('schema: valid metadata', () => {
         ...validNote,
         publishedAt: null,
         updatedAt: null,
-        tags: null,
         substackUrl: null,
         emailedAt: null,
       },
@@ -136,7 +133,6 @@ describe('schema: valid metadata', () => {
     expect(metadata.updatedAt).toBeUndefined()
     expect(metadata.substackUrl).toBeUndefined()
     expect(metadata.emailedAt).toBeUndefined()
-    expect(metadata.tags).toEqual([])
   })
 })
 
@@ -450,10 +446,7 @@ describe('files: publication projections', () => {
     }
   })
 
-  it('projects an empty feed description for a published note without a summary', () => {
-    // Notes may omit `summary`; the RSS surface (`FeedEntry.summary: string`)
-    // stays unchanged and receives '' so the item renders an empty
-    // <description> instead of the string "undefined".
+  it('projects no feed summary for a published note without one', () => {
     const summarylessNote = {
       slug: 'tiny-note',
       sourcePath: 'content/writing/tiny-note.mdx',
@@ -471,7 +464,7 @@ describe('files: publication projections', () => {
     const feedEntries: FeedEntry[] = toFeedEntries([summarylessNote], SITE)
 
     expect(feedEntries).toHaveLength(1)
-    expect(feedEntries[0].summary).toBe('')
+    expect(feedEntries[0].summary).toBeUndefined()
   })
 
   it('excludes drafts from the sitemap projection and prefers updatedAt', async () => {

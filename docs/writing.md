@@ -34,9 +34,6 @@ title: My New Post
 summary:
   One or two sentences — feeds the meta description, Open Graph, and the RSS
   item description.
-tags:
-  - nextjs
-  - typescript
 ---
 
 Body starts here. GitHub-flavored Markdown plus MDX. Fenced code blocks are
@@ -64,9 +61,9 @@ Short body. No summary needed.
 ```
 
 `summary` is **optional** for notes (a mandatory one would just duplicate the
-body). When omitted, the page metadata has no description and the RSS item
-description is empty. Notes get a small "Note" marker on the `/writing` index
-and emit `SocialMediaPosting` JSON-LD instead of `BlogPosting`.
+body). When omitted, the page metadata has no description and the RSS item has
+no `<description>`. Notes get a small "Note" marker on the `/writing` index and
+emit `SocialMediaPosting` JSON-LD instead of `BlogPosting`.
 
 ## Metadata field reference
 
@@ -81,7 +78,6 @@ the typo `publishedat:`, fails validation instead of silently dropping data).
 | `summary`     | articles: yes; notes: no              | non-empty string             | Meta description, OG/Twitter description, RSS item description, JSON-LD description.                                                      |
 | `publishedAt` | when `status: published`              | `YYYY-MM-DD` (quoted or not) | Sort key for the index and feed; `datePublished` in JSON-LD; OG `publishedTime`.                                                          |
 | `updatedAt`   | no                                    | `YYYY-MM-DD`                 | `dateModified` in JSON-LD and sitemap `lastModified` (falls back to `publishedAt`). Bump it when meaningfully revising evergreen content. |
-| `tags`        | no (defaults to `[]`)                 | list of strings              | Stored on the entry; not currently rendered anywhere.                                                                                     |
 | `email`       | no (defaults to `never`)              | `never` \| `selected`        | Marks the entry as manually distributed via Substack. See the Substack section.                                                           |
 | `substackUrl` | no; only valid with `email: selected` | full URL                     | Link to the sent Substack edition; renders the "Also sent as an email edition" footer link.                                               |
 | `emailedAt`   | no; only valid with `email: selected` | `YYYY-MM-DD`                 | When the email edition was sent. Record-keeping only.                                                                                     |

@@ -26,7 +26,6 @@ function makeEntry(
     slug: 'example-entry',
     sourcePath: 'content/writing/example-entry.mdx',
     metadata: {
-      tags: [],
       email: 'never',
       ...metadata,
     } as ContentEntry['metadata'],
