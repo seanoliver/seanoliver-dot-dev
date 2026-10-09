@@ -83,3 +83,15 @@ export async function getChangelog(repo: string): Promise<ChangelogEntry[]> {
     return []
   }
 }
+
+export function mergeChangelogs(
+  groups: { project: string; entries: ChangelogEntry[] }[],
+  limit: number
+): (ChangelogEntry & { project: string })[] {
+  return groups
+    .flatMap(({ project, entries }) =>
+      entries.map((entry) => ({ ...entry, project }))
+    )
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, limit)
+}
