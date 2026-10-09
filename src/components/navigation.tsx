@@ -83,7 +83,7 @@ export function NavLink({
   dropdown?: boolean
 }): React.JSX.Element {
   return dropdown ? (
-    <DropdownMenuItem asChild>
+    <DropdownMenuItem asChild className='cursor-pointer'>
       <CommonElements name={name} url={url} />
     </DropdownMenuItem>
   ) : (
