@@ -35,6 +35,7 @@ const STATIC_ROUTE_PATHS = new Set([
   '/experience',
   '/projects',
   '/about',
+  '/travel',
 ])
 
 test('/writing serves both published titles in the initial HTML', async ({

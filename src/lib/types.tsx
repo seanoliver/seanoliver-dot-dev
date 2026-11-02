@@ -49,3 +49,19 @@ export type NavItemProps = {
 export interface CardWrapperProps {
   children: React.ReactNode
 }
+
+export type TravelRegion =
+  | 'Oceania'
+  | 'Southeast Asia'
+  | 'Americas'
+  | 'East Asia'
+
+export type TravelVideo = {
+  /** Renaming a slug breaks shared `#slug` links to that video. */
+  slug: string
+  title: string
+  region: TravelRegion
+  year: number | null
+  youtubeId: string | null
+  stops: string[]
+}
