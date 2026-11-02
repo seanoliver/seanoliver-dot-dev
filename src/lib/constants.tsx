@@ -5,7 +5,7 @@ import {
   InstagramLogoIcon,
 } from '@radix-ui/react-icons'
 import { SITE_URL } from '@/lib/site'
-import { Project, Experience } from '@/lib/types'
+import { Project, Experience, TravelVideo } from '@/lib/types'
 
 export const NAV_ITEMS = [
   {
@@ -19,6 +19,10 @@ export const NAV_ITEMS = [
   {
     name: 'Read',
     pageLink: '/read',
+  },
+  {
+    name: 'Travel',
+    pageLink: '/travel',
   },
 ]
 
@@ -263,5 +267,49 @@ export const EXPERIENCES: Experience[] = [
     date: '2009 - 2012',
     description:
       'Managed product marketing for Windows Channel & Partner Marketing, significantly increasing sales and consumer impressions across stores.',
+  },
+]
+
+// Rendered in this order, so keep it newest first.
+export const TRAVEL_VIDEOS: TravelVideo[] = [
+  {
+    slug: 'china',
+    title: 'China',
+    region: 'East Asia',
+    year: 2026,
+    youtubeId: 'i_i4imzYTeE',
+    stops: [],
+  },
+  {
+    slug: 'disney-cruise',
+    title: 'Disney Cruise',
+    region: 'Americas',
+    year: 2024,
+    youtubeId: 'ysIS_bdoZI0',
+    stops: [],
+  },
+  {
+    slug: 'miami-cuba',
+    title: 'Miami & Cuba',
+    region: 'Americas',
+    year: 2022,
+    youtubeId: '2Sz9bU2KQW8',
+    stops: [],
+  },
+  {
+    slug: 'thailand-cambodia',
+    title: 'Thailand & Cambodia',
+    region: 'Southeast Asia',
+    year: 2015,
+    youtubeId: 'Bw7DJEwDvCg',
+    stops: [],
+  },
+  {
+    slug: 'australia-new-zealand',
+    title: 'Australia & New Zealand',
+    region: 'Oceania',
+    year: 2014,
+    youtubeId: '_m793QJsnt0',
+    stops: [],
   },
 ]

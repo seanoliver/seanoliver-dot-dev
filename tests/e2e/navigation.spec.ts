@@ -19,7 +19,7 @@ test('mobile menu has one pointer-cursor item per nav link', async ({
   await page.getByRole('button', { name: 'Toggle menu' }).click()
 
   const items = page.getByRole('menu').getByRole('menuitem')
-  await expect(items).toHaveText(['Projects', 'About', 'Read'])
+  await expect(items).toHaveText(['Projects', 'About', 'Read', 'Travel'])
   for (const item of await items.all()) {
     await expect(item).toHaveCSS('cursor', 'pointer')
   }
