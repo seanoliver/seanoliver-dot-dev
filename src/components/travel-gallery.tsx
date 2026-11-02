@@ -229,7 +229,6 @@ function Lightbox({
     <dialog
       ref={dialogRef}
       aria-label={video ? `${video.title} video` : 'Video player'}
-      // Without preventDefault, Esc closes natively and leaves the #slug hash.
       onCancel={(event) => {
         event.preventDefault()
         onNavigate(null)

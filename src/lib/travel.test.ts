@@ -7,7 +7,9 @@ import {
   playableVideos,
   regionsOf,
   stepFrom,
+  youtubeEmbedUrl,
   youtubeThumbnailUrl,
+  youtubeWatchUrl,
 } from './travel'
 
 const video = (overrides: Partial<TravelVideo>): TravelVideo => ({
@@ -83,5 +85,17 @@ describe('youtubeThumbnailUrl', () => {
     expect(youtubeThumbnailUrl('abc', { size: 'hq' })).toBe(
       'https://i.ytimg.com/vi/abc/hqdefault.jpg'
     )
+  })
+})
+
+describe('YouTube player links', () => {
+  it('embeds from the privacy-enhanced domain and autoplays', () => {
+    expect(youtubeEmbedUrl('abc')).toBe(
+      'https://www.youtube-nocookie.com/embed/abc?autoplay=1&rel=0&modestbranding=1'
+    )
+  })
+
+  it('links out to the watch page', () => {
+    expect(youtubeWatchUrl('abc')).toBe('https://www.youtube.com/watch?v=abc')
   })
 })
